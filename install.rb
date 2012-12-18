@@ -96,14 +96,15 @@ def install_submodule(repo)
 end
 
 def download_repo(repo, dir)
-  puts "Git cloning #{repo}"
-  cwd = Dir.pwd
-  Dir.chdir(File.expand_path "#{BASE_DIR}/#{dir}")
-  `git clone #{repo} 2> /dev/null`
-  Dir.chdir(cwd)
+  repo_dir = "#{dir}/#{File.basename(repo)}"
+  unless File.exists?(repo_dir)
+    puts "Adding submodule #{repo}"
+    `git submodule add #{repo} #{dir}/#{File.basename(repo)}`
+  end
 end
 
 update_repos
 submodules.each{|b| install_submodule(b)}
 link_rc(links)
 vim_bundles.each{|b| install_vim_plugin(b)}
+

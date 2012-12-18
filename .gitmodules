@@ -1,3 +1,66 @@
 [submodule "submodules/vim-pathogen"]
 	path = submodules/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+[submodule "vim/bundle/vim-scala.git"]
+	path = vim/bundle/vim-scala.git
+	url = https://github.com/derekwyatt/vim-scala.git
+[submodule "submodules/vim-pathogen.git"]
+	path = submodules/vim-pathogen.git
+	url = https://github.com/tpope/vim-pathogen.git
+[submodule "submodules/zsh-history-substring-search.git"]
+	path = submodules/zsh-history-substring-search.git
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "submodules/zsh-syntax-highlighting.git"]
+	path = submodules/zsh-syntax-highlighting.git
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "submodules/dircolors-solarized.git"]
+	path = submodules/dircolors-solarized.git
+	url = https://github.com/seebi/dircolors-solarized.git
+[submodule "submodules/oh-my-zsh.git"]
+	path = submodules/oh-my-zsh.git
+	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "vim/bundle/ack.vim.git"]
+	path = vim/bundle/ack.vim.git
+	url = https://github.com/mileszs/ack.vim.git
+[submodule "vim/bundle/ctrlp.vim.git"]
+	path = vim/bundle/ctrlp.vim.git
+	url = https://github.com/kien/ctrlp.vim.git
+[submodule "vim/bundle/vim-powerline.git"]
+	path = vim/bundle/vim-powerline.git
+	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "vim/bundle/vim-rails.git"]
+	path = vim/bundle/vim-rails.git
+	url = https://github.com/tpope/vim-rails.git
+[submodule "vim/bundle/ruby-matchit.git"]
+	path = vim/bundle/ruby-matchit.git
+	url = https://github.com/vim-scripts/ruby-matchit.git
+[submodule "vim/bundle/taglist.vim.git"]
+	path = vim/bundle/taglist.vim.git
+	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule "vim/bundle/vim-soy.git"]
+	path = vim/bundle/vim-soy.git
+	url = https://github.com/duganchen/vim-soy.git
+[submodule "vim/bundle/clang_complete.git"]
+	path = vim/bundle/clang_complete.git
+	url = https://github.com/Rip-Rip/clang_complete.git
+[submodule "vim/bundle/vim-fugitive.git"]
+	path = vim/bundle/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/syntastic.git"]
+	path = vim/bundle/syntastic.git
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "vim/bundle/SearchComplete.git"]
+	path = vim/bundle/SearchComplete.git
+	url = https://github.com/vim-scripts/SearchComplete.git
+[submodule "vim/bundle/vim-snipmate.git"]
+	path = vim/bundle/vim-snipmate.git
+	url = https://github.com/garbas/vim-snipmate.git
+[submodule "vim/bundle/vim-addon-mw-utils.git"]
+	path = vim/bundle/vim-addon-mw-utils.git
+	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "vim/bundle/tlib.git"]
+	path = vim/bundle/tlib.git
+	url = https://github.com/vim-scripts/tlib.git
+[submodule "vim/bundle/vim-supertab.git"]
+	path = vim/bundle/vim-supertab.git
+	url = https://github.com/tsaleh/vim-supertab.git
