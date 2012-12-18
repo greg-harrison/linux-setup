@@ -23,15 +23,15 @@ fi
 [[ -s "$RVM_HOME/scripts/rvm" ]] && . "$RVM_HOME/scripts/rvm"
 
 
-export ZSH=$RCDIR/submodules/oh-my-zsh
+export ZSH=$RCDIR/submodules/oh-my-zsh.git
 export ZSH_THEME="fishy"
 
 #plugins=(vi-mode rvm tmux)
 plugins=(rvm tmux)
 
-source $RCDIR/submodules/oh-my-zsh/oh-my-zsh.sh
-source $RCDIR/submodules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $RCDIR/submodules/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $RCDIR/submodules/oh-my-zsh.git/oh-my-zsh.sh
+source $RCDIR/submodules/zsh-syntax-highlighting.git/zsh-syntax-highlighting.zsh
+source $RCDIR/submodules/zsh-history-substring-search.git/zsh-history-substring-search.zsh
 
 stty ixany
 stty ixoff -ixon
