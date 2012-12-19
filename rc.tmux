@@ -114,8 +114,8 @@ unbind-key -n F11
 unbind-key -n F12
 
 # more stuff
-#set -g default-terminal "screen"
-set -g default-terminal "screen-256color"
+set -g default-terminal "screen"
+#set -g default-terminal "screen-256color"
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 set -g default-command $SHELL
 setw -g aggressive-resize on

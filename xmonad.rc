@@ -16,27 +16,62 @@ import XMonad.Util.Run(spawnPipe)
 import System.Exit
 import System.IO
 import Data.Monoid
+
+import System.Environment
+import Data.Maybe
  
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
- 
+
+
+
+isWork env = isJust (lookup "TRIP_RCDIR" env)
+workspace work =
+  if work
+    then ["Web", "Eclipse", "Email/IM", "Extra", "", "", "", "", ""]
+    else ["Term", "Web", "Email/IM", "Extra", "", "", "", "", ""]
+
+number a b
+    | b == ""   = a
+    | otherwise = a ++ ":" ++ b
+ws_num = map (\s -> [s]) ['1'..'9']
+ws_number list = zipWith number ws_num list
+work_hash ws = M.fromList (zip ws (ws_number ws))
+
+
+io_workspace = do
+  env <- getEnvironment
+  return (ws_number (workspace (isWork (env))))
+
+io_ws_hash = do
+  env <- getEnvironment
+  return (work_hash (workspace (isWork (env))))
+
+djust m = case m of Just  _ -> (fromJust m) ++ ""
+                    Nothing -> ""
+dlookup s hash = djust (M.lookup s hash)
+
 main = do
     xmproc <- spawnPipe "xmobar"
+    ws <- io_workspace
+    ws_hash <- io_ws_hash
+
     xmonad $ withUrgencyHook NoUrgencyHook
            $ gnomeConfig {
                 terminal           = "urxvt",
-                workspaces         = ["1:Web", "2:Eclipse", "3:Email/IM", "4:Extra", "5", "6", "7", "8", "9"],
+                workspaces         = ws,
                 normalBorderColor  = "#333333",
                 focusedBorderColor = "#3399cc",
                 borderWidth        = 2,
-                manageHook         = myManageHook,
+                manageHook         = myManageHook ws_hash,
                 modMask            = mod4Mask,
                 keys               = myKeys,
                 mouseBindings      = myMouseBindings,
-                layoutHook         = myLayout,
+                layoutHook         = myLayout ws_hash,
                 logHook            = dynamicLogWithPP $ xmobarPP { 
                                          ppOutput = hPutStrLn xmproc,
-                                         ppTitle = xmobarColor "#BEED5F" "" 
+                                         ppTitle = xmobarColor "#BEED5F" "",
+																				 ppCurrent = xmobarColor "#66AAEE" ""
                                      }
     }
  
@@ -67,9 +102,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((0                    , 0x1008ff13  ), spawn "amixer -q set Master 2dB+")
     , ((0                    , 0x1008ff11  ), spawn "amixer -q set Master 2dB-")
     , ((0                    , 0x1008ff12  ), spawn "amixer -q set Master toggle")
-    , ((0                    , 0x1008ff16  ), spawn "mocp --prev")
-    , ((0                    , 0x1008ff17  ), spawn "mocp --next")
-    , ((0                    , 0x1008ff14  ), spawn "mocp --toggle-pause")
     , ((modMask              , xK_Print    ), spawn "scrot -e 'mv $f ~/Screenshots'")
     ]
     ++
@@ -91,8 +123,9 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, button3), (\w -> focus w >> mouseResizeWindow w
                                           >> windows W.shiftMaster))
     ]
-myLayout = avoidStruts $ 
-           onWorkspace "3:Email/IM" (pidgin) $
+myLayout ws_hash = 
+  avoidStruts $ 
+           onWorkspace (dlookup "Email/IM" ws_hash) (pidgin) $
            tall ||| mtall ||| Full
   where
      pidgin = reflectHoriz $
@@ -107,9 +140,9 @@ myLayout = avoidStruts $
      ratio   = 1/2
      pRatio   = 1/5
  
-myManageHook :: ManageHook
-myManageHook = composeAll
-    [ className =? "Pidgin"    --> doShift "3:Email/IM"
-    , className =? "Firefox" --> doShift "1:Web"
-    , className =? "Thunderbird" --> doShift "3:Email/IM"
-    , className =? "Eclipse" --> doShift "2:Eclipse"]
+myManageHook ws_hash =
+  composeAll
+    [ className =? "Pidgin"    --> doShift (dlookup "Email/IM" ws_hash)
+    , className =? "Firefox" --> doShift (dlookup "Web" ws_hash)
+    , className =? "Thunderbird" --> doShift (dlookup "Email/IM" ws_hash)
+    , className =? "Eclipse" --> doShift (dlookup "Eclipse" ws_hash)]

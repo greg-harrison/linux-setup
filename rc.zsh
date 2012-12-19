@@ -1,5 +1,5 @@
 if [[ $TERM == 'screen-256color' ]]; then
-  export TERM='screen'
+  export TERM=screen
 fi
 
 if [[ `uname` == 'Darwin' ]]; then

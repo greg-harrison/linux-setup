@@ -4,15 +4,15 @@ Config {
        -- doesn't seem to do anything anymore (0.10, darcs)
 --       lowerOnStart = False,
        commands = [
-                -- Addison, TX
                 Run Memory ["-t","Mem: <usedratio>%"] 10,
                 Run Swap [] 10,
                 Run Date "%a %b %_d %l:%M %p" "date" 10,
+                Run Com "~/.rc/xmobar/volume.sh" [] "volume" 5,
                 Run StdinReader,
                 Run Uptime [] 60
                 ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %memory% * %swap% | %uptime% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ <fc=#3399CC>%volume%</fc> | %memory% * %swap% | %uptime% | <fc=#BEED5F>%date%</fc>"
        -- ,position = Bottom
        }
