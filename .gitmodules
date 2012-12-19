@@ -64,3 +64,6 @@
 [submodule "vim/bundle/vim-supertab.git"]
 	path = vim/bundle/vim-supertab.git
 	url = https://github.com/tsaleh/vim-supertab.git
+[submodule "vim/bundle/vim-haskell.git"]
+	path = vim/bundle/vim-haskell.git
+	url = https://github.com/wlangstroth/vim-haskell.git
