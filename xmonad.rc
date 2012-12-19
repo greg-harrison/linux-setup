@@ -32,34 +32,27 @@ workspace work =
     else ["Term", "Web", "Email/IM", "Extra", "", "", "", "", ""]
 
 number a b
-    | b == ""   = a
-    | otherwise = a ++ ":" ++ b
+  | b == ""   = a
+  | otherwise = a ++ ":" ++ b
+
 ws_num = map (\s -> [s]) ['1'..'9']
 ws_number list = zipWith number ws_num list
-work_hash ws = M.fromList (zip ws (ws_number ws))
+work_hash ws = M.fromList $ zip ws $ ws_number ws
 
-
-io_workspace = do
-  env <- getEnvironment
-  return (ws_number (workspace (isWork (env))))
-
-io_ws_hash = do
-  env <- getEnvironment
-  return (work_hash (workspace (isWork (env))))
-
-djust m = case m of Just  _ -> (fromJust m) ++ ""
+djust m = case m of Just  _ -> fromJust m
                     Nothing -> ""
-dlookup s hash = djust (M.lookup s hash)
+dlookup s hash = djust $ M.lookup s hash
 
 main = do
     xmproc <- spawnPipe "xmobar"
-    ws <- io_workspace
-    ws_hash <- io_ws_hash
+    env <- getEnvironment
+    let ws_list = workspace $ isWork env
+    let ws_hash = work_hash $ ws_list
 
     xmonad $ withUrgencyHook NoUrgencyHook
            $ gnomeConfig {
                 terminal           = "urxvt",
-                workspaces         = ws,
+                workspaces         = ws_number ws_list,
                 normalBorderColor  = "#333333",
                 focusedBorderColor = "#3399cc",
                 borderWidth        = 2,
@@ -123,26 +116,38 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, button3), (\w -> focus w >> mouseResizeWindow w
                                           >> windows W.shiftMaster))
     ]
+
+tallLayout ratio = ResizableTall nmaster delta ratio []
+  where
+    nmaster = 1
+    delta   = 1/100
+
+mtallLayout ratio = Mirror $ tallLayout ratio
+
+
+pidginLayout  = 
+    reflectHoriz $
+      reflectVert $
+      withIM (1%10) (ClassName "Pidgin") $
+      mtallLayout ratio
+  where
+    ratio  = 1/5
+
+
 myLayout ws_hash = 
   avoidStruts $ 
-           onWorkspace (dlookup "Email/IM" ws_hash) (pidgin) $
-           tall ||| mtall ||| Full
+    onWorkspace (dlookup "Email/IM" ws_hash) pidginLayout $
+    tall ||| mtall ||| Full
   where
-     pidgin = reflectHoriz $
-              reflectVert $
-              withIM (1%10) (ClassName "Pidgin") $
-              Mirror $
-              ResizableTall nmaster delta pRatio []
-     tall = ResizableTall nmaster delta ratio []
-     mtall = Mirror tall 
+     tall    = tallLayout ratio
+     mtall   = Mirror tall
+     ratio   = 1/2
      nmaster = 1
      delta   = 1/100
-     ratio   = 1/2
-     pRatio   = 1/5
  
 myManageHook ws_hash =
   composeAll
-    [ className =? "Pidgin"    --> doShift (dlookup "Email/IM" ws_hash)
-    , className =? "Firefox" --> doShift (dlookup "Web" ws_hash)
+    [ className =? "Pidgin"      --> doShift (dlookup "Email/IM" ws_hash)
+    , className =? "Firefox"     --> doShift (dlookup "Web"      ws_hash)
     , className =? "Thunderbird" --> doShift (dlookup "Email/IM" ws_hash)
-    , className =? "Eclipse" --> doShift (dlookup "Eclipse" ws_hash)]
+    , className =? "Eclipse"     --> doShift (dlookup "Eclipse"  ws_hash)]

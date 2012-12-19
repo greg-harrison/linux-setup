@@ -100,6 +100,8 @@ if v:version >= 730
 endif
 
 set fileformats=unix,dos,mac
+scriptencoding utf-8
+set encoding=utf-8
 
 set clipboard=unnamed
 
@@ -182,7 +184,7 @@ let g:ctrlp_max_files = 0
 set encoding=utf-8 " Necessary to show unicode glyphs
 set nocompatible   " Disable vi-compatibility
 set laststatus=2   " Always show the statusline
-let g:Powerline_symbols = 'compatible'
+let g:Powerline_symbols = 'fancy'
 if has('gui_running')
   set guioptions=egmrt  " hide the gui menubar
 endif

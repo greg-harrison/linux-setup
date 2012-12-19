@@ -3,15 +3,16 @@
 BASE_DIR = File.dirname(__FILE__)
 
 links = {
-  '.vimrc' => 'rc.vim',
-  '.vim' => 'vim',
-  '.zshrc' => 'rc.zsh',
-  '.zprofile' => 'zprofile',
-  '.tmux.conf' => 'rc.tmux',
-  '.vim/autoload' => 'submodules/vim-pathogen.git/autoload',
-  '.Xdefaults' => 'urxvt.rc',
+  '.vimrc'            => 'rc.vim',
+  '.vim'              => 'vim',
+  '.zshrc'            => 'rc.zsh',
+  '.zprofile'         => 'zprofile',
+  '.tmux.conf'        => 'rc.tmux',
+  '.vim/autoload'     => 'submodules/vim-pathogen.git/autoload',
+  '.Xdefaults'        => 'urxvt.rc',
   '.xmonad/xmonad.hs' => 'xmonad.rc',
-  '.xmobarrc' => 'xmobar.rc'
+  '.xmobarrc'         => 'xmobar.rc',
+  '.fonts'            => 'fonts'
 }
 
 def link_rc(paths)

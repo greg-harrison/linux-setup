@@ -120,5 +120,5 @@ set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 set -g default-command $SHELL
 setw -g aggressive-resize on
 set -g mode-mouse on
-#setw -g mouse-select-window on
+setw -g mouse-select-window on
 setw -g mouse-select-pane on
