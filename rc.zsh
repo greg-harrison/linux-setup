@@ -46,7 +46,7 @@ bindkey '^Xe' edit-command-line
 export EDITOR="vim -X"
 
 # For tmux
-export DISPLAY=:0.0
+#export DISPLAY=:0.0
 unset DBUS_SESSION_BUS_ADDRESS
 
 # other cool keyboard shortcuts
@@ -86,6 +86,10 @@ function -- () {
 
 function tm {
   tmux attach-session -t $1
+}
+
+function suspend {
+  sudo su -c 'gnome-screensaver-command --lock && dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
 }
 
 alias lsdf='get_diff_out;cat ;echo ;'
