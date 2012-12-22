@@ -46,7 +46,8 @@ dlookup s hash = djust $ M.lookup s hash
 main = do
     xmproc <- spawnPipe "xmobar"
     env <- getEnvironment
-    let ws_list = workspace $ isWork env
+    let work = isWork env
+    let ws_list = workspace work
     let ws_hash = work_hash $ ws_list
 
     xmonad $ withUrgencyHook NoUrgencyHook
@@ -60,7 +61,7 @@ main = do
                 modMask            = mod4Mask,
                 keys               = myKeys,
                 mouseBindings      = myMouseBindings,
-                layoutHook         = myLayout ws_hash,
+                layoutHook         = myLayout ws_hash work,
                 logHook            = dynamicLogWithPP $ xmobarPP { 
                                          ppOutput = hPutStrLn xmproc,
                                          ppTitle = xmobarColor "#BEED5F" "",
@@ -125,18 +126,21 @@ tallLayout ratio = ResizableTall nmaster delta ratio []
 mtallLayout ratio = Mirror $ tallLayout ratio
 
 
-pidginLayout  = 
+pidginLayout work = 
     reflectHoriz $
       reflectVert $
-      withIM (1%10) (ClassName "Pidgin") $
-      mtallLayout ratio
+      withIM (imRatio work) (ClassName "Pidgin") $
+      mtallLayout $ ratio work
   where
-    ratio  = 1/5
+    ratio True  = 1/5
+    ratio False = 1/4
+    imRatio True  = 1%10
+    imRatio False = 1%8
 
 
-myLayout ws_hash = 
+myLayout ws_hash work = 
   avoidStruts $ 
-    onWorkspace (dlookup "Email/IM" ws_hash) pidginLayout $
+    onWorkspace (dlookup "Email/IM" ws_hash) (pidginLayout work) $
     tall ||| mtall ||| Full
   where
      tall    = tallLayout ratio
