@@ -4,3 +4,9 @@ export TRIP_RCDIR=$HOME/.trip_rc
 if [ -d "$RCDIR/bin" ] ; then
     PATH="$RCDIR/bin:$PATH"
 fi
+
+if [ -d "$TRIP_RCDIR" ]; then
+  PATH="$TRIP_RCDIR/bin:$PATH"
+else
+  unset TRIP_RCDIR
+fi

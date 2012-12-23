@@ -121,7 +121,7 @@ fi
 alias ll='ls -lh'
 
 if [ -d "$TRIP_RCDIR" ]; then
-  PATH="$TRIP_RCDIR/bin:$PATH"
+  upsert_path "$TRIP_RCDIR/bin" left
   source $TRIP_RCDIR/trip_zsh
 else
   unset TRIP_RCDIR

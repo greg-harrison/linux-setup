@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VOL_MAX="0x20000"
-STEPS="20" # 2^n
+STEPS="40" # 2^n
 VOL_STEP=$((VOL_MAX / STEPS))
 SINK_NAME=$(pa-device)
 
