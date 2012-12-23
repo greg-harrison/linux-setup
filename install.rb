@@ -12,7 +12,8 @@ links = {
   '.Xdefaults'        => 'urxvt.rc',
   '.xmonad/xmonad.hs' => 'xmonad.rc',
   '.xmobarrc'         => 'xmobar.rc',
-  '.fonts'            => 'fonts'
+  '.fonts'            => 'fonts',
+  '.gnomerc'          => 'rc.gnome'
 }
 
 def link_rc(paths)
@@ -29,7 +30,7 @@ def link_rc(paths)
       end
     end
     if not File.exists?(file) then 
-      puts "Symlinked #{file} -> #{points_to}"
+      puts "Symlinked #{points_to} -> #{file}"
       begin
         File.symlink points_to, file
       rescue

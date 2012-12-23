@@ -23,8 +23,6 @@ import Data.Maybe
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-
-
 isWork env = isJust (lookup "TRIP_RCDIR" env)
 workspace work =
   if work
@@ -45,8 +43,8 @@ dlookup s hash = djust $ M.lookup s hash
 
 main = do
     xmproc <- spawnPipe "xmobar"
-    env <- getEnvironment
-    let work = isWork env
+    env    <- getEnvironment
+    let work    = isWork env
     let ws_list = workspace work
     let ws_hash = work_hash $ ws_list
 
@@ -68,6 +66,8 @@ main = do
 																				 ppCurrent = xmobarColor "#66AAEE" ""
                                      }
     }
+
+inc_vol = ""
  
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
  
@@ -92,10 +92,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask              , xK_period   ), sendMessage (IncMasterN (-1)))
     , ((modMask .|. shiftMask, xK_q        ), io (exitWith ExitSuccess))
     , ((modMask              , xK_q        ), spawn "xmonad --recompile; xmonad --restart")
-    , ((modMask              , xK_p       ), shellPrompt defaultXPConfig)
-    , ((0                    , 0x1008ff13  ), spawn "amixer -q set Master 2dB+")
-    , ((0                    , 0x1008ff11  ), spawn "amixer -q set Master 2dB-")
-    , ((0                    , 0x1008ff12  ), spawn "amixer -q set Master toggle")
+    , ((modMask              , xK_p        ), shellPrompt defaultXPConfig)
+    , ((0                    , 0x1008ff13  ), spawn "pa-set-vol plus")
+    , ((0                    , 0x1008ff11  ), spawn "pa-set-vol minus")
+    , ((0                    , 0x1008ff12  ), spawn "pa-set-vol mute")
     , ((modMask              , xK_Print    ), spawn "scrot -e 'mv $f ~/Screenshots'")
     ]
     ++

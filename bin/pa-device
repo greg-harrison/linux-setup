@@ -1,0 +1,2 @@
+#!/bin/sh
+pactl info|grep "Default Sink" | awk '{print $3}'

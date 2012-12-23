@@ -1,0 +1,6 @@
+export RCDIR=$HOME/.rc
+export TRIP_RCDIR=$HOME/.trip_rc
+
+if [ -d "$RCDIR/bin" ] ; then
+    PATH="$RCDIR/bin:$PATH"
+fi

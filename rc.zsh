@@ -1,3 +1,13 @@
+function upsert_path () {
+  if [ "$(echo $PATH | grep $1)" = "" ]; then
+    if [ $2 = "left" ]; then
+      export PATH="$1:$PATH"
+    else
+      export PATH="$PATH:$1"
+    fi
+  fi
+}
+
 if [[ $TERM == 'screen-256color' ]]; then
   export TERM=screen
 fi
@@ -10,7 +20,7 @@ export RCDIR=$HOME/.rc
 export TRIP_RCDIR=$HOME/.trip_rc
 
 if [ -d "$RCDIR/bin" ] ; then
-    PATH="$RCDIR/bin:$PATH"
+  upsert_path "$RCDIR/bin" left
 fi
 
 if [ $IS_OSX ]; then
@@ -53,6 +63,7 @@ unset DBUS_SESSION_BUS_ADDRESS
 bindkey '^Xp' push-line
 zle -N rerun-with-sudo
 bindkey '^Xx' rerun-with-sudo
+
 
 rerun-with-sudo () {
   LBUFFER="sudo !!"
@@ -100,6 +111,7 @@ alias yu='sudo apt-get update && sudo apt-get upgrade'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias todo="$HOME/software/todo.txt-cli/todo.sh"
 alias ack='ack-grep'
+alias glo='killall gnome-session'
 
 if [ $IS_OSX ]; then
   alias ls='ls -G'
