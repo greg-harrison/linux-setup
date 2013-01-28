@@ -7,7 +7,6 @@ function upsert_path () {
     fi
   fi
 }
-
 if [[ $TERM == 'screen-256color' ]]; then
   export TERM=screen
 fi
@@ -23,11 +22,7 @@ if [ -d "$RCDIR/bin" ] ; then
   upsert_path "$RCDIR/bin" left
 fi
 
-if [ $IS_OSX ]; then
-  export RVM_HOME=$HOME/.rvm
-else
-  export RVM_HOME=/usr/share/ruby-rvm
-fi
+export RVM_HOME=$HOME/.rvm
 
 # rvm!
 [[ -s "$RVM_HOME/scripts/rvm" ]] && . "$RVM_HOME/scripts/rvm"
@@ -42,6 +37,7 @@ plugins=(rvm tmux)
 source $RCDIR/submodules/oh-my-zsh.git/oh-my-zsh.sh
 source $RCDIR/submodules/zsh-syntax-highlighting.git/zsh-syntax-highlighting.zsh
 source $RCDIR/submodules/zsh-history-substring-search.git/zsh-history-substring-search.zsh
+export PROMPT="$PROMPT"
 
 stty ixany
 stty ixoff -ixon
@@ -63,6 +59,9 @@ unset DBUS_SESSION_BUS_ADDRESS
 bindkey '^Xp' push-line
 zle -N rerun-with-sudo
 bindkey '^Xx' rerun-with-sudo
+
+#[[ -n "${key[Up]}"   ]] && bindkey "${key[Up]}"   history-substring-search-up
+#[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-substring-search-down
 
 
 rerun-with-sudo () {
