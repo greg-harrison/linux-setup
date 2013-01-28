@@ -37,6 +37,8 @@ plugins=(rvm tmux)
 source $RCDIR/submodules/oh-my-zsh.git/oh-my-zsh.sh
 source $RCDIR/submodules/zsh-syntax-highlighting.git/zsh-syntax-highlighting.zsh
 source $RCDIR/submodules/zsh-history-substring-search.git/zsh-history-substring-search.zsh
+[[ -n "${key[Up]}"   ]] && bindkey "${key[Up]}"   history-substring-search-up
+[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-substring-search-down
 export PROMPT="$PROMPT"
 
 stty ixany
