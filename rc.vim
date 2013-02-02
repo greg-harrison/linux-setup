@@ -74,7 +74,7 @@ map <Leader>f zR
   noremap <space> :call ToggleFold()<CR>
 
 set t_Co=256
-colorscheme wombat256
+colorscheme bubblegum
 
 if has('gui_macvim')
   set transparency=0 
