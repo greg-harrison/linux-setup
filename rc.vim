@@ -113,6 +113,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils.git'
 Bundle 'vim-scripts/tlib.git'
 Bundle 'tsaleh/vim-supertab.git'
 Bundle 'wlangstroth/vim-haskell.git'
+Bundle 'airblade/vim-gitgutter.git'
 
 filetype off
 syntax on
@@ -216,3 +217,4 @@ let g:Powerline_symbols = 'fancy'
 if has('gui_running')
   set guioptions=egmrt  " hide the gui menubar
 endif
+
