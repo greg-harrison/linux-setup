@@ -1,3 +1,7 @@
 #!/bin/sh
 
-vmstat -a | tail -n 1 | awk '{printf("Mem:%.2f%\n", ($6)/($4+$5) * 100.0)}'
+
+MEM=$(free -t | grep Mem | awk '{printf("%d", (($3-$7) / $2) * 100)}')
+SWAP=$(free -t | grep Swap | awk '{printf("%d", ($3 / $2) * 100)}')
+
+echo "Mem:$MEM%|$SWAP%"

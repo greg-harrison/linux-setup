@@ -96,12 +96,20 @@ function -- () {
   popd
 }
 
+function tmd {
+  tmux attach-session -dt $1
+}
+
 function tm {
   tmux attach-session -t $1
 }
 
 function suspend {
   sudo su -c 'gnome-screensaver-command --lock && dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
+}
+
+function sst {
+  svn stat $@ | grep -v '^[?X]\|Per\|^$'
 }
 
 alias lsdf='get_diff_out;cat ;echo ;'

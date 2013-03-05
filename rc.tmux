@@ -18,7 +18,7 @@ set-window-option -g window-status-bell-attr bold
 
 set-option -g window-status-format "#[fg=#222222,bg=#333333]▌#[fg=white]#I#[fg=#333333,bg=#222222]▌#[fg=white]#W "
 set -g window-status-current-format "#[fg=#222222,bg=#555555]▌#[fg=white]#I#[fg=#11AADD]▐#[fg=#111111,bg=#11AADD]#W#[fg=#222222]▐"
-set -g status-right '#[fg=#888888]#($RCDIR/tmux/cpu.sh)  #($RCDIR/tmux/mem.sh)  #[fg=#8899AA]#($RCDIR/tmux/time.sh)'
+set -g status-right '#[fg=#888888]#($RCDIR/tmux/cpu.sh)  #($RCDIR/tmux/mem.sh) #[fg=#8899AA]#($RCDIR/tmux/time.sh)'
 set -g status-left ''
 
 #Keybinds
@@ -74,7 +74,7 @@ bind-key -n M-Up resize-pane -U
 bind-key -n M-Down resize-pane -D
 
 #Clipboard
-bind y run "tmux show-buffer | xclip -i; tmux show-buffer | xclip -i -selection clipboard"
+bind y run "tmux show-buffer | sed 's/\\\\\\\\/\\\\/g' | xclip -i; tmux show-buffer | sed 's/\\\\\\\\/\\\\/g' | xclip -i -selection clipboard"
 bind p run "tmux set-buffer -- \"$(xclip -o)\"; tmux paste-buffer"
 bind C-v run "tmux set-buffer -- \"$(xclip -o -selection clipboard)\"; tmux paste-buffer"
 

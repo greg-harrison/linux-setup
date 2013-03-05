@@ -26,7 +26,7 @@ import qualified Data.Map        as M
 isWork env = isJust (lookup "TRIP_RCDIR" env)
 workspace work =
   if work
-    then ["Web", "Eclipse", "Email/IM", "Extra", "", "", "", "", ""]
+    then ["Web", "Eclipse", "Email/IM", "RDP", "Extra", "", "", "", ""]
     else ["Term", "Web", "Email/IM", "Extra", "", "", "", "", ""]
 
 number a b
@@ -154,4 +154,5 @@ myManageHook ws_hash =
     [ className =? "Pidgin"      --> doShift (dlookup "Email/IM" ws_hash)
     , className =? "Firefox"     --> doShift (dlookup "Web"      ws_hash)
     , className =? "Thunderbird" --> doShift (dlookup "Email/IM" ws_hash)
-    , className =? "Eclipse"     --> doShift (dlookup "Eclipse"  ws_hash)]
+    , className =? "Eclipse"     --> doShift (dlookup "Eclipse"  ws_hash)
+    , className =? "Remmina"     --> doShift (dlookup "RDP"  ws_hash)]

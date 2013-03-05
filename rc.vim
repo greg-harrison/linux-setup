@@ -83,8 +83,36 @@ endif
 
 set nobackup nowritebackup noswapfile
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+Bundle 'tpope/vim-pathogen.git'
+Bundle 'derekwyatt/vim-scala.git'
+Bundle 'tpope/vim-pathogen.git'
+Bundle 'zsh-users/zsh-history-substring-search.git'
+Bundle 'zsh-users/zsh-syntax-highlighting.git'
+Bundle 'seebi/dircolors-solarized.git'
+Bundle 'robbyrussell/oh-my-zsh.git'
+Bundle 'mileszs/ack.vim.git'
+Bundle 'kien/ctrlp.vim.git'
+Bundle 'Lokaltog/vim-powerline.git'
+Bundle 'tpope/vim-rails.git'
+Bundle 'vim-scripts/ruby-matchit.git'
+Bundle 'vim-scripts/taglist.vim.git'
+Bundle 'duganchen/vim-soy.git'
+Bundle 'Rip-Rip/clang_complete.git'
+Bundle 'tpope/vim-fugitive.git'
+Bundle 'scrooloose/syntastic.git'
+Bundle 'vim-scripts/SearchComplete.git'
+Bundle 'garbas/vim-snipmate.git'
+Bundle 'MarcWeber/vim-addon-mw-utils.git'
+Bundle 'vim-scripts/tlib.git'
+Bundle 'tsaleh/vim-supertab.git'
+Bundle 'wlangstroth/vim-haskell.git'
 
 filetype off
 syntax on

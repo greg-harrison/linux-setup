@@ -8,7 +8,6 @@ links = {
   '.zshrc'            => 'rc.zsh',
   '.zprofile'         => 'zprofile',
   '.tmux.conf'        => 'rc.tmux',
-  '.vim/autoload'     => 'submodules/vim-pathogen.git/autoload',
   '.Xdefaults'        => 'urxvt.rc',
   '.xmonad/xmonad.hs' => 'xmonad.rc',
   '.xmobarrc'         => 'xmobar.rc',
@@ -42,4 +41,5 @@ def link_rc(paths)
 end
 
 `git submodule update --init`
+`vim +BundleInstall +qall`
 link_rc(links)
