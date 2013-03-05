@@ -31,6 +31,7 @@ def link_rc(paths)
     if not File.exists?(file) then 
       puts "Symlinked #{points_to} -> #{file}"
       begin
+        `mkdir -p #{File.dirname(file)}`
         File.symlink points_to, file
       rescue
         File.delete file
