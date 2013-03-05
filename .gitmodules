@@ -1,3 +1,15 @@
 [submodule "vim/bundle/vundle"]
 	path = vim/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
+[submodule "submodules/zsh-history-substring-search.git"]
+	path = submodules/zsh-history-substring-search.git
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "submodules/zsh-syntax-highlighting.git"]
+	path = submodules/zsh-syntax-highlighting.git
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "submodules/dircolors-solarized.git"]
+	path = submodules/dircolors-solarized.git
+	url = https://github.com/seebi/dircolors-solarized.git
+[submodule "submodules/oh-my-zsh.git"]
+	path = submodules/oh-my-zsh.git
+	url = https://github.com/robbyrussell/oh-my-zsh.git
