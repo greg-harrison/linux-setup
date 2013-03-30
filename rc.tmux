@@ -72,6 +72,7 @@ bind-key -n M-Left resize-pane -L
 bind-key -n M-Right resize-pane -R
 bind-key -n M-Up resize-pane -U
 bind-key -n M-Down resize-pane -D
+set renumber-windows
 
 #Clipboard
 bind y run "tmux show-buffer | sed 's/\\\\\\\\/\\\\/g' | xclip -i; tmux show-buffer | sed 's/\\\\\\\\/\\\\/g' | xclip -i -selection clipboard"
