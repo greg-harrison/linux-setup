@@ -22,6 +22,10 @@ if [ -d "$RCDIR/bin" ] ; then
   upsert_path "$RCDIR/bin" left
 fi
 
+if [ -d "$HOME/.cabal/bin" ] ; then
+  upsert_path "$HOME/.cabal/bin" left
+fi
+
 export RVM_HOME=$HOME/.rvm
 
 # rvm!
