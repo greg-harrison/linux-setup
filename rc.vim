@@ -6,6 +6,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'kien/ctrlp.vim.git'
+Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-powerline.git'
 Bundle 'vim-scripts/taglist.vim.git'
 Bundle 'scrooloose/syntastic.git'
@@ -75,7 +76,7 @@ set wildmenu
 set nobackup nowritebackup noswapfile
 
 set colorcolumn=+1
-set clipboard+=unnamed
+set clipboard=unnamed
 
 set fileformats=unix,dos,mac
 scriptencoding utf-8
