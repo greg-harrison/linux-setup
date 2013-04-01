@@ -16,8 +16,8 @@ set-window-option -g aggressive-resize on
 set-window-option -g window-status-activity-attr bold
 set-window-option -g window-status-bell-attr bold
 
-set-option -g window-status-format "#[fg=#222222,bg=#333333]▌#[fg=white]#I#[fg=#333333,bg=#222222]▌#[fg=white]#W "
-set -g window-status-current-format "#[fg=#222222,bg=#555555]▌#[fg=white]#I#[fg=#11AADD]▐#[fg=#111111,bg=#11AADD]#W#[fg=#222222]▐"
+set-option -g window-status-format "#[fg=#333333,bg=#333333] #[fg=white]#I#[fg=#333333,bg=#222222]▌#[fg=white]#W "
+set -g window-status-current-format "#[fg=#555555,bg=#555555] #[fg=white]#I#[fg=#11AADD]▐#[fg=#111111,bg=#11AADD]#W "
 set -g status-right '#[fg=#888888]#($RCDIR/tmux/cpu.sh)  #($RCDIR/tmux/mem.sh) #[fg=#8899AA]#($RCDIR/tmux/time.sh)'
 set -g status-left ''
 

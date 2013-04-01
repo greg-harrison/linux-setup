@@ -113,7 +113,21 @@ function suspend {
 }
 
 function sst {
-  svn stat $@ | grep -v '^[?X]\|Per\|^$'
+  svn stat --ignore-externals $@ | grep -v '^[?X]'
+}
+
+function scl {
+  cl=$1
+  shift
+  if [ $ARGC -eq 0 ]; then
+    sst --changelist $cl
+  else
+    svn $@ --changelist $cl
+  fi
+}
+
+function lkill() {
+  kill -9 `ps | grep $1 | grep -v grep | awk '{print $1}'`
 }
 
 alias lsdf='get_diff_out;cat ;echo ;'
