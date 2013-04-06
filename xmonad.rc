@@ -63,7 +63,7 @@ main = do
                 logHook            = dynamicLogWithPP $ xmobarPP { 
                                          ppOutput = hPutStrLn xmproc,
                                          ppTitle = xmobarColor "#BEED5F" "",
-																				 ppCurrent = xmobarColor "#66AAEE" ""
+                                         ppCurrent = xmobarColor "#66AAEE" ""
                                      }
     }
 

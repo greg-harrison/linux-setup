@@ -7,7 +7,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'kien/ctrlp.vim.git'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-powerline.git'
+Bundle 'Lokaltog/powerline.git'
 Bundle 'vim-scripts/taglist.vim.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'airblade/vim-gitgutter.git'
@@ -159,10 +159,11 @@ let g:ctrlp_max_depth = 40
 let g:ctrlp_max_files = 0
 
 " Powerline
-set encoding=utf-8 " Necessary to show unicode glyphs
-set nocompatible   " Disable vi-compatibility
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 set laststatus=2   " Always show the statusline
-let g:Powerline_symbols = 'fancy'
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+
+" let g:Powerline_symbols = 'fancy'
 
 " Taglist
 map <silent> <Leader>t :TlistToggle<CR>

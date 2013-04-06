@@ -72,10 +72,10 @@ bind-key -n M-Left resize-pane -L
 bind-key -n M-Right resize-pane -R
 bind-key -n M-Up resize-pane -U
 bind-key -n M-Down resize-pane -D
-set renumber-windows
+set -g renumber-windows
 
 #Clipboard
-bind y run "tmux show-buffer | sed 's/\\\\\\\\/\\\\/g' | xclip -i; tmux show-buffer | sed 's/\\\\\\\\/\\\\/g' | xclip -i -selection clipboard"
+bind y run "tmux show-buffer | xclip -i; tmux show-buffer | xclip -i -selection clipboard"
 bind p run "tmux set-buffer -- \"$(xclip -o)\"; tmux paste-buffer"
 bind C-v run "tmux set-buffer -- \"$(xclip -o -selection clipboard)\"; tmux paste-buffer"
 

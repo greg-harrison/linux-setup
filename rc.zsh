@@ -31,7 +31,7 @@ export RVM_HOME=$HOME/.rvm
 # rvm!
 [[ -s "$RVM_HOME/scripts/rvm" ]] && . "$RVM_HOME/scripts/rvm"
 
-
+export POWERLINE_DIR=$RCDIR/powerline
 export ZSH=$RCDIR/submodules/oh-my-zsh.git
 export ZSH_THEME="fishy"
 
