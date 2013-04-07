@@ -5,19 +5,20 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
-Bundle 'kien/ctrlp.vim.git'
+Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/powerline.git'
-Bundle 'vim-scripts/taglist.vim.git'
-Bundle 'scrooloose/syntastic.git'
-Bundle 'airblade/vim-gitgutter.git'
+Bundle 'Lokaltog/powerline'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'ervandew/supertab'
 
-Bundle 'Rip-Rip/clang_complete.git'
-Bundle 'wlangstroth/vim-haskell.git'
+" Language support
+Bundle 'Rip-Rip/clang_complete'
+Bundle 'wlangstroth/vim-haskell'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails.git'
-Bundle 'scala/scala-dist.git', {'rtp': 'tool-support/src/vim'}
+Bundle 'tpope/vim-rails'
+Bundle 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
 
 set background=dark
 set t_Co=256
@@ -40,11 +41,6 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 filetype off
 syntax on
 filetype plugin indent on
-
-" Autosource vimrc
-autocmd bufwritepost .vimrc source $MYVIMRC
-
-set backspace=indent,eol,start
 
 set spelllang=en_us
 set nospell
@@ -82,7 +78,7 @@ set fileformats=unix,dos,mac
 scriptencoding utf-8
 set encoding=utf-8
 
-set history=10000
+set history=100000
 
 " Use and toggle mouse
 set mouse=a
@@ -130,13 +126,14 @@ noremap <space> :call ToggleFold()<CR>
 " Re-highlight after Indent/unindent
 vmap < <gv
 vmap > >gv
+
+" Emacs!
+imap <C-a> <Esc>I
+imap <C-e> <Esc>A
  
 " Systastic
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
 
 " eclim stuff
 map <Leader>d <ESC>:JavaSearch -p <C-R><C-W> -x declarations<CR>
@@ -162,8 +159,6 @@ let g:ctrlp_max_files = 0
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 set laststatus=2   " Always show the statusline
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-
-" let g:Powerline_symbols = 'fancy'
 
 " Taglist
 map <silent> <Leader>t :TlistToggle<CR>
