@@ -75,9 +75,9 @@ bind-key -n M-Down resize-pane -D
 set -g renumber-windows
 
 #Clipboard
-bind y run "tmux show-buffer | xclip -i; tmux show-buffer | xclip -i -selection clipboard"
-bind p run "tmux set-buffer -- \"$(xclip -o)\"; tmux paste-buffer"
-bind C-v run "tmux set-buffer -- \"$(xclip -o -selection clipboard)\"; tmux paste-buffer"
+bind y run "tmux show-buffer | xsel -i; tmux show-buffer | xsel -i -s"
+bind p run "tmux set-buffer -- \"$(xsel -o)\"; tmux paste-buffer"
+bind C-v run "tmux set-buffer -- \"$(xsel -o -s)\"; tmux paste-buffer"
 
 #VIM!
 set-window-option -g mode-keys vi
