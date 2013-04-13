@@ -1,5 +1,6 @@
-set -g base-index 1
 set -s escape-time 0
+# 1 index tabs, because 2 is next to 1, not 0
+set -g base-index 1
 
 # Status
 set-option -g status on
@@ -98,6 +99,7 @@ bind-key _ split-window -v
 set -g default-terminal "screen"
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 set -g default-command $SHELL
+set -g history-limit 5000
 set -g mode-mouse on
 setw -g mouse-select-window on
 setw -g mouse-select-pane on
