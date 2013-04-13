@@ -19,6 +19,7 @@ Bundle 'wlangstroth/vim-haskell'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
+Bundle 'vim-scripts/VimClojure'
 
 set background=dark
 set t_Co=256
@@ -63,6 +64,7 @@ set noerrorbells
 set wrap
 set linebreak
 set list
+set nostartofline
 
 " Nicer autocomplete commands
 set wildmode=longest:full
@@ -134,6 +136,10 @@ imap <C-e> <Esc>A
 " Systastic
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_loc_list_height=5
+let g:syntastic_always_populate_loc_list=1
+map <Leader><Tab> :Errors<CR>
 
 " eclim stuff
 map <Leader>d <ESC>:JavaSearch -p <C-R><C-W> -x declarations<CR>
