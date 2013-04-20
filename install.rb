@@ -5,16 +5,16 @@ require 'fileutils'
 BASE_DIR = File.dirname(__FILE__)
 
 links = {
-  'rc.vim'    => '.vimrc',
-  'vim'       => '.vim',
-  'rc.zsh'    => '.zshrc',
-  'zprofile'  => '.zprofile',
-  'rc.tmux'   => '.tmux.conf',
-  'urxvt.rc'  => '.Xdefaults',
-  'xmonad.rc' => '.xmonad/xmonad.hs',
-  'xmobar.rc' => '.xmobarrc',
   'fonts'     => '.fonts',
-  'rc.gnome'  => '.gnomerc'
+  'gnome.rc'  => '.gnomerc',
+  'tmux.rc'   => '.tmux.conf',
+  'urxvt.rc'  => '.Xdefaults',
+  'vim'       => '.vim',
+  'vim.rc'    => '.vimrc',
+  'xmobar.rc' => '.xmobarrc',
+  'xmonad.rc' => '.xmonad/xmonad.hs',
+  'zprofile'  => '.zprofile',
+  'zsh.rc'    => '.zshrc'
 }
 
 def delete(file)
@@ -32,7 +32,7 @@ def link_rc(paths)
   paths.each_pair { |points_to, file|
     points_to = File.expand_path "#{BASE_DIR}/#{points_to}"
     file = File.expand_path "~/#{file}"
-    delete(file) if File.exists?(file) && !File.identical?(file, points_to) 
+    delete(file) unless File.identical?(file, points_to) 
 
     if not File.exists?(file) then 
       puts "Symlinked #{points_to} -> #{file}"
