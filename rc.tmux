@@ -39,7 +39,7 @@ bind-key -n M-h swap-window -t :-1
 bind-key -n M-l swap-window -t :+1 
 
 # Renumber tabs on close
-set -g renumber-windows
+set -g renumber-windows on
 
 # Browser style tab select
 bind-key -n M-1 select-window -t :1
