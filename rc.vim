@@ -43,6 +43,9 @@ filetype off
 syntax on
 filetype plugin indent on
 
+" Fix OSX backspacing
+set backspace=indent,eol,start
+
 set spelllang=en_us
 set nospell
 nmap <silent> <leader>s :set spell!<CR>
