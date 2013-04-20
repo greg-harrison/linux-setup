@@ -81,9 +81,9 @@ bind-key X confirm-before kill-window
 bind-key C-r source-file $HOME/.tmux.conf
 
 # X clipboard hacks
-bind y run "tmux show-buffer | xsel -i; tmux show-buffer | xsel -i -s"
-bind p run "tmux set-buffer -- \"$(xsel -o)\"; tmux paste-buffer"
-bind C-v run "tmux set-buffer -- \"$(xsel -o -s)\"; tmux paste-buffer"
+bind y run "tmux show-buffer | clip-copy; tmux show-buffer | clip-copy -s"
+bind p run "tmux set-buffer -- \"$(clip-paste)\"; tmux paste-buffer"
+bind C-v run "tmux set-buffer -- \"$(clip-paste)\"; tmux paste-buffer"
 
 # Vim copy mode
 set-window-option -g mode-keys vi

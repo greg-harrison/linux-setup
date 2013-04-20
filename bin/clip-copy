@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ $IS_OSX ]; then
+  reattach-to-user-namespace pbcopy
+else
+  xsel -i $@
+fi
