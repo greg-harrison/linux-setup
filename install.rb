@@ -1,46 +1,57 @@
 #!/usr/bin/env ruby
 
+require 'fileutils'
+
 BASE_DIR = File.dirname(__FILE__)
 
 links = {
-  '.vimrc'            => 'rc.vim',
-  '.vim'              => 'vim',
-  '.zshrc'            => 'rc.zsh',
-  '.zprofile'         => 'zprofile',
-  '.tmux.conf'        => 'rc.tmux',
-  '.Xdefaults'        => 'urxvt.rc',
-  '.xmonad/xmonad.hs' => 'xmonad.rc',
-  '.xmobarrc'         => 'xmobar.rc',
-  '.fonts'            => 'fonts',
-  '.gnomerc'          => 'rc.gnome'
+  'fonts'     => '.fonts',
+  'gnome.rc'  => '.gnomerc',
+  'tmux.rc'   => '.tmux.conf',
+  'urxvt.rc'  => '.Xdefaults',
+  'vim'       => '.vim',
+  'vim.rc'    => '.vimrc',
+  'xmobar.rc' => '.xmobarrc',
+  'xmonad.rc' => '.xmonad/xmonad.hs',
+  'zprofile'  => '.zprofile',
+  'zsh.rc'    => '.zshrc'
 }
 
+def delete(file)
+  if File.symlink? file then
+    File.unlink file
+  elsif File.directory? file then
+    Dir.delete file
+  else
+    File.delete file
+  end
+end
+
 def link_rc(paths)
-  paths.each_pair { |file, points_to|
+  puts "[Linking rc files]"
+  paths.each_pair { |points_to, file|
     points_to = File.expand_path "#{BASE_DIR}/#{points_to}"
     file = File.expand_path "~/#{file}"
-    if File.exists?(file) && !File.identical?(file, points_to)  then 
-      if File.symlink? file then
-        File.unlink file
-      elsif File.directory? file then
-        Dir.delete file
-      else
-        File.delete file
-      end
-    end
+    delete(file) unless File.identical?(file, points_to) 
+
     if not File.exists?(file) then 
       puts "Symlinked #{points_to} -> #{file}"
-      begin
-        `mkdir -p #{File.dirname(file)}`
-        File.symlink points_to, file
-      rescue
-        File.delete file
-        File.symlink points_to, file
-      end
+      FileUtils.mkdir_p(File.dirname(file))
+      File.symlink points_to, file
     end
   }
 end
 
-`git submodule update --init`
-`vim +BundleInstall +qall`
+def update_git
+  puts "[Updating git submodules]"
+  `git submodule update --init`
+end
+
+def install_vim_plugins
+  puts "[Updating vim plugins]"
+  `vim +BundleInstall +BundleUpdate +qall`
+end
+
 link_rc(links)
+update_git
+install_vim_plugins

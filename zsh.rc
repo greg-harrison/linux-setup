@@ -1,3 +1,11 @@
+if [[ `uname` == 'Darwin' ]]; then
+  if [[ $TERM == "screen" && -z $REATTACHED ]]; then
+    export REATTACHED=1
+    exec reattach-to-user-namespace -l zsh
+  fi
+  export IS_OSX=1
+fi
+
 function upsert_path () {
   if [ "$(echo $PATH | grep $1)" = "" ]; then
     if [ $2 = "left" ]; then
@@ -9,10 +17,6 @@ function upsert_path () {
 }
 if [[ $TERM == 'screen-256color' ]]; then
   export TERM=screen
-fi
-
-if [[ `uname` == 'Darwin' ]]; then
-  export IS_OSX=1
 fi
 
 export RCDIR=$HOME/.rc
