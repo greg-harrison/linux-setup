@@ -96,6 +96,7 @@ bind-key | split-window -h
 bind-key _ split-window -v
 
 # more stuff
+set-option -g bell-action any
 set -g default-terminal "screen"
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 set -g default-command $SHELL
