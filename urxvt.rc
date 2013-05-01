@@ -46,16 +46,6 @@ urxvt.urgentOnBell: true
 *color7:    #CCCCC6
 *color15:   #F8F8F2
 
-<<<<<<< HEAD
-URxvt*letterSpace: -1
-
-!FONTS
-!URxvt*font: xft:Monospace:antialias=true:autohinting=true:pixelsize=11
-!URxvt*boldFont: xft:Monospace:bold:antialias=true:autohinting=true:pixelsize=11
-!URxvt*italicFont: xft:Monospace:italic:antialias=true:autohinting=true:pixelsize=11
-!URxvt*boldItalicFont: xft:Monospace:bolditalic:antialias=true:autohinting=true:pixelsize=11
-!
-
 URxvt*font:                 xft:Menlo for Powerline:regular:size=8
 URxvt*imFont:               xft:Menlo for Powerline:regular:size=8
 URxvt*boldFont:             xft:Menlo for Powerline:bold:size=8
@@ -65,24 +55,3 @@ URxvt*boldItalicFont:       xft:Menlo for Powerline:bold:italic:size=8
 URxvt*urgentOnBell: true
 XTerm*bellIsUrgent: true
 
-!URL LAUNCHER
-!urxvt*perl-ext-common: default,matcher
-!urxvt*urlLauncher: firefox
-!urxvt*matcher.button: 1
-!urxvt*matcher.pattern.1: \\bwww\\.[\\w-]\\.[\\w./?&@#-].[\\w/-]
-
-!URxvt*font: xft:DejaVu Sans Mono:antialias=true:pixelsize=11
-!URxvt*boldFont: xft:DejaVu Sans Mono:style=bold:antialias=true:pixelsize=11
-!URxvt*italicFont: xft:DejaVu Sans Mono:style=italic:antialias=true:pixelsize=11
-!URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=bolditalic:antialias=true:pixelsize=11
-!
-!URxvt*iso14755_52: false
-!URxvt.iso14755_52: false
-=======
-! FONTS
-URxvt*font:                 xft:Droid Sans Mono for Powerline:regular:size=8
-URxvt*imFont:               xft:Droid Sans Mono for Powerline:regular:size=8
-URxvt*boldFont:             xft:Droid Sans Mono for Powerline:bold:size=8
-URxvt*italicFont:           xft:Droid Sans Mono for Powerline:italic:size=8
-URxvt*boldItalicFont:       xft:Droid Sans Mono for Powerline:bold:italic:size=8
->>>>>>> f1ad2f2fc9ba82524037a8fad57b2f1df737d2be
