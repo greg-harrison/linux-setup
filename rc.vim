@@ -20,6 +20,7 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
 Bundle 'vim-scripts/VimClojure'
+Bundle 'tmhedberg/matchit'
 
 set background=dark
 set t_Co=256
