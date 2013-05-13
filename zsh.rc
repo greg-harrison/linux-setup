@@ -71,7 +71,7 @@ bindkey '^Xp' push-line
 zle -N rerun-with-sudo
 bindkey '^Xx' rerun-with-sudo
 
-rerun-with-sudo {
+function rerun-with-sudo  {
   LBUFFER="sudo !!"
   zle accept-line
 }
