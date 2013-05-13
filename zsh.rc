@@ -6,7 +6,7 @@ if [[ `uname` == 'Darwin' ]]; then
   export IS_OSX=1
 fi
 
-function upsert_path () {
+function upsert_path {
   if [ "$(echo $PATH | grep $1)" = "" ]; then
     if [ $2 = "left" ]; then
       export PATH="$1:$PATH"
@@ -49,6 +49,7 @@ source $RCDIR/submodules/zsh-history-substring-search.git/zsh-history-substring-
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-substring-search-down
 export PROMPT="$PROMPT%{$(echo "\a")%}"
 
+# ctrl+s shouldn't freeze
 stty ixany
 stty ixoff -ixon
 
@@ -70,20 +71,16 @@ bindkey '^Xp' push-line
 zle -N rerun-with-sudo
 bindkey '^Xx' rerun-with-sudo
 
-#[[ -n "${key[Up]}"   ]] && bindkey "${key[Up]}"   history-substring-search-up
-#[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-substring-search-down
-
-
-rerun-with-sudo () {
+rerun-with-sudo {
   LBUFFER="sudo !!"
   zle accept-line
 }
 
-function get_diff_out () {
+function get_diff_out {
   GIT_DIFF_OUT=~/diffs/`git branch --no-color | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`.diff 
 }
 
-function git_diff () {
+function git_diff {
   get_diff_out
   if [ "$1" = "c" ]
   then
@@ -100,7 +97,7 @@ function git_diff () {
   fi
 }
 
-function -- () {
+function -- {
   popd
 }
 
@@ -130,7 +127,7 @@ function scl {
   fi
 }
 
-function lkill() {
+function lkill {
   kill -9 `ps | grep $1 | grep -v grep | awk '{print $1}'`
 }
 
