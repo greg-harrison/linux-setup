@@ -165,8 +165,7 @@ let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
 let g:ctrlp_max_depth = 40
 let g:ctrlp_max_files = 0
 
-" Powerline
-" set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+" Airline
 set laststatus=2   " Always show the statusline
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:airline_powerline_fonts=1
