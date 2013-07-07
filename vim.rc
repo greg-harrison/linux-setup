@@ -28,6 +28,7 @@ colorscheme bubblegum
 " hide the gui menubar
 if has('gui_running')
   set guioptions=egmrt  
+  set guifont=Menlo\ for\ Powerline:h11
 endif
 
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
