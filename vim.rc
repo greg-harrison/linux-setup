@@ -7,7 +7,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/powerline'
+Bundle 'bling/vim-airline'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'airblade/vim-gitgutter'
@@ -166,9 +166,10 @@ let g:ctrlp_max_depth = 40
 let g:ctrlp_max_files = 0
 
 " Powerline
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+" set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 set laststatus=2   " Always show the statusline
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+let g:airline_powerline_fonts=1
 
 " Taglist
 map <silent> <Leader>t :TlistToggle<CR>
