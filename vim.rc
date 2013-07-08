@@ -111,7 +111,7 @@ set foldmethod=indent
 set foldnestmax=2
 set foldlevel=1
 set foldlevelstart=1
-set foldminlines=2
+set foldminlines=10
 set fillchars=vert:\|,fold:\
 map <Leader>f zR
 " Toggle folds with space
