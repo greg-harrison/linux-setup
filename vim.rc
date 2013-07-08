@@ -11,7 +11,7 @@ Bundle 'bling/vim-airline'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'ervandew/supertab'
+Bundle 'Valloric/YouCompleteMe'
 
 " Language support
 Bundle 'Rip-Rip/clang_complete'
@@ -170,6 +170,7 @@ let g:ctrlp_max_files = 0
 set laststatus=2   " Always show the statusline
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:airline_powerline_fonts=1
+let g:airline_theme='badwolf'
 
 " Taglist
 map <silent> <Leader>t :TlistToggle<CR>
