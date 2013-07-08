@@ -49,6 +49,9 @@ source $RCDIR/submodules/zsh-history-substring-search.git/zsh-history-substring-
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-substring-search-down
 export PROMPT="$PROMPT%{$(echo "\a")%}"
 
+# Time commands that take >10s to finish
+export REPORTTIME=10
+
 # ctrl+s shouldn't freeze
 stty ixany
 stty ixoff -ixon
