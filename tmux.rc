@@ -73,6 +73,7 @@ bind-key C-k select-pane -U
 bind-key C-j select-pane -D
 bind-key C-h select-pane -L
 bind-key C-l select-pane -R
+bind-key C-s choose-tree
 
 # Kill stuff
 bind-key x confirm-before kill-pane
