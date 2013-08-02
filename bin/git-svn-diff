@@ -1,27 +1,14 @@
 #!/bin/sh
-TRACKING_BRANCH=`git svn info | grep URL | sed -e 's/.*\/branches\///'`
-if [[ "$TRACKING_BRANCH" =~ URL.* ]]
-then
-TRACKING_BRANCH=`git config --get svn-remote.svn.fetch | sed -e 's/.*:refs\/remotes\///'`
-fi
-let "REV = $(git svn find-rev $(git rev-list --date-order --max-count=1 $TRACKING_BRANCH))"
 
-TRUNK_HASH=`git show-ref --hash remotes/trunk`
+BASE_REV=`git log -z | tr '\n\0' ' \n' | grep 'git-svn-id:' | head -n 1 | cut -d' ' -f2`
+SVN_REV=`git svn find-rev $BASE_REV`
 
-HASHES=$TRACKING_BRANCH
-if [ "$#" -eq 0 ]
-then
-	HASHES=$TRACKING_BRANCH
-#"$TRUNK_HASH..HEAD"
-else
-	HASHES="$1"
-fi
 INDEX_SEPARATOR="==================================================================="
 SRC_PREFIX="REVIEWBOARD-SRC-PREFIX"
 DST_PREFIX="REVIEWBOARD-DST-PREFIX"
 
 # Note: removed the $* to support passing a hash as the first argument
-git diff --src-prefix="${SRC_PREFIX}" --dst-prefix="${DST_PREFIX}" "$HASHES" |
+git diff --src-prefix="${SRC_PREFIX}" --dst-prefix="${DST_PREFIX}" "$BASE_REV" |
 sed "
 # New files have /dev/null as their original path
 /^--- \/dev\/null/{
@@ -67,7 +54,7 @@ sed "
     # Read a line into the pattern space
     N
     # Do a multiline substitution
-    s/^--- ${SRC_PREFIX}\(.*\)\n+++ .*$/--- \1\t(revision ${REV})\n+++ \1\t(working copy)/
+    s/^--- ${SRC_PREFIX}\(.*\)\n+++ .*$/--- \1\t(revision ${SVN_REV})\n+++ \1\t(working copy)/
     # Jump to the end of the script. This skips the next two substitutions
     b end
 }
