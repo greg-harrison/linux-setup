@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASE_REV=`git log -z | tr '\n\0' ' \n' | grep 'git-svn-id:' | head -n 1 | cut -d' ' -f2`
+BASE_REV=`git log --grep='^git-svn-id:' | head -n 1 | cut -d' ' -f2`
 SVN_REV=`git svn find-rev $BASE_REV`
 
 INDEX_SEPARATOR="==================================================================="
