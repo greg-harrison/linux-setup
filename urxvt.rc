@@ -54,4 +54,3 @@ URxvt*boldItalicFont:       xft:Menlo for Powerline:bold:italic:size=8
 
 URxvt*urgentOnBell: true
 XTerm*bellIsUrgent: true
-
