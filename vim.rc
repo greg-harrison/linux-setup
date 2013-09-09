@@ -28,7 +28,7 @@ set t_Co=256
 colorscheme bubblegum
 " hide the gui menubar
 if has('gui_running')
-  set guioptions=egmrt  
+  set guioptions=egmr
   if has("mac")
     set guifont=Menlo\ for\ Powerline:h11
   else
@@ -61,7 +61,7 @@ nmap <silent> <leader>s :set spell!<CR>
 set ignorecase
 set smartcase
 
-set ruler nu 
+set ruler nu
 
 set showcmd
 
@@ -109,7 +109,7 @@ endfunction
 nmap <silent> <leader>c :call ToggleMouse()<CR>
 
 " Make tabs super visible
-execute "set listchars=tab:" . nr2char(187) . '\ '
+execute "set listchars=tab:" . nr2char(187) . '\ ,trail:' . nr2char(8226)
 
 " folds!
 set foldenable
@@ -142,7 +142,7 @@ vmap > >gv
 " Emacs!
 imap <C-a> <Esc>I
 imap <C-e> <Esc>A
- 
+
 " Systastic
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
@@ -157,9 +157,9 @@ map <Leader>i <ESC>:JavaSearch -p <C-R><C-W> -x implementations<CR>
 map <Leader>r <ESC>:JavaSearch -p <C-R><C-W> -x references<CR>
 map <Leader>j <ESC>:JavaSearchContext<CR>
 
-map <Leader>D <ESC>:JavaSearch -x declarations -p  
-map <Leader>I <ESC>:JavaSearch -x implementations -p 
-map <Leader>R <ESC>:JavaSearch -x references -p 
+map <Leader>D <ESC>:JavaSearch -x declarations -p
+map <Leader>I <ESC>:JavaSearch -x implementations -p
+map <Leader>R <ESC>:JavaSearch -x references -p
 nmap , :nohlsearch<CR>
 
 " CtrlP
