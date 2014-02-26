@@ -134,6 +134,15 @@ function lkill {
   kill -9 `ps | grep $1 | grep -v grep | awk '{print $1}'`
 }
 
+#oh-my-zsh git_prompt_info and git_prompt_status can be slow
+function git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+}
+
+function git_prompt_status() {
+}
+
 alias lsdf='get_diff_out;cat ;echo ;'
 alias o=gnome-open
 alias rb='git svn rebase'
@@ -141,7 +150,7 @@ alias sdf=git_diff
 alias yu='sudo apt-get update && sudo apt-get upgrade'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias todo="$HOME/software/todo.txt-cli/todo.sh"
-alias ack='ack-grep'
+alias ack='ag'
 alias glo='killall gnome-session'
 
 if [ $IS_OSX ]; then
