@@ -10,7 +10,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'bling/vim-airline'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'airblade/vim-gitgutter'
+" Bundle 'airblade/vim-gitgutter'
 Bundle 'Valloric/YouCompleteMe'
 
 " Language support
@@ -22,6 +22,9 @@ Bundle 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
 Bundle 'vim-scripts/VimClojure'
 Bundle 'tmhedberg/matchit'
 Bundle 'groenewege/vim-less'
+Bundle 'lepture/vim-velocity'
+Bundle 'rking/ag.vim'
+Bundle 'hdima/python-syntax'
 
 set background=dark
 set t_Co=256
@@ -41,12 +44,12 @@ set autoindent smartindent cindent
 
 au BufRead,BufNewFile Makefile* set noexpandtab
 au BufRead,BufNewFile *.java setlocal tabstop=4 softtabstop=4 shiftwidth=4
+au BufRead,BufNewFile *.vm setlocal tabstop=2 softtabstop=2 shiftwidth=2 textwidth=200
 au BufRead,BufNewFile *.rb  set textwidth=80
 au BufRead,BufNewFile *.js  set textwidth=80
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType c set omnifunc=ccomplete#Complete
 
-filetype off
 syntax on
 filetype plugin indent on
 
@@ -168,8 +171,21 @@ map <Leader><Space> <ESC>:CtrlPMRUFiles<CR>
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg
 let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
-let g:ctrlp_max_depth = 40
+let g:ctrlp_max_depth = 10
 let g:ctrlp_max_files = 0
+if executable("ag")
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = {
+        \ 'types': {
+          \ 1: ['.svn',
+          \ 'cd %s && ag -g "" site/velocity_redesign site/js3/src site/css2/src site/css2/pages rails/provider_tool config features internal ruby scripts tr tests -l --nocolor'
+          \ ],
+          \ 2: ['.git',
+          \ 'cd %s && ag -g "" site/velocity_redesign site/js3/src site/css2/src site/css2/pages rails/provider_tool config features internal ruby scripts tr tests -l --nocolor'
+        \ ],
+        \}
+      \}
+endif
 
 " Airline
 set laststatus=2   " Always show the statusline
