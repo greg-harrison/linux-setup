@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 # Prints the current time.
-date +"%_I:%M%p" | tr -d ' '
+date +"%H:%M" | tr -d ' '
 
 exit 0
