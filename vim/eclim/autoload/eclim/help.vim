@@ -5,7 +5,7 @@
 "
 " License:
 "
-" Copyright (C) 2005 - 2011  Eric Van Dewoestine
+" Copyright (C) 2005 - 2013  Eric Van Dewoestine
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -30,11 +30,11 @@
 function! eclim#help#Help(tag, link)
   if !filereadable(substitute(g:EclimHelpDir, '\\\s', ' ', 'g') . '/tags')
     call eclim#util#Echo('indexing eclim help files...')
-    silent! exec 'helptags ' . g:EclimHelpDir
+    exec 'helptags ' . g:EclimHelpDir
     let paths = split(glob(g:EclimHelpDir . '/**/*'), '\n')
     call filter(paths, 'isdirectory(v:val)')
     for path in paths
-      silent! exec 'helptags ' . path
+      exec 'helptags ' . path
     endfor
     call eclim#util#Echo('eclim help files indexed')
   endif
@@ -44,7 +44,7 @@ function! eclim#help#Help(tag, link)
   try
     let tag = a:tag
     if tag == '' && !a:link
-      let tag = 'vim-index'
+      let tag = 'index'
     elseif tag ==''
       let line = getline('.')
       let tag = substitute(
@@ -117,6 +117,7 @@ function! eclim#help#BufferHelp(lines, orientation, size)
   endif
   setlocal nowrap
   setlocal noswapfile nobuflisted nonumber
+  setlocal nospell norelativenumber
   setlocal buftype=nofile bufhidden=delete
   nnoremap <buffer> <silent> ? :bd<cr>
   nnoremap <buffer> <silent> q :bd<cr>
@@ -152,8 +153,13 @@ function! eclim#help#CommandCompleteTag(argLead, cmdLine, cursorPos)
   let savetags = &tags
   exec 'set tags=' . escape(escape(g:EclimHelpDir, ' '), ' ') . '/**/tags'
   try
-    let results = taglist(argLead . '.*')
-    call map(results, "v:val['name']")
+    let tags = sort(map(taglist(argLead . '.*'), "v:val['name']"))
+    let results = []
+    for tag in tags
+      if index(results, tag) == -1
+        call add(results, tag)
+      endif
+    endfor
     return results
   finally
     let &tags = savetags

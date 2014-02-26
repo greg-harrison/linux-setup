@@ -5,7 +5,7 @@
 "
 " License:
 "
-" Copyright (C) 2005 - 2012  Eric Van Dewoestine
+" Copyright (C) 2005 - 2013  Eric Van Dewoestine
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -63,17 +63,17 @@
     \ '\(implements\|extends\)\_[0-9A-Za-z,[:space:]]*\<<element>\>\_[0-9A-Za-z,[:space:]]*{'
 " }}}
 
-" Search(command, ...) {{{
-" Executes a search.
-" Usage closely resebles eclim command line client usage.
-" When doing a non-pattern search the element under the cursor is searched for.
-"   Search for declarations of element under the cursor
-"     call s:Search("-x", "declarations")
-"   Search for references of HashMap
-"     call s:Search("-p", "HashM*", "-t", "class", "-x", "references")
-" Or all the arguments can be passed in at once:
-"   call s:Search("-p 'HashM*' -t class -x references")
-function! s:Search(command, ...)
+function! s:Search(command, ...) " {{{
+  " Executes a search.
+  " Usage closely resebles eclim command line client usage.
+  " When doing a non-pattern search the element under the cursor is searched for.
+  "   Search for declarations of element under the cursor
+  "     call s:Search("-x", "declarations")
+  "   Search for references of HashMap
+  "     call s:Search("-p", "HashM*", "-t", "class", "-x", "references")
+  " Or all the arguments can be passed in at once:
+  "   call s:Search("-p 'HashM*' -t class -x references")
+
   let argline = ""
   let index = 1
   while index <= a:0
@@ -125,7 +125,7 @@ function! s:Search(command, ...)
     let search_cmd = substitute(search_cmd, '<length>', length, '')
     let search_cmd = substitute(search_cmd, '<args>', argline, '')
 
-    let result = eclim#ExecuteEclim(search_cmd)
+    let result = eclim#Execute(search_cmd)
 
   " pattern search
   else
@@ -146,13 +146,7 @@ function! s:Search(command, ...)
     let search_cmd =
       \ substitute(search_cmd, '\(.*-p\s\+\)\(.\{-}\)\(\s\|$\)\(.*\)', '\1"\2"\3\4', '')
 
-    let workspace = eclim#eclipse#ChooseWorkspace()
-    if workspace == '0'
-      return ''
-    endif
-
-    let port = eclim#client#nailgun#GetNgPort(workspace)
-    let result =  eclim#ExecuteEclim(search_cmd, port)
+    let result =  eclim#Execute(search_cmd)
 
     if !in_project && filereadable(expand('%'))
       return result + s:SearchAlternate(argline, 0)
@@ -162,9 +156,9 @@ function! s:Search(command, ...)
   return result
 endfunction " }}}
 
-" SearchAlternate(argline, element) {{{
-" Alternate search for non-project src files using vimgrep and &path.
-function! s:SearchAlternate(argline, element)
+function! s:SearchAlternate(argline, element) " {{{
+  " Alternate search for non-project src files using vimgrep and &path.
+
   call eclim#util#EchoInfo("Executing alternate search...")
   if a:argline =~ '-t'
     call eclim#util#EchoError
@@ -252,9 +246,9 @@ function! s:SearchAlternate(argline, element)
   return results
 endfunction " }}}
 
-" BuildPattern() {{{
-" Builds a pattern based on the cursors current position in the file.
-function! s:BuildPattern()
+function! s:BuildPattern() " {{{
+  " Builds a pattern based on the cursors current position in the file.
+
   let class = expand('<cword>')
   " see if the classname element selected is fully qualified.
   let line = getline('.')
@@ -279,9 +273,9 @@ function! s:BuildPattern()
   return class
 endfunction " }}}
 
-" SearchAndDisplay(type, ...) {{{
-" Execute a search and displays the results via quickfix.
-function! eclim#java#search#SearchAndDisplay(type, args)
+function! eclim#java#search#SearchAndDisplay(type, args) " {{{
+  " Execute a search and displays the results via quickfix.
+
   " if running from a non java source file, no SilentUpdate needed.
   if &ft == 'java'
     call eclim#lang#SilentUpdate()
@@ -327,7 +321,7 @@ function! eclim#java#search#SearchAndDisplay(type, args)
 
       if len(results) == 1 && g:EclimJavaDocSearchSingleResult == "open"
         let entry = results[0]
-        call <SID>ViewDoc(entry)
+        call s:ViewDoc(entry)
       else
         call eclim#util#TempWindow(
           \ window_name, results, {'height': g:EclimLocationListHeight})
@@ -355,55 +349,14 @@ function! eclim#java#search#SearchAndDisplay(type, args)
   endif
 endfunction " }}}
 
-" ViewDoc(...) {{{
-" View the supplied file in a browser, or if none proved, the file under the
-" cursor.
-function! s:ViewDoc(...)
+function! s:ViewDoc(...) " {{{
+  " View the supplied file in a browser, or if none proved, the file under the
+  " cursor.
   let url = a:0 > 0 ? a:1 : substitute(getline('.'), '\(.\{-}\)|.*', '\1', '')
-
-  " handle javadocs inside of a jar (like those from maven dependencies)
-  if url =~ '^jar:file:.*!'
-    let jarpath = substitute(url, 'jar:file:\(.\{-}\)!.*', '\1', '')
-    let filepath = substitute(url, 'jar:file:.\{-}!\(.*\)', '\1', '')
-    let tempdir = g:EclimTempDir . '/' . fnamemodify(jarpath, ':t')
-    if !isdirectory(tempdir)
-      call mkdir(tempdir)
-    endif
-    if !filereadable(tempdir . filepath)
-      call eclim#util#Echo('Extracting javadocs to temp dir...')
-      let result = ''
-      if executable('unzip')
-        let result = eclim#util#System('unzip -q -d "' . tempdir . '" "' . jarpath . '"')
-      elseif executable('jar')
-        let cwd = getcwd()
-        exec 'cd ' . escape(tempdir, ' ')
-        try
-          let result = eclim#util#System('jar -xf "' . jarpath . '"')
-        finally
-          exec 'cd ' . escape(cwd, ' ')
-        endtry
-      else
-        let result = eclim#util#EchoError("Unable to find 'jar' or 'unzip' in the system path.")
-        return
-      endif
-      if v:shell_error
-        call eclim#util#EchoError('Error extracting jar file: ' . result)
-        return
-      endif
-    endif
-    let path = tempdir . filepath
-    if has('win32unix')
-      let path = eclim#cygwin#WindowsPath(path)
-    endif
-    let url = 'file://' . path
-  endif
-
   call eclim#web#OpenUrl(url)
 endfunction " }}}
 
-" CommandCompleteJavaSearch(argLead, cmdLine, cursorPos) {{{
-" Custom command completion for JavaSearch
-function! eclim#java#search#CommandCompleteJavaSearch(argLead, cmdLine, cursorPos)
+function! eclim#java#search#CommandCompleteJavaSearch(argLead, cmdLine, cursorPos) " {{{
   let cmdLine = strpart(a:cmdLine, 0, a:cursorPos)
   let cmdTail = strpart(a:cmdLine, a:cursorPos)
   let argLead = substitute(a:argLead, cmdTail . '$', '', '')
@@ -434,15 +387,15 @@ function! eclim#java#search#CommandCompleteJavaSearch(argLead, cmdLine, cursorPo
   return []
 endfunction " }}}
 
-" FindClassDeclaration() {{{
-" Used by non java source files to find the declaration of a classname under
-" the cursor.
-function! eclim#java#search#FindClassDeclaration()
+function! eclim#java#search#FindClassDeclaration() " {{{
+  " Used by non java source files to find the declaration of a classname under
+  " the cursor.
   let line = getline('.')
   let class = substitute(line,
     \ '.\{-}\([0-9a-zA-Z_.]*\%' . col('.') . 'c[0-9a-zA-Z_.]*\).*', '\1', '')
   if class != line && class != '' && class =~ '^[a-zA-Z]'
-    exec "JavaSearch -t classOrInterface -p " . class
+    call eclim#java#search#SearchAndDisplay(
+      \ 'java_search', '-t classOrInterface -p ' . class)
   endif
 endfunction " }}}
 

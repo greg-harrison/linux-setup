@@ -1,16 +1,12 @@
 *vim-dltk-buildpath*
 
-
-Dltk Build Path
-***************
-
 Source code completion, searching, and other features make use of the
 eclipse dltk's (http://eclipse.org/dltk/) .buildpath to locate
-resources. When you first create a dltk project (currently php (|vim-
-php-index|) or ruby (|vim-ruby-index|)), a .buildpath file is created
-in the project's root directory.  If your project depends on any
-source files located outside your project or in another project, then
-you'll need to edit your .buildpath accordingly.
+resources. When you first create a dltk project (currently php
+(|vim-php-index|) or ruby (|vim-ruby-index|)), a .buildpath file is
+created in the project's root directory.  If your project depends on
+any source files located outside your project or in another project,
+then you'll need to edit your .buildpath accordingly.
 
 To help you do this, eclim provides several commands to ease the
 creation of new build path entries and variables, all of which are
@@ -22,7 +18,7 @@ via vim's location list (:help location-list).
 The following is a list of commands that eclim provides while editing
 your .buildpath.
 
-*:NewSrcEntry*
+*:NewSrcEntry_dltk*
 
 - :NewSrcEntry <dir> [<dir> ...] - Adds one or more new entries which
   reference source directories in your project.
@@ -35,7 +31,7 @@ your .buildpath.
   This command supports command completion of project relative
   directories.
 
-*:NewLibEntry*
+*:NewLibEntry_dltk*
 
 - :NewLibEntry <dir> [<dir> ...] - Adds one or more new entries which
   reference external source directories.
@@ -47,7 +43,7 @@ your .buildpath.
 
   This command supports command completion of directories.
 
-*:NewProjectEntry*
+*:NewProjectEntry_dltk*
 
 - :NewProjectEntry <project> [<project> ...] - Adds one or more new
   entries which reference other projects.

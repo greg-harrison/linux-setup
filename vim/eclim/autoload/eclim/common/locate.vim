@@ -5,7 +5,7 @@
 "
 " License:
 "
-" Copyright (C) 2005 - 2012  Eric Van Dewoestine
+" Copyright (C) 2005 - 2013  Eric Van Dewoestine
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -31,6 +31,10 @@ if !exists('g:EclimLocateFileScope')
   let g:EclimLocateFileScope = 'project'
 endif
 
+if !exists('g:EclimLocateFileNonProjectScope')
+  let g:EclimLocateFileNonProjectScope = 'workspace'
+endif
+
 if !exists('g:EclimLocateFileFuzzy')
   let g:EclimLocateFileFuzzy = 1
 endif
@@ -45,6 +49,11 @@ if !exists('g:EclimLocateUserScopes')
 endif
 
 let g:eclim_locate_default_updatetime = &updatetime
+
+" disable autocomplpop in the locate prompt
+if exists('g:acp_behavior')
+  let g:acp_behavior['locate_prompt'] = []
+endif
 
 " }}}
 
@@ -87,18 +96,22 @@ function! eclim#common#locate#LocateFile(action, file, ...)
     return
   endif
 
-  if scope == 'project' && project == ''
-    let scope = 'workspace'
+  if scope == 'project' && (project == '' || !eclim#EclimAvailable())
+    let scope = g:EclimLocateFileNonProjectScope
   endif
 
-  let workspace = eclim#eclipse#ChooseWorkspace()
-  if workspace == '0'
-    return
-  endif
+  let workspace = ''
+  if scope == 'project' || scope == 'workspace'
+    let instance = eclim#client#nailgun#ChooseEclimdInstance()
+    if type(instance) != g:DICT_TYPE
+      return
+    endif
 
-  if !eclim#PingEclim(0, workspace)
-    call eclim#util#EchoError('Unable to connect to eclimd.')
-    return
+    let workspace = instance.workspace
+    if !eclim#PingEclim(0, workspace)
+      call eclim#util#EchoError('Unable to connect to eclimd.')
+      return
+    endif
   endif
 
   let results = []
@@ -421,10 +434,10 @@ function! s:LocateFileChangeScope() " {{{
   setlocal noswapfile nobuflisted
   setlocal buftype=nofile bufhidden=delete
 
-  nmap <buffer> <silent> <cr> :call <SID>ChooseScope()<cr>
-  nmap <buffer> <silent> q :call <SID>CloseScopeChooser()<cr>
-  nmap <buffer> <silent> <c-c> :call <SID>CloseScopeChooser()<cr>
-  nmap <buffer> <silent> <c-l> :call <SID>CloseScopeChooser()<cr>
+  nnoremap <buffer> <silent> <cr> :call <SID>ChooseScope()<cr>
+  nnoremap <buffer> <silent> q :call <SID>CloseScopeChooser()<cr>
+  nnoremap <buffer> <silent> <c-c> :call <SID>CloseScopeChooser()<cr>
+  nnoremap <buffer> <silent> <c-l> :call <SID>CloseScopeChooser()<cr>
 
   autocmd BufLeave <buffer> call <SID>CloseScopeChooser()
 
@@ -463,7 +476,11 @@ function! s:ChooseScope() " {{{
 
   elseif scope == 'workspace'
     let project = ''
-    let workspace = eclim#eclipse#ChooseWorkspace()
+    let instance = eclim#client#nailgun#ChooseEclimdInstance()
+    if type(instance) != g:DICT_TYPE
+      return
+    endif
+    let workspace = instance.workspace
   endif
 
   call s:CloseScopeChooser()
@@ -538,7 +555,7 @@ endfunction " }}}
 function! s:LocateFileCommand(pattern) " {{{
   let command = s:command_locate
   if g:EclimLocateFileCaseInsensitive == 'always' ||
-   \ (a:pattern !~ '[A-Z]' && g:EclimLocateFileCaseInsensitive != 'never')
+   \ (a:pattern !~# '[A-Z]' && g:EclimLocateFileCaseInsensitive != 'never')
     let command .= ' -i'
   endif
   let command .= ' -p "' . a:pattern . '"'
@@ -547,8 +564,7 @@ endfunction " }}}
 
 function! s:LocateFile_workspace(pattern) " {{{
   let command = substitute(s:LocateFileCommand(a:pattern), '<scope>', 'workspace', '')
-  let port = eclim#client#nailgun#GetNgPort(b:workspace)
-  let results = eclim#ExecuteEclim(command, port)
+  let results = eclim#Execute(command, {'workspace': b:workspace})
   if type(results) != g:LIST_TYPE
     return []
   endif
@@ -558,8 +574,7 @@ endfunction " }}}
 function! s:LocateFile_project(pattern) " {{{
   let command = substitute(s:LocateFileCommand(a:pattern), '<scope>', 'project', '')
   let command .= ' -n "' . b:project . '"'
-  let port = eclim#client#nailgun#GetNgPort(b:workspace)
-  let results = eclim#ExecuteEclim(command, port)
+  let results = eclim#Execute(command, {'workspace': b:workspace})
   if type(results) != g:LIST_TYPE
     return []
   endif
@@ -620,13 +635,20 @@ function! eclim#common#locate#LocateFileFromFileList(pattern, file) " {{{
   if has('win32unix')
     let file = eclim#cygwin#WindowsPath(file)
   endif
-  let command = substitute(s:LocateFileCommand(a:pattern), '<scope>', 'list', '')
-  let command .= ' -f "' . file . '"'
-  let port = eclim#client#nailgun#GetNgPort(b:workspace)
-  let results = eclim#ExecuteEclim(command, port)
-  if type(results) != g:LIST_TYPE
-    return []
+  if eclim#EclimAvailable()
+    let command = substitute(s:LocateFileCommand(a:pattern), '<scope>', 'list', '')
+    let command .= ' -f "' . file . '"'
+    let results = eclim#Execute(command, {'workspace': b:workspace})
+    if type(results) != g:LIST_TYPE
+      return []
+    endif
+  else
+    let results = []
+    for result in readfile(file)
+      call add(results, {'name': fnamemodify(result, ':t'), 'path': result})
+    endfor
   endif
+
   return results
 endfunction " }}}
 

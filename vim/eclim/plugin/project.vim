@@ -34,10 +34,18 @@ if !exists("g:EclimProjectProblemsUpdateOnSave")
   let g:EclimProjectProblemsUpdateOnSave = 1
 endif
 
+if !exists("g:EclimProjectProblemsUpdateOnBuild")
+  let g:EclimProjectProblemsUpdateOnBuild = 1
+endif
+
 let g:EclimProjectTreeTitle = 'ProjectTree_'
 
 if !exists('g:EclimProjectTreeAutoOpen') || exists('g:vimplugin_running')
   let g:EclimProjectTreeAutoOpen = 0
+endif
+
+if !exists('g:EclimProjectTabTreeAutoOpen')
+  let g:EclimProjectTabTreeAutoOpen = 1
 endif
 
 if !exists('g:EclimProjectTreeExpandPathOnOpen')
@@ -57,8 +65,7 @@ endif
 
 " w/ external vim refresh is optional, w/ embedded gvim it is mandatory
 " disabling at all though is discouraged.
-if g:EclimProjectRefreshFiles ||
-\ (has('netbeans_enabled') && exists('g:vimplugin_running'))
+if g:EclimProjectRefreshFiles || exists('g:vimplugin_running')
   augroup eclim_refresh_files
     autocmd!
     autocmd BufWritePre * call eclim#project#util#RefreshFileBootstrap()
@@ -87,9 +94,9 @@ if g:EclimProjectTreeAutoOpen
     \     !exists('t:project_tree_auto_opened') &&
     \     !exists('g:SessionLoad') &&
     \     eclim#project#util#GetCurrentProjectRoot() != '' |
+    \   let t:project_tree_auto_opened = 1 |
     \   call eclim#project#tree#ProjectTree(copy(g:EclimProjectTreeAutoOpenProjects)) |
     \   exec g:EclimProjectTreeContentWincmd |
-    \   let t:project_tree_auto_opened = 1 |
     \ endif
 endif
 
@@ -120,7 +127,7 @@ if !exists(":ProjectCreate")
     \ ProjectBuild :call eclim#project#util#ProjectBuild('<args>')
   command ProjectRefreshAll :call eclim#project#util#ProjectRefreshAll()
   command ProjectCacheClear :call eclim#project#util#ClearProjectsCache()
-  command -nargs=? -complete=customlist,eclim#eclipse#CommandCompleteWorkspaces
+  command -nargs=? -complete=customlist,eclim#client#nailgun#CommandCompleteWorkspaces
     \ ProjectList :call eclim#project#util#ProjectList('<args>')
   command -nargs=?
     \ -complete=customlist,eclim#project#util#CommandCompleteProject
@@ -155,16 +162,14 @@ endif
 
 if !exists(":ProjectTree")
   command -nargs=*
-    \ -complete=customlist,eclim#project#util#CommandCompleteProject
+    \ -complete=customlist,eclim#project#util#CommandCompleteProjectOrDirectory
     \ ProjectTree :call eclim#project#tree#ProjectTree(<f-args>)
   command -nargs=0 ProjectTreeToggle :call eclim#project#tree#ProjectTreeToggle()
   command -nargs=0 ProjectsTree
     \ :call eclim#project#tree#ProjectTree(eclim#project#util#GetProjectNames())
   command -nargs=1
-    \ -complete=customlist,eclim#project#util#CommandCompleteProject
+    \ -complete=customlist,eclim#project#util#CommandCompleteProjectOrDirectory
     \ ProjectTab :call eclim#project#util#ProjectTab('<args>')
-  command! -nargs=1 -complete=dir TreeTab
-    \ :call eclim#project#util#TreeTab('', expand('<args>', ':p'))
 endif
 
 if !exists(":ProjectCD")
