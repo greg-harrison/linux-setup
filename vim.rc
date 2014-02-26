@@ -175,16 +175,6 @@ let g:ctrlp_max_depth = 10
 let g:ctrlp_max_files = 0
 if executable("ag")
   set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = {
-        \ 'types': {
-          \ 1: ['.svn',
-          \ 'cd %s && ag -g "" site/velocity_redesign site/js3/src site/css2/src site/css2/pages rails/provider_tool config features internal ruby scripts tr tests -l --nocolor'
-          \ ],
-          \ 2: ['.git',
-          \ 'cd %s && ag -g "" site/velocity_redesign site/js3/src site/css2/src site/css2/pages rails/provider_tool config features internal ruby scripts tr tests -l --nocolor'
-        \ ],
-        \}
-      \}
 endif
 
 " Airline
@@ -195,3 +185,7 @@ let g:airline_theme='badwolf'
 
 " Taglist
 map <silent> <Leader>t :TlistToggle<CR>
+
+if filereadable($TRIP_RCDIR . "/trip_vimrc")
+  source $TRIP_RCDIR/trip_vimrc
+end
