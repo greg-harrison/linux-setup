@@ -1,0 +1,5 @@
+#!/bin/bash
+
+BASE_REV=`git log --grep='^git-svn-id:' | head -n 1 | cut -d' ' -f2`
+
+vimdiff <(git diff --name-only $BASE_REV | xargs -I{} echo $BASE_REV:{} | xargs git show) <(git diff --name-only $BASE_REV | xargs -I{} echo HEAD:{} | xargs git show)

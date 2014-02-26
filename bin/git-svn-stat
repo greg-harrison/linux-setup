@@ -1,0 +1,4 @@
+#!/bin/sh
+
+BASE_REV=`git log --grep='^git-svn-id:' | head -n 1 | cut -d' ' -f2`
+git diff --name-status $BASE_REV
