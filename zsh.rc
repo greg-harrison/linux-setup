@@ -22,6 +22,13 @@ fi
 export RCDIR=$HOME/.rc
 export TRIP_RCDIR=$HOME/.trip_rc
 
+if [ $IS_OSX ]; then
+  upsert_path '/usr/local/bin' left
+  if [ -z "$(echo $PATH | grep -E '(^|:)/usr/local/bin:.*:/usr/bin(:|$)')" ]; then
+    export PATH="/usr/local/bin":$PATH
+  fi
+fi
+
 if [ -d "$RCDIR/bin" ] ; then
   upsert_path "$RCDIR/bin" left
 fi

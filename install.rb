@@ -22,7 +22,7 @@ def delete(file)
     File.unlink file
   elsif File.directory? file then
     Dir.delete file
-  else
+  elsif File.exist?(file)
     File.delete file
   end
 end
