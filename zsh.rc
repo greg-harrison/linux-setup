@@ -151,7 +151,6 @@ function git_prompt_status() {
 }
 
 alias lsdf='get_diff_out;cat ;echo ;'
-alias o=gnome-open
 alias rb='git svn rebase'
 alias sdf=git_diff
 alias yu='sudo apt-get update && sudo apt-get upgrade'
@@ -162,8 +161,10 @@ alias glo='killall gnome-session'
 
 if [ $IS_OSX ]; then
   alias ls='ls -G'
+  alias o=open
 else
   alias ls='ls --color=auto'
+  alias o=gnome-open
 fi
 alias ll='ls -lh'
 
