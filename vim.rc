@@ -15,7 +15,7 @@ Bundle 'Valloric/YouCompleteMe'
 
 " Language support
 Bundle 'Rip-Rip/clang_complete'
-Bundle 'wlangstroth/vim-haskell'
+Bundle 'lukerandall/haskellmode-vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
@@ -169,7 +169,7 @@ nmap , :nohlsearch<CR>
 map <Leader>b <ESC>:CtrlPBuffer<CR>
 map <Leader><Space> <ESC>:CtrlPMRUFiles<CR>
 let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg
+set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi
 let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
 let g:ctrlp_max_depth = 10
 let g:ctrlp_max_files = 0
@@ -189,3 +189,5 @@ map <silent> <Leader>t :TlistToggle<CR>
 if filereadable($TRIP_RCDIR . "/trip_vimrc")
   source $TRIP_RCDIR/trip_vimrc
 end
+
+let g:haddock_browser="o"
