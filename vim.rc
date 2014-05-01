@@ -190,10 +190,12 @@ map <Leader>d <ESC>:JavaSearch -p <C-R><C-W> -x declarations<CR>
 map <Leader>i <ESC>:JavaSearch -p <C-R><C-W> -x implementations<CR>
 map <Leader>r <ESC>:JavaSearch -p <C-R><C-W> -x references<CR>
 map <Leader>j <ESC>:JavaSearchContext<CR>
+map <Leader>p <ESC>:JavaDocPreview<CR>
 
 map <Leader>D <ESC>:JavaSearch -x declarations -p
 map <Leader>I <ESC>:JavaSearch -x implementations -p
 map <Leader>R <ESC>:JavaSearch -x references -p
+
 nmap , :nohlsearch<CR>
 
 " CtrlP
