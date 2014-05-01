@@ -28,11 +28,11 @@ fi
 
 SVN_STAT=$(echo -e $ARG_FILES | xargs svn status --ignore-externals)
 
-FILES=$(echo -e $SVN_STAT | grep -P '^(A|M|D)' | cut -d' ' -f8-)
+FILES=$(echo -e "$SVN_STAT" | grep -P '^(A|M|D)' | cut -d' ' -f8-)
 
 if [ "$FILES" == "" ];then
   exit 0
 fi
 
 REVISION=$(svn info | grep Revision | awk '{print $2}')
-vimdiff <(echo $FILES | xargs svn cat -r$REVISION) <(echo $FILES | xargs cat)
+vimdiff <(echo $FILES | xargs svn cat -r$REVISION 2> /dev/null) <(echo $FILES | xargs cat)
