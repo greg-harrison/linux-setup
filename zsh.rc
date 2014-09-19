@@ -77,7 +77,7 @@ bindkey '^Xe' edit-command-line
 export EDITOR="vim -X"
 
 # For tmux
-export DISPLAY=:0.0
+export DISPLAY=:1
 unset DBUS_SESSION_BUS_ADDRESS
 
 # other cool keyboard shortcuts
@@ -162,6 +162,7 @@ alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WIND
 alias todo="$HOME/software/todo.txt-cli/todo.sh"
 alias ack='ag'
 alias glo='killall gnome-session'
+alias jsonlint='python -mjson.tool'
 
 if [ $IS_OSX ]; then
   alias ls='ls -G'
