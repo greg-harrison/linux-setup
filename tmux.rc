@@ -82,9 +82,9 @@ bind-key X confirm-before kill-window
 bind-key C-r source-file $HOME/.tmux.conf
 
 # X clipboard hacks
-bind y run "tmux show-buffer | clip-copy; tmux show-buffer | clip-copy -s"
+bind y run "tmux show-buffer | clip-copy; tmux show-buffer | clip-copy -b"
 bind p run "tmux set-buffer -- \"$(clip-paste)\"; tmux paste-buffer"
-bind C-v run "tmux set-buffer -- \"$(clip-paste)\"; tmux paste-buffer"
+bind C-v run "tmux set-buffer -- \"$(clip-paste -b)\"; tmux paste-buffer"
 
 # Vim copy mode
 set-window-option -g mode-keys vi
@@ -105,4 +105,5 @@ set -g history-limit 5000
 set -g mode-mouse on
 setw -g mouse-select-window on
 setw -g mouse-select-pane on
-setw -g aggressive-resize on
+#setw -g aggressive-resize on
+setw -g aggressive-resize off
