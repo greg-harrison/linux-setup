@@ -25,6 +25,7 @@ Bundle 'groenewege/vim-less'
 Bundle 'lepture/vim-velocity'
 Bundle 'rking/ag.vim'
 Bundle 'hdima/python-syntax'
+Bundle 'tfnico/vim-gradle'
 
 set background=dark
 set t_Co=256
@@ -94,6 +95,9 @@ scriptencoding utf-8
 set encoding=utf-8
 
 set history=100000
+
+" Disable ex mode
+nnoremap Q <nop>
 
 " Use and toggle mouse
 set mouse=a
