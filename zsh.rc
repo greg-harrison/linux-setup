@@ -58,7 +58,7 @@ source $RCDIR/submodules/zsh-syntax-highlighting.git/zsh-syntax-highlighting.zsh
 source $RCDIR/submodules/zsh-history-substring-search.git/zsh-history-substring-search.zsh
 [[ -n "${key[Up]}"   ]] && bindkey "${key[Up]}"   history-substring-search-up
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-substring-search-down
-#export PROMPT="$PROMPT%{$(echo "\a")%}"
+export PROMPT="$PROMPT%{$(echo "\a")%}"
 
 # Time commands that take >10s to finish
 export REPORTTIME=10
