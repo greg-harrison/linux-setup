@@ -119,3 +119,4 @@ run-shell ~/.rc/submodules/tpm/tpm
 # Tmux resurrect
 set -g @resurrect-save 'S'
 set -g @resurrect-restore 'R'
+set -g @resurrect-strategy-vim 'session'
