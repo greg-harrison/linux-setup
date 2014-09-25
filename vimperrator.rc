@@ -1,0 +1,13 @@
+cmap <M-f> <Esc>/
+cmap <M-t> <Esc>t
+cmap <M-g> <Esc>/
+imap <M-f> <Esc>/
+imap <M-g> <Esc>/
+map , <Esc>:nohlsearch<Return>
+map <A-j> <Esc>gt
+map <A-k> <Esc>gT
+map <A-l> <Esc>:tabmove<Space>+1<Return>
+map <A-h> <Esc>:tabmove<Space>-1<Return>
+map <C-j> <Esc>:tabgroups<Space>switch<Space>+1<Return>
+map <C-k> <Esc>:tabgroups<Space>switch<Space>-1<Return>
+set titlestring=Firefox

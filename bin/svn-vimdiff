@@ -1,0 +1,38 @@
+#!/bin/bash
+# Shows your svn diff in vimdiff
+
+set -e
+
+function to_absolute() {
+  if [[ "$1" = /* ]]; then
+    echo $1
+  else
+    echo "$(pwd)/$1"
+  fi
+}
+
+if [ $# -eq 0 ]; then
+  ARG_FILES=`pwd`
+else
+  if [ "$1" == "--changelist" ]; then
+    ARG_FILES="--changelist $2"
+  else
+    ARG_FILES="$(to_absolute $1)"
+    shift
+    for var in "$@"
+    do
+      ARG_FILES="$ARG_FILES\n$(to_absolute $var)"
+    done
+  fi
+fi
+
+SVN_STAT=$(echo -e $ARG_FILES | xargs svn status --ignore-externals)
+
+FILES=$(echo -e "$SVN_STAT" | grep -P '^(A|M|D)' | cut -d' ' -f8-)
+
+if [ "$FILES" == "" ];then
+  exit 0
+fi
+
+REVISION=$(svn info | grep Revision | awk '{print $2}')
+vimdiff <(echo $FILES | xargs svn cat -r$REVISION 2> /dev/null) <(echo $FILES | xargs cat)

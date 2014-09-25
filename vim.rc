@@ -25,6 +25,7 @@ Bundle 'groenewege/vim-less'
 Bundle 'lepture/vim-velocity'
 Bundle 'rking/ag.vim'
 Bundle 'hdima/python-syntax'
+Bundle 'tfnico/vim-gradle'
 
 set background=dark
 set t_Co=256
@@ -94,6 +95,9 @@ scriptencoding utf-8
 set encoding=utf-8
 
 set history=100000
+
+" Disable ex mode
+nnoremap Q <nop>
 
 " Use and toggle mouse
 set mouse=a
@@ -190,10 +194,12 @@ map <Leader>d <ESC>:JavaSearch -p <C-R><C-W> -x declarations<CR>
 map <Leader>i <ESC>:JavaSearch -p <C-R><C-W> -x implementations<CR>
 map <Leader>r <ESC>:JavaSearch -p <C-R><C-W> -x references<CR>
 map <Leader>j <ESC>:JavaSearchContext<CR>
+map <Leader>p <ESC>:JavaDocPreview<CR>
 
 map <Leader>D <ESC>:JavaSearch -x declarations -p
 map <Leader>I <ESC>:JavaSearch -x implementations -p
 map <Leader>R <ESC>:JavaSearch -x references -p
+
 nmap , :nohlsearch<CR>
 
 " CtrlP
