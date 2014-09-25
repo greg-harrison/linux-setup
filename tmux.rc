@@ -105,5 +105,17 @@ set -g history-limit 5000
 set -g mode-mouse on
 setw -g mouse-select-window on
 setw -g mouse-select-pane on
-#setw -g aggressive-resize on
-setw -g aggressive-resize off
+setw -g aggressive-resize on
+
+# List of plugins
+set -g @tpm_plugins "              \
+  tmux-plugins/tpm                 \
+  tmux-plugins/tmux-sensible       \
+  tmux-plugins/tmux-resurrect      \
+"
+# initializes TMUX plugin manager
+run-shell ~/.rc/submodules/tpm/tpm
+
+# Tmux resurrect
+set -g @resurrect-save 'S'
+set -g @resurrect-restore 'R'
