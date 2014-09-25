@@ -16,7 +16,7 @@ set-window-option -g window-status-bell-attr bold
 set-option -g window-status-format "#[fg=#333333,bg=#333333] #[fg=white]#I#[fg=#333333,bg=#222222]▌#[fg=white]#W "
 set -g window-status-current-format "#[fg=#555555,bg=#555555] #[fg=white]#I#($RCDIR/tmux/color.sh fg)▐#[fg=#111111]#($RCDIR/tmux/color.sh bg)#W "
 # Show some system info
-set -g status-right '#[fg=#888888]#($RCDIR/tmux/cpu.sh) #($RCDIR/tmux/mem.sh) #[fg=#8899AA]#($RCDIR/tmux/time.sh)'
+set -g status-right '#[fg=#888888] CPU:#($RCDIR/tmux/cpu.sh)%% Mem:#($RCDIR/tmux/mem.sh) #[fg=#8899AA]#($RCDIR/tmux/time.sh)'
 set -g status-left ''
 
 # Ctrl+Q for prefix
