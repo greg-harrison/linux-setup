@@ -77,7 +77,7 @@ bindkey '^Xe' edit-command-line
 export EDITOR="vim -X"
 
 # For tmux
-export DISPLAY=:1
+export DISPLAY=:0.0
 unset DBUS_SESSION_BUS_ADDRESS
 
 # other cool keyboard shortcuts
