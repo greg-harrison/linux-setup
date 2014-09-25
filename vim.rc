@@ -12,6 +12,7 @@ Bundle 'vim-scripts/taglist.vim'
 Bundle 'scrooloose/syntastic'
 " Bundle 'airblade/vim-gitgutter'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'tpope/vim-obsession'
 
 " Language support
 Bundle 'Rip-Rip/clang_complete'
