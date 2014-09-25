@@ -179,3 +179,7 @@ if [ -d "$TRIP_RCDIR" ]; then
 else
   unset TRIP_RCDIR
 fi
+
+if [ -f "$HOME/.zsh.local" ]; then
+  source $HOME/.zsh.local
+fi
