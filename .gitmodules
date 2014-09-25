@@ -13,3 +13,6 @@
 [submodule "submodules/oh-my-zsh.git"]
 	path = submodules/oh-my-zsh.git
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "submodules/tpm"]
+	path = submodules/tpm
+	url = https://github.com/tmux-plugins/tpm.git
