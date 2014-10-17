@@ -10,26 +10,25 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'bling/vim-airline'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'scrooloose/syntastic'
-" Bundle 'airblade/vim-gitgutter'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'tpope/vim-obsession'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-sensible'
+Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'tpope/vim-vinegar'
+Bundle 'goatslacker/mango.vim'
 
 " Language support
-Bundle 'Rip-Rip/clang_complete'
-Bundle 'lukerandall/haskellmode-vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
-Bundle 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
 Bundle 'vim-scripts/VimClojure'
 Bundle 'tmhedberg/matchit'
-Bundle 'groenewege/vim-less'
-Bundle 'lepture/vim-velocity'
 Bundle 'rking/ag.vim'
-Bundle 'hdima/python-syntax'
-Bundle 'tfnico/vim-gradle'
+Bundle 'tpope/vim-surround'
 
 set t_Co=256
-colorscheme bubblegum
+colorscheme mango
+color mango
 "let g:rehash256 = 1
 set background=dark
 
@@ -43,39 +42,83 @@ if has('gui_running')
   endif
 endif
 
-set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-set autoindent smartindent cindent
 
-au BufRead,BufNewFile Makefile* set noexpandtab
-au BufRead,BufNewFile *.java setlocal tabstop=4 softtabstop=4 shiftwidth=4
-au BufRead,BufNewFile *.vm setlocal tabstop=2 softtabstop=2 shiftwidth=2 textwidth=200
-au BufRead,BufNewFile *.rb  set textwidth=80
-au BufRead,BufNewFile *.js  set textwidth=80
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType c set omnifunc=ccomplete#Complete
-
+"Code handling
 syntax on
 filetype plugin indent on
+set title                " change the terminal's title
 
-" Fix OSX backspacing
-set backspace=indent,eol,start
-
-set spelllang=en_us
-set nospell
-nmap <silent> <leader>s :set spell!<CR>
-
-" nice searching
-set ignorecase
+"Search help
+set incsearch ignorecase hlsearch
+set autoread
 set smartcase
+set magic
+set showmatch
+set mat=2
+set ai
+set si
+set wrap
+set nu
 
-set ruler nu
+"Compatibility
+set encoding=utf8
+set shiftwidth=3 softtabstop=3
+set smarttab
 
-set showcmd
+"Remove extra files
+set nobackup
+set nowb
+set noswapfile
 
-set hlsearch
-set incsearch
+"Contingencies
+set history=10000         " remember more commands and search history
+set undolevels=10000      " use many muchos levels of undo
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set hidden "Save buffers instead of closing
 
-set noerrorbells
+"Fix annoying
+set visualbell           " don't beep
+set noerrorbells         " don't beep
+set pastetoggle=<F2>
+
+"Quicker command entry
+nnoremap ; :
+
+"Customization and plugin mapping
+let mapleader=","
+
+"Ctrlp
+map <Leader>b <ESC>:CtrlPBuffer<CR>
+map <Leader><SPACE> <ESC>:CtrlPMRUFiles<CR>
+let g:ctrlp_working_path_mode = 'ra'
+if executable("ag")
+   set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+"Easymotion
+nmap <Leader>s <Plug>(easymotion-prefix)
+nmap <Leader>j <Plug>(easymotion-j)
+nmap <Leader>k <Plug>(easymotion-k)
+nmap <Leader>d <Plug>(easymotion-s)
+nmap <Leader>f <Plug>(easymotion-s2)
+
+"Airline
+set noshowmode
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts=1
+let g:airline_theme='badwolf'
+
+"Navigate wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+"Noob training
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+
 
 " Word wrap w/o line breaks
 set wrap
@@ -97,29 +140,8 @@ set fileformats=unix,dos,mac
 scriptencoding utf-8
 set encoding=utf-8
 
-set history=10000
-
 " Disable ex mode
 nnoremap Q <nop>
-
-" Use and toggle mouse
-set mouse=a
-function! ToggleMouse()
-  if &mouse == 'a'
-    set mouse=
-    set nonumber
-    echo "Mouse usage disabled"
-  else
-    set mouse=a
-    set number
-    echo "Mouse usage enabled"
-  endif
-endfunction
-
-nmap <silent> <leader>c :call ToggleMouse()<CR>
-
-" Make tabs super visible
-execute "set listchars=tab:" . nr2char(187) . '\ ,trail:' . nr2char(8226)
 
 " folds!
 set foldenable
@@ -145,45 +167,6 @@ fu! ToggleFold()
 endf
 noremap <space> :call ToggleFold()<CR>
 
-" Re-highlight after Indent/unindent
-vmap < <gv
-vmap > >gv
-
-" Show location list
-function! GetBufferList()
-  redir =>buflist
-  silent! ls
-  redir END
-  return buflist
-endfunction
-
-function! ToggleList(bufname, pfx)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
-      exec(a:pfx.'close')
-      return
-    endif
-  endfor
-  if a:pfx == 'l' && len(getloclist(0)) == 0
-      echohl ErrorMsg
-      echo "Location List is Empty."
-      return
-  endif
-  let winnr = winnr()
-  exec(a:pfx.'open')
-  if winnr() != winnr
-    wincmd p
-  endif
-endfunction
-
-nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
-nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
-
-" Emacs!
-imap <C-a> <Esc>I
-imap <C-e> <Esc>A
-
 " Systastic
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
@@ -191,19 +174,6 @@ let g:syntastic_check_on_open=1
 let g:syntastic_loc_list_height=5
 let g:syntastic_always_populate_loc_list=1
 map <Leader><Tab> :Errors<CR>
-
-" eclim stuff
-map <Leader>d <ESC>:JavaSearch -p <C-R><C-W> -x declarations<CR>
-map <Leader>i <ESC>:JavaSearch -p <C-R><C-W> -x implementations<CR>
-map <Leader>r <ESC>:JavaSearch -p <C-R><C-W> -x references<CR>
-map <Leader>j <ESC>:JavaSearchContext<CR>
-map <Leader>p <ESC>:JavaDocPreview<CR>
-
-map <Leader>D <ESC>:JavaSearch -x declarations -p
-map <Leader>I <ESC>:JavaSearch -x implementations -p
-map <Leader>R <ESC>:JavaSearch -x references -p
-
-nmap , :nohlsearch<CR>
 
 " CtrlP
 map <Leader>b <ESC>:CtrlPBuffer<CR>
@@ -225,9 +195,3 @@ let g:airline_theme='badwolf'
 
 " Taglist
 map <silent> <Leader>t :TlistToggle<CR>
-
-if filereadable($TRIP_RCDIR . "/trip_vimrc")
-  source $TRIP_RCDIR/trip_vimrc
-end
-
-let g:haddock_browser="o"
