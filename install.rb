@@ -11,7 +11,6 @@ links = {
   'urxvt.rc'  => '.Xdefaults',
   'vim'       => '.vim',
   'vim.rc'    => '.vimrc',
-  'vimperator.rc'    => '.vimperatorrc',
   'xmobar.rc' => '.xmobarrc',
   'xmonad.rc' => '.xmonad/xmonad.hs',
   'zprofile'  => '.zprofile',
