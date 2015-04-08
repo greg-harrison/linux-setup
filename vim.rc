@@ -1,38 +1,49 @@
 set nocompatible
+filetype off
 
-" Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+" Vundle "
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
 
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'bling/vim-airline'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-sensible'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'tpope/vim-vinegar'
-Bundle 'goatslacker/mango.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'tpope/vim-vinegar'
+Plugin 'Valloric/YouCompleteMe'
 
-" Language support
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'vim-scripts/VimClojure'
-Bundle 'tmhedberg/matchit'
-Bundle 'rking/ag.vim'
-Bundle 'tpope/vim-surround'
+" Language support "
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails'
+Plugin 'vim-scripts/VimClojure'
+Plugin 'tmhedberg/matchit'
+Plugin 'rking/ag.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'moll/vim-node'
+Plugin 'pangloss/vim-javascript'
+Plugin 'burnettk/vim-angular'
+Plugin 'millermedeiros/vim-esformatter'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'goatslacker/mango.vim'
+
+call vundle#end()
+
 
 set t_Co=256
-colorscheme mango
-color mango
-"let g:rehash256 = 1
 set background=dark
+color mango
+colorscheme mango
+"let g:rehash256 = 1 "
 
-" hide the gui menubar
+" hide the gui menubar "
 if has('gui_running')
   set guioptions=egmr
   if has("mac")
@@ -43,12 +54,12 @@ if has('gui_running')
 endif
 
 
-"Code handling
+"Code handling "
 syntax on
 filetype plugin indent on
-set title                " change the terminal's title
+set title                " change the terminal's title "
 
-"Search help
+"Search help "
 set incsearch ignorecase hlsearch
 set autoread
 set smartcase
@@ -60,34 +71,34 @@ set si
 set wrap
 set nu
 
-"Compatibility
+"Compatibility "
 set encoding=utf8
-set shiftwidth=3 softtabstop=3
+set shiftwidth=4 softtabstop=4 tabstop=4
 set smarttab
 
-"Remove extra files
+"Remove extra files "
 set nobackup
 set nowb
 set noswapfile
 
-"Contingencies
-set history=10000         " remember more commands and search history
-set undolevels=10000      " use many muchos levels of undo
+"Contingencies "
+set history=10000         " remember more commands and search history "
+set undolevels=10000      " use many muchos levels of undo "
 set wildignore=*.swp,*.bak,*.pyc,*.class
-set hidden "Save buffers instead of closing
+set hidden "Save buffers instead of closing "
 
-"Fix annoying
-set visualbell           " don't beep
-set noerrorbells         " don't beep
+"Fix annoying "
+set visualbell           " don't beep "
+set noerrorbells         " don't beep "
 set pastetoggle=<F2>
 
-"Quicker command entry
+"Quicker command entry "
 nnoremap ; :
 
-"Customization and plugin mapping
+"Customization and plugin mapping "
 let mapleader=","
 
-"Ctrlp
+"Ctrlp "
 map <Leader>b <ESC>:CtrlPBuffer<CR>
 map <Leader><SPACE> <ESC>:CtrlPMRUFiles<CR>
 let g:ctrlp_working_path_mode = 'ra'
@@ -95,24 +106,24 @@ if executable("ag")
    set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-"Easymotion
-nmap <Leader>s <Plug>(easymotion-prefix)
+"Easymotion "
+nmap <Leader>f <Plug>(easymotion-prefix)
 nmap <Leader>j <Plug>(easymotion-j)
 nmap <Leader>k <Plug>(easymotion-k)
-nmap <Leader>d <Plug>(easymotion-s)
-nmap <Leader>f <Plug>(easymotion-s2)
+nmap <Leader>s <Plug>(easymotion-s)
+nmap <Leader>d <Plug>(easymotion-s2)
 
-"Airline
+"Airline "
 set noshowmode
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
-let g:airline_theme='badwolf'
+let g:airline_theme='powerlineish'
 
-"Navigate wrapped lines
+"Navigate wrapped lines "
 nnoremap j gj
 nnoremap k gk
 
-"Noob training
+"Noob training "
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
@@ -120,17 +131,17 @@ map <right> <nop>
 
 
 
-" Word wrap w/o line breaks
+" Word wrap w/o line breaks "
 set wrap
 set linebreak
 set list
 set nostartofline
 
-" Nicer autocomplete commands
+" Nicer autocomplete commands "
 set wildmode=longest:full
 set wildmenu
 
-" Screw backups
+" Screw backups "
 set nobackup nowritebackup noswapfile
 
 set colorcolumn=+1
@@ -140,10 +151,10 @@ set fileformats=unix,dos,mac
 scriptencoding utf-8
 set encoding=utf-8
 
-" Disable ex mode
+" Disable ex mode "
 nnoremap Q <nop>
 
-" folds!
+" folds! "
 set foldenable
 set foldmethod=indent
 set foldnestmax=2
@@ -152,7 +163,7 @@ set foldlevelstart=1
 set foldminlines=10
 set fillchars=vert:\|,fold:\
 map <Leader>f zR
-" Toggle folds with space
+" Toggle folds with space "
 fu! ToggleFold()
    if foldlevel('.') == 0
        normal! l
@@ -167,7 +178,7 @@ fu! ToggleFold()
 endf
 noremap <space> :call ToggleFold()<CR>
 
-" Systastic
+" Systastic "
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
@@ -175,11 +186,11 @@ let g:syntastic_loc_list_height=5
 let g:syntastic_always_populate_loc_list=1
 map <Leader><Tab> :Errors<CR>
 
-" CtrlP
+" CtrlP "
 map <Leader>b <ESC>:CtrlPBuffer<CR>
 map <Leader><Space> <ESC>:CtrlPMRUFiles<CR>
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi
+let g:ctrlp_working_path_mode = 'ra' "
+set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi "
 let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
 let g:ctrlp_max_depth = 10
 let g:ctrlp_max_files = 0
@@ -187,11 +198,27 @@ if executable("ag")
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-" Airline
-set laststatus=2   " Always show the statusline
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+" ESFormatting "
+nnoremap <silent> <leader>es :Esformatter<CR>
+vnoremap <silent> <leader>es :EsformatterVisual<CR>
+
+"Easycommenting "
+autocmd FileType js,coffee,c,cpp,java,javascript let b:comment_leader = '// '
+autocmd FileType vim,rc let b:comment_leader = '" ' "
+autocmd FileType conf,fstab,ruby,python let b:comment_leader = '# '
+noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+" Airline"
+set laststatus=2   " Always show the statusline "
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline) "
 let g:airline_powerline_fonts=1
 let g:airline_theme='badwolf'
 
-" Taglist
+" Taglist "
 map <silent> <Leader>t :TlistToggle<CR>
+
+"Closure compiler "
+let g:syntastic_javascript_closurecompiler_path='/root/.compiler/compiler.jar'
+let g:syntastic_javascript_checkers = ['gjslint','jshint','Closure']
+let g:syntastic_aggregate_errors = 1
