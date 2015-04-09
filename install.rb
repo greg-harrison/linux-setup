@@ -44,14 +44,39 @@ end
 
 def update_git
   puts "[Updating git submodules]"
-  `git submodule update --init`
+  output = `git submodule update --init`
+  puts "#{output}"
 end
 
 def install_vim_plugins
-  #puts "[Updating vim plugins]"
-  #`vim +PluginInstall +PluginUpdate +qall`
+  puts "[Updating vim plugins]"
+  output = `vim +PluginInstall +PluginUpdate +qall`
+  puts "#{output}"
+end
+
+def compile_ycm
+	puts "[Compiling YouCompleteMe]"
+	output = `./vim/bundle/YouCompleteMe/install.sh`
+	puts "#{output}"
+end
+
+def install_mango
+	puts "[Installing Mango]"
+	output = `cd ./vim/bundle/mango.vim ; make`
+	`cd ~/.rc`
+	puts "#{output}"
+end
+
+def install_tern_npm
+	puts "[Installing Tern]"
+	output = `cd ./vim/bundle/tern_for_vim ; npm install`
+	`cd ~/.rc`
+	puts "#{output}"
 end
 
 link_rc(links)
 update_git
 install_vim_plugins
+compile_ycm
+install_mango
+install_tern_npm
