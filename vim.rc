@@ -39,8 +39,13 @@ call vundle#end()
 
 set t_Co=256
 set background=dark
-color mango
-colorscheme mango
+try
+  color mango
+  colorscheme mango
+catch /^Vim\%((\a\+)\)\=:E185/
+  "Meh"
+  colorscheme peachpuff
+endtry
 "let g:rehash256 = 1 "
 
 " hide the gui menubar "
