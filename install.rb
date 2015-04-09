@@ -48,8 +48,8 @@ def update_git
 end
 
 def install_vim_plugins
-  puts "[Updating vim plugins]"
-  `vim +BundleInstall +BundleUpdate +qall`
+  #puts "[Updating vim plugins]"
+  #`vim +PluginInstall +PluginUpdate +qall`
 end
 
 link_rc(links)
