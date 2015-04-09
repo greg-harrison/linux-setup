@@ -76,7 +76,7 @@ end
 
 link_rc(links)
 update_git
-install_vim_plugins
 compile_ycm
+install_vim_plugins
 install_mango
 install_tern_npm
