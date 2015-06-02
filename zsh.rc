@@ -48,10 +48,10 @@ export RVM_HOME=$HOME/.rvm
 
 export POWERLINE_DIR=$RCDIR/powerline
 export ZSH=$RCDIR/submodules/oh-my-zsh.git
-export ZSH_THEME="fishy"
+export ZSH_THEME="af-magic"
 
 #plugins=(vi-mode rvm tmux)
-plugins=(rvm tmux)
+plugins=(rvm tmux git node npm bower colorize)
 
 source $RCDIR/submodules/oh-my-zsh.git/oh-my-zsh.sh
 source $RCDIR/submodules/zsh-syntax-highlighting.git/zsh-syntax-highlighting.zsh

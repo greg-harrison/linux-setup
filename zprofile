@@ -7,7 +7,6 @@ if [ -z $DISPLAY ] && [ -d /tmp/.X11-unix ]; then
 fi
 if [ -n "$SSH_TTY" -a -z "$STY" ]; then
   export TERM=xterm-256color
-  fortune fortunes | cowsay -f turtle
   echo Tmux Sessions:
   tmux list-sessions
 fi
