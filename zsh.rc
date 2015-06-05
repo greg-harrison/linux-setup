@@ -76,6 +76,19 @@ bindkey -M vicmd v edit-command-line
 bindkey '^Xe' edit-command-line
 export EDITOR="vim -X"
 
+#fancy ctl-z for vim
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+      zle accept-line
+  else
+    zle push-input
+      zle clear-screen
+      fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 # For tmux
 export DISPLAY=:0.0
 unset DBUS_SESSION_BUS_ADDRESS
