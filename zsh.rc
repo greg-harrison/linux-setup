@@ -167,9 +167,15 @@ function git_prompt_info() {
 function git_prompt_status() {
 }
 
+function run_docker {
+  sudo docker build -t ${PWD##*/} --rm=true .;
+  sudo docker run -it --rm -p $1 --name ${PWD##*/}-run ${PWD##*/};
+}
+
 alias lsdf='get_diff_out;cat ;echo ;'
 alias rb='git svn rebase'
 alias sdf=git_diff
+alias up=run_docker
 alias yu='sudo apt-get update && sudo apt-get upgrade'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias todo="$HOME/software/todo.txt-cli/todo.sh"
