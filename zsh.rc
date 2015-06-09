@@ -172,10 +172,24 @@ function run_docker {
   sudo docker run -it --rm -p $1 --name ${PWD##*/}-run ${PWD##*/};
 }
 
+function build_docker {
+  sudo docker build -t ${PWD##*/} --rm=true .;
+  sudo docker run -it -d --name ${PWD##*/}-run ${PWD##*/};
+  sudo rm -r $PWD/$1
+  sudo docker cp ${PWD##*/}-run:/opt/build/$1 $PWD
+  sudo docker stop ${PWD##*/}-run
+  sudo docker rm ${PWD##*/}-run
+  sudo docker rmi ${PWD##*/}
+}
+
 alias lsdf='get_diff_out;cat ;echo ;'
 alias rb='git svn rebase'
 alias sdf=git_diff
 alias up=run_docker
+alias build=build_docker
+alias cleandockerimages="sudo docker images --no-trunc | grep none | awk '{print $3}' | xargs -r sudo docker rmi"
+alias cleandockercontainers="sudo docker ps -a --no-trunc | grep 'Exit' | awk '{print $1}' | xargs -r sudo docker rm"
+alias cleandocker="cleandockercontainers;cleandockerimages;"
 alias yu='sudo apt-get update && sudo apt-get upgrade'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias todo="$HOME/software/todo.txt-cli/todo.sh"
