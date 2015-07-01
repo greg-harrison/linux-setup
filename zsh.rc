@@ -189,7 +189,9 @@ alias up=run_docker
 alias build=build_docker
 alias cleandockerimages="sudo docker images --no-trunc | grep none | awk '{print $3}' | xargs -r sudo docker rmi"
 alias cleandockercontainers="sudo docker ps -a --no-trunc | grep 'Exit' | awk '{print $1}' | xargs -r sudo docker rm"
+alias cleandockervolumes="sudo docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes:1.7.0"
 alias cleandocker="cleandockercontainers;cleandockerimages;"
+alias cleandockerall="cleandocker;cleandockervolumes;"
 alias yu='sudo apt-get update && sudo apt-get upgrade'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias todo="$HOME/software/todo.txt-cli/todo.sh"
