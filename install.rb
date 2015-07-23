@@ -60,6 +60,12 @@ def compile_ycm
 	puts "#{output}"
 end
 
+def install_esformatter
+	puts "Installing ESFormatter"
+	output = `sudo npm install -g esformatter`
+	puts "#{output}"
+end
+
 def install_mango
 	puts "[Installing Mango]"
 	output = `cd ./vim/bundle/mango.vim ; make`
@@ -79,4 +85,5 @@ update_git
 install_vim_plugins
 compile_ycm
 install_mango
+install_esformatter
 install_tern_npm
