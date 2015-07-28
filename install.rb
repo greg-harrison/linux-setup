@@ -60,6 +60,12 @@ def compile_ycm
 	puts "#{output}"
 end
 
+def install_jshint
+	puts "Installing jshint"
+	output = `sudo npm install -g jshint`
+	puts "#{output}"
+end
+
 def install_esformatter
 	puts "Installing ESFormatter"
 	output = `sudo npm install -g esformatter`
@@ -86,4 +92,5 @@ install_vim_plugins
 compile_ycm
 install_mango
 install_esformatter
+install_jshint
 install_tern_npm
