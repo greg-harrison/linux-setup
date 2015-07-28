@@ -1,3 +1,5 @@
+syntax on
+set t_Co=256
 set nocompatible
 filetype off
 
@@ -6,25 +8,53 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
+
+" Navigation "
 Plugin 'kien/ctrlp.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-vinegar'
+
+" Color "
+Plugin 'godlygeek/csapprox'
+Plugin 'ap/vim-css-color'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'tpope/vim-vividchalk'
+Plugin 'goatslacker/mango.vim'
+Plugin 'sjl/badwolf'
+
+" Search "
+Plugin 'rking/ag.vim'
+
+" Utilities "
+Plugin 'mhinz/vim-startify'
+Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
-Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/gitignore'
-Plugin 'scrooloose/syntastic'
-Plugin 'Lokaltog/vim-easymotion'
+Plugin 'airblade/vim-gitgutter'
+
+" Editing "
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tpope/vim-vinegar'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+
+" Decide, do we need these? Goyo vs NrrwRgn "
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
+
+Plugin 'chrisbra/NrrwRgn'
+
+" Tag Support "
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'tmhedberg/matchit'
+Plugin 'tpope/vim-surround'
 
 " Language support "
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/VimClojure'
-Plugin 'tmhedberg/matchit'
-Plugin 'rking/ag.vim'
-Plugin 'tpope/vim-surround'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'moll/vim-node'
@@ -32,23 +62,22 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'burnettk/vim-angular'
 Plugin 'millermedeiros/vim-esformatter'
 Plugin 'marijnh/tern_for_vim'
-Plugin 'goatslacker/mango.vim'
 Plugin 'sidorares/node-vim-debugger'
-Plugin 'chrisbra/NrrwRgn'
+Plugin 'ekalinin/Dockerfile.vim'
 
 call vundle#end()
 
 
 set t_Co=256
-set background=dark
 let g:rehash256 = 1 "
-try
-"   color mango
-   colorscheme mango
-catch /^Vim\%((\a\+)\)\=:E185/
-  "Meh"
-  colorscheme bubblegum
-endtry
+
+let g:badwolf_darkgutter = 1
+let g:badwolf_css_props_highlight = 1
+
+let g:hybrid_use_Xresources = 1
+colorscheme jellybeans
+set background=dark
+set background=light
 
 " hide the gui menubar "
 if has('gui_running')
@@ -65,6 +94,9 @@ endif
 syntax on
 filetype plugin indent on
 set title                " change the terminal's title "
+
+"viminfo"
+set viminfo='50,%,<1000,s100,:20,n~/.vim/viminfo
 
 "Search help "
 set incsearch ignorecase hlsearch
@@ -148,7 +180,37 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
+" gundo "
+nnoremap <Leader>u :GundoToggle<CR>
 
+" Vim Fugitive "
+nmap <Leader>g :Gstatus<CR>
+
+" limelight and goyo "
+nmap <Leader>l <Plug>(Limelight)
+xmap <Leader>l <Plug>(Limelight)
+nmap <Leader>o :Goyo<CR>
+
+" color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+function! s:goyo_enter()
+  SyntasticToggleMode
+endfunction
+function! s:goyo_leave()
+  SyntasticToggleMode
+endfunction
+autocmd User GoyoEnter call <SID>goyo_enter()
+autocmd User GoyoLeave call <SID>goyo_leave()
 
 " Word wrap w/o line breaks "
 set wrap
@@ -225,8 +287,11 @@ let g:airline_theme='badwolf'
 
 " Taglist "
 map <silent> <Leader>t :TlistToggle<CR>
+let Tlist_Auto_Open=1
+let Tlist_Exit_OnlyWindow=1
 
 "Closure compiler "
 let g:syntastic_javascript_closurecompiler_path='/root/.compiler/compiler.jar'
 let g:syntastic_javascript_checkers = ['gjslint','jshint','Closure']
 let g:syntastic_aggregate_errors = 1
+
