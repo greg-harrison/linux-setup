@@ -58,6 +58,8 @@ source $RCDIR/submodules/zsh-syntax-highlighting.git/zsh-syntax-highlighting.zsh
 source $RCDIR/submodules/zsh-history-substring-search.git/zsh-history-substring-search.zsh
 [[ -n "${key[Up]}"   ]] && bindkey "${key[Up]}"   history-substring-search-up
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 export PROMPT="$PROMPT%{$(echo "\a")%}"
 
 # Time commands that take >10s to finish
@@ -97,6 +99,9 @@ unset DBUS_SESSION_BUS_ADDRESS
 bindkey '^Xp' push-line
 zle -N rerun-with-sudo
 bindkey '^Xx' rerun-with-sudo
+
+# vim Mode
+bindkey -v
 
 function rerun-with-sudo  {
   LBUFFER="sudo !!"
