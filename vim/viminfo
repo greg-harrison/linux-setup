@@ -15,8 +15,8 @@ $
 
 # Command Line History (newest to oldest):
 :wq
-:q
 :w
+:q
 :q!
 :PluginUpdate
 :PluginInstall
@@ -70,21 +70,636 @@ $
 
 # Registers:
 "0	LINE	0
-	bindkey -M vicmd 'k' history-substring-search-up
-"1	LINE	0
-	RUN npm install -g bower \
-	  gulp
+	syntax on
+	set t_Co=256
+	" color mango "
+	syntax on
+	set t_Co=256
+	set nocompatible
+	filetype off
 	
-	RUN npm install && \
+	" Vundle "
+	set rtp+=~/.vim/bundle/Vundle.vim/
+	call vundle#begin()
+	Plugin 'gmarik/Vundle.vim'
+	
+	
+	" Navigation "
+	Plugin 'kien/ctrlp.vim'
+	Plugin 'christoomey/vim-tmux-navigator'
+	Plugin 'Lokaltog/vim-easymotion'
+	Plugin 'tpope/vim-vinegar'
+	
+	" Color "
+	Plugin 'godlygeek/csapprox'
+	Plugin 'ap/vim-css-color'
+	Plugin 'nanotech/jellybeans.vim'
+	Plugin 'w0ng/vim-hybrid'
+	Plugin 'tpope/vim-vividchalk'
+	Plugin 'goatslacker/mango.vim'
+	Plugin 'sjl/badwolf'
+	
+	" Search "
+	Plugin 'rking/ag.vim'
+	
+	" Utilities "
+	" Plugin 'mhinz/vim-startify'
+	Plugin 'sjl/gundo.vim'
+	Plugin 'tpope/vim-fugitive'
+	Plugin 'bling/vim-airline'
+	Plugin 'vim-scripts/gitignore'
+	Plugin 'airblade/vim-gitgutter'
+	
+	" Editing "
+	Plugin 'tpope/vim-repeat'
+	Plugin 'tpope/vim-sensible'
+	Plugin 'Valloric/YouCompleteMe'
+	Plugin 'scrooloose/syntastic'
+	
+	" Decide, do we need these? Goyo vs NrrwRgn "
+	Plugin 'junegunn/goyo.vim'
+	Plugin 'junegunn/limelight.vim'
+	
+	Plugin 'chrisbra/NrrwRgn'
+	
+	" Tag Support "
+	Plugin 'vim-scripts/taglist.vim'
+	Plugin 'tmhedberg/matchit'
+	Plugin 'tpope/vim-surround'
+	
+	" Language support "
+	Plugin 'vim-ruby/vim-ruby'
+	Plugin 'vim-scripts/VimClojure'
+	Plugin 'kchmck/vim-coffee-script'
+	Plugin 'cakebaker/scss-syntax.vim'
+	Plugin 'moll/vim-node'
+	Plugin 'pangloss/vim-javascript'
+	Plugin 'burnettk/vim-angular'
+	Plugin 'millermedeiros/vim-esformatter'
+	Plugin 'marijnh/tern_for_vim'
+	Plugin 'sidorares/node-vim-debugger'
+	Plugin 'ekalinin/Dockerfile.vim'
+	
+	call vundle#end()
+	
+	
+	set t_Co=256
+	let g:rehash256 = 1 "
+	
+	let g:badwolf_darkgutter = 1
+	let g:badwolf_css_props_highlight = 1
+	
+	let g:hybrid_use_Xresources = 1
+	colorscheme jellybeans
+	set background=dark
+	
+	" hide the gui menubar "
+	if has('gui_running')
+	  set guioptions=egmr
+	  if has("mac")
+	    set guifont=Menlo\ for\ Powerline:h11
+	  else
+	    set guifont=Menlo\ for\ Powerline\ 10
+	  endif
+	endif
+	
+	
+	"Code handling "
+	syntax on
+	filetype plugin indent on
+	set title                " change the terminal's title "
+	
+	"viminfo"
+	set viminfo='50,%,<1000,s100,:20,n~/.vim/viminfo
+	
+	"Search help "
+	set incsearch ignorecase hlsearch
+	set autoread
+	set smartcase
+	set magic
+	set showmatch
+	set mat=2
+	set ai
+	set si
+	set wrap
+	set nu
+	
+	"Compatibility "
+	set encoding=utf8
+	set shiftwidth=2 softtabstop=2 tabstop=2
+	"set smarttab " "use a mix of tabs and spaces"
+	set expandtab "always use spaces"
+	
+	"Remove extra files "
+	set nobackup
+	set nowb
+	set noswapfile
+	
+	"Contingencies "
+	set history=10000         " remember more commands and search history "
+	set undolevels=10000      " use many muchos levels of undo "
+	set wildignore=*.swp,*.bak,*.pyc,*.class
+	set hidden "Save buffers instead of closing "
+	
+	"Fix annoying "
+	set visualbell           " don't beep "
+	set noerrorbells         " don't beep "
+	set pastetoggle=<F2>
+	
+	"Quicker command entry "
+	nnoremap ; :
+	
+	"Customization and plugin mapping "
+	let mapleader=","
+	
+	"Ctrlp "
+	map <Leader>b <ESC>:CtrlPBuffer<CR>
+	map <Leader><SPACE> <ESC>:CtrlPMRUFiles<CR>
+	let g:ctrlp_working_path_mode = 'ra'
+	let g:ctrlp_use_caching = 0
+	let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
+	let g:ctrlp_max_depth = 10
+	let g:ctrlp_max_files = 0 "
+	set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi "
+	if executable("ag")
+	   set grepprg=ag\ --nogroup\ --nocolor
+	   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	else
+	  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+	  let g:ctrlp_prompt_mappings = {
+	    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+	    \ }
+	endif
+	
+	"Easymotion "
+	nmap <Leader>f <Plug>(easymotion-prefix)
+	nmap <Leader>j <Plug>(easymotion-j)
+	nmap <Leader>k <Plug>(easymotion-k)
+	nmap <Leader>s <Plug>(easymotion-s)
+	nmap <Leader>d <Plug>(easymotion-s2)
+	
+	"Airline "
+	set noshowmode
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline_powerline_fonts=1
+	let g:airline_theme='powerlineish'
+	
+	"Navigate wrapped lines "
+	nnoremap j gj
+	nnoremap k gk
+	
+	"Noob training "
+	map <up> <nop>
+	map <down> <nop>
+	map <left> <nop>
+	map <right> <nop>
+	
+	" gundo "
+	nnoremap <Leader>u :GundoToggle<CR>
+	
+	" Vim Fugitive "
+	nmap <Leader>g :Gstatus<CR>
+	
+	" limelight and goyo "
+	nmap <Leader>l <Plug>(Limelight)
+	xmap <Leader>l <Plug>(Limelight)
+	nmap <Leader>o :Goyo<CR>
+	
+	" color name (:help cterm-colors) or ANSI code
+	let g:limelight_conceal_ctermfg = 'gray'
+	let g:limelight_conceal_ctermfg = 240
+	" Color name (:help gui-colors) or RGB color
+	let g:limelight_conceal_guifg = 'DarkGray'
+	let g:limelight_conceal_guifg = '#777777'
+	" Default: 0.5
+	let g:limelight_default_coefficient = 0.7
+	" Number of preceding/following paragraphs to include (default: 0)
+	let g:limelight_paragraph_span = 1
+	autocmd! User GoyoEnter Limelight
+	autocmd! User GoyoLeave Limelight!
+	function! s:goyo_enter()
+	  SyntasticToggleMode
+	endfunction
+	function! s:goyo_leave()
+	  SyntasticToggleMode
+	endfunction
+	autocmd User GoyoEnter call <SID>goyo_enter()
+	autocmd User GoyoLeave call <SID>goyo_leave()
+	
+	" Word wrap w/o line breaks "
+	set wrap
+	set linebreak
+	set list
+	set nostartofline
+	
+	" Nicer autocomplete commands "
+	set wildmode=longest:full
+	set wildmenu
+	
+	" Screw backups "
+	set nobackup nowritebackup noswapfile
+	
+	set colorcolumn=+1
+	set clipboard=unnamed
+	
+	set fileformats=unix,dos,mac
+	scriptencoding utf-8
+	set encoding=utf-8
+	
+	" Disable ex mode "
+	nnoremap Q <nop>
+	
+	" folds! "
+	set foldenable
+	set foldmethod=indent
+	set foldnestmax=2
+	set foldlevel=1
+	set foldlevelstart=1
+	set foldminlines=10
+	set fillchars=vert:\|,fold:\
+	map <Leader>f zR
+	" Toggle folds with space "
+	fu! ToggleFold()
+	   if foldlevel('.') == 0
+	       normal! l
+	   else
+	       if foldclosed('.') < 0
+	           . foldclose
+	       else
+	           . foldopen
+	       endif
+	   endif
+	   echo
+	endf
+	noremap <space> :call ToggleFold()<CR>
+	
+	" Systastic "
+	let g:syntastic_enable_signs=1
+	let g:syntastic_auto_loc_list=1
+	let g:syntastic_check_on_open=1
+	let g:syntastic_loc_list_height=5
+	let g:syntastic_always_populate_loc_list=1
+	map <Leader><Tab> :Errors<CR>
+	
+	
+	" ESFormatting "
+	nnoremap <silent> <leader>es :Esformatter<CR>
+	vnoremap <silent> <leader>es :EsformatterVisual<CR>
+	
+	"Easycommenting "
+	autocmd FileType js,coffee,c,cpp,java,javascript let b:comment_leader = '// '
+	autocmd FileType vim,rc let b:comment_leader = '" ' "
+	autocmd FileType conf,fstab,ruby,python let b:comment_leader = '# '
+	noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+	noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+	
+	" Airline"
+	set laststatus=2   " Always show the statusline "
+	set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline) "
+	let g:airline_powerline_fonts=1
+	let g:airline_theme='badwolf'
+	
+	" Taglist "
+	map <silent> <Leader>t :TlistToggle<CR>
+	let Tlist_Auto_Open=1
+	let Tlist_Exit_OnlyWindow=1
+	
+	"Closure compiler "
+	let g:syntastic_javascript_closurecompiler_path='/root/.compiler/compiler.jar'
+	let g:syntastic_javascript_checkers = ['gjslint','jshint','Closure']
+	let g:syntastic_aggregate_errors = 1
+	
+""1	LINE	0
+	syntax on
+	set t_Co=256
+	set nocompatible
+	filetype off
+	
+	" Vundle "
+	set rtp+=~/.vim/bundle/Vundle.vim/
+	call vundle#begin()
+	Plugin 'gmarik/Vundle.vim'
+	
+	
+	" Navigation "
+	Plugin 'kien/ctrlp.vim'
+	Plugin 'christoomey/vim-tmux-navigator'
+	Plugin 'Lokaltog/vim-easymotion'
+	Plugin 'tpope/vim-vinegar'
+	
+	" Color "
+	Plugin 'godlygeek/csapprox'
+	Plugin 'ap/vim-css-color'
+	Plugin 'nanotech/jellybeans.vim'
+	Plugin 'w0ng/vim-hybrid'
+	Plugin 'tpope/vim-vividchalk'
+	Plugin 'goatslacker/mango.vim'
+	Plugin 'sjl/badwolf'
+	
+	" Search "
+	Plugin 'rking/ag.vim'
+	
+	" Utilities "
+	Plugin 'mhinz/vim-startify'
+	Plugin 'sjl/gundo.vim'
+	Plugin 'tpope/vim-fugitive'
+	Plugin 'bling/vim-airline'
+	Plugin 'vim-scripts/gitignore'
+	Plugin 'airblade/vim-gitgutter'
+	
+	" Editing "
+	Plugin 'tpope/vim-repeat'
+	Plugin 'tpope/vim-sensible'
+	Plugin 'Valloric/YouCompleteMe'
+	Plugin 'scrooloose/syntastic'
+	
+	" Decide, do we need these? Goyo vs NrrwRgn "
+	Plugin 'junegunn/goyo.vim'
+	Plugin 'junegunn/limelight.vim'
+	
+	Plugin 'chrisbra/NrrwRgn'
+	
+	" Tag Support "
+	Plugin 'vim-scripts/taglist.vim'
+	Plugin 'tmhedberg/matchit'
+	Plugin 'tpope/vim-surround'
+	
+	" Language support "
+	Plugin 'vim-ruby/vim-ruby'
+	Plugin 'vim-scripts/VimClojure'
+	Plugin 'kchmck/vim-coffee-script'
+	Plugin 'cakebaker/scss-syntax.vim'
+	Plugin 'moll/vim-node'
+	Plugin 'pangloss/vim-javascript'
+	Plugin 'burnettk/vim-angular'
+	Plugin 'millermedeiros/vim-esformatter'
+	Plugin 'marijnh/tern_for_vim'
+	Plugin 'sidorares/node-vim-debugger'
+	Plugin 'ekalinin/Dockerfile.vim'
+	
+	call vundle#end()
+	
+	
+	set t_Co=256
+	let g:rehash256 = 1 "
+	
+	let g:badwolf_darkgutter = 1
+	let g:badwolf_css_props_highlight = 1
+	
+	let g:hybrid_use_Xresources = 1
+	colorscheme jellybeans
+	set background=dark
+	set background=light
+	
+	" hide the gui menubar "
+	if has('gui_running')
+	  set guioptions=egmr
+	  if has("mac")
+	    set guifont=Menlo\ for\ Powerline:h11
+	  else
+	    set guifont=Menlo\ for\ Powerline\ 10
+	  endif
+	endif
+	
+	
+	"Code handling "
+	syntax on
+	filetype plugin indent on
+	set title                " change the terminal's title "
+	
+	"viminfo"
+	set viminfo='50,%,<1000,s100,:20,n~/.vim/viminfo
+	
+	"Search help "
+	set incsearch ignorecase hlsearch
+	set autoread
+	set smartcase
+	set magic
+	set showmatch
+	set mat=2
+	set ai
+	set si
+	set wrap
+	set nu
+	
+	"Compatibility "
+	set encoding=utf8
+	set shiftwidth=2 softtabstop=2 tabstop=2
+	"set smarttab " "use a mix of tabs and spaces"
+	set expandtab "always use spaces"
+	
+	"Remove extra files "
+	set nobackup
+	set nowb
+	set noswapfile
+	
+	"Contingencies "
+	set history=10000         " remember more commands and search history "
+	set undolevels=10000      " use many muchos levels of undo "
+	set wildignore=*.swp,*.bak,*.pyc,*.class
+	set hidden "Save buffers instead of closing "
+	
+	"Fix annoying "
+	set visualbell           " don't beep "
+	set noerrorbells         " don't beep "
+	set pastetoggle=<F2>
+	
+	"Quicker command entry "
+	nnoremap ; :
+	
+	"Customization and plugin mapping "
+	let mapleader=","
+	
+	"Ctrlp "
+	map <Leader>b <ESC>:CtrlPBuffer<CR>
+	map <Leader><SPACE> <ESC>:CtrlPMRUFiles<CR>
+	let g:ctrlp_working_path_mode = 'ra'
+	let g:ctrlp_use_caching = 0
+	let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
+	let g:ctrlp_max_depth = 10
+	let g:ctrlp_max_files = 0 "
+	set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi "
+	if executable("ag")
+	   set grepprg=ag\ --nogroup\ --nocolor
+	   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	else
+	  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+	  let g:ctrlp_prompt_mappings = {
+	    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+	    \ }
+	endif
+	
+	"Easymotion "
+	nmap <Leader>f <Plug>(easymotion-prefix)
+	nmap <Leader>j <Plug>(easymotion-j)
+	nmap <Leader>k <Plug>(easymotion-k)
+	nmap <Leader>s <Plug>(easymotion-s)
+	nmap <Leader>d <Plug>(easymotion-s2)
+	
+	"Airline "
+	set noshowmode
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline_powerline_fonts=1
+	let g:airline_theme='powerlineish'
+	
+	"Navigate wrapped lines "
+	nnoremap j gj
+	nnoremap k gk
+	
+	"Noob training "
+	map <up> <nop>
+	map <down> <nop>
+	map <left> <nop>
+	map <right> <nop>
+	
+	" gundo "
+	nnoremap <Leader>u :GundoToggle<CR>
+	
+	" Vim Fugitive "
+	nmap <Leader>g :Gstatus<CR>
+	
+	" limelight and goyo "
+	nmap <Leader>l <Plug>(Limelight)
+	xmap <Leader>l <Plug>(Limelight)
+	nmap <Leader>o :Goyo<CR>
+	
+	" color name (:help cterm-colors) or ANSI code
+	let g:limelight_conceal_ctermfg = 'gray'
+	let g:limelight_conceal_ctermfg = 240
+	" Color name (:help gui-colors) or RGB color
+	let g:limelight_conceal_guifg = 'DarkGray'
+	let g:limelight_conceal_guifg = '#777777'
+	" Default: 0.5
+	let g:limelight_default_coefficient = 0.7
+	" Number of preceding/following paragraphs to include (default: 0)
+	let g:limelight_paragraph_span = 1
+	autocmd! User GoyoEnter Limelight
+	autocmd! User GoyoLeave Limelight!
+	function! s:goyo_enter()
+	  SyntasticToggleMode
+	endfunction
+	function! s:goyo_leave()
+	  SyntasticToggleMode
+	endfunction
+	autocmd User GoyoEnter call <SID>goyo_enter()
+	autocmd User GoyoLeave call <SID>goyo_leave()
+	
+	" Word wrap w/o line breaks "
+	set wrap
+	set linebreak
+	set list
+	set nostartofline
+	
+	" Nicer autocomplete commands "
+	set wildmode=longest:full
+	set wildmenu
+	
+	" Screw backups "
+	set nobackup nowritebackup noswapfile
+	
+	set colorcolumn=+1
+	set clipboard=unnamed
+	
+	set fileformats=unix,dos,mac
+	scriptencoding utf-8
+	set encoding=utf-8
+	
+	" Disable ex mode "
+	nnoremap Q <nop>
+	
+	" folds! "
+	set foldenable
+	set foldmethod=indent
+	set foldnestmax=2
+	set foldlevel=1
+	set foldlevelstart=1
+	set foldminlines=10
+	set fillchars=vert:\|,fold:\
+	map <Leader>f zR
+	" Toggle folds with space "
+	fu! ToggleFold()
+	   if foldlevel('.') == 0
+	       normal! l
+	   else
+	       if foldclosed('.') < 0
+	           . foldclose
+	       else
+	           . foldopen
+	       endif
+	   endif
+	   echo
+	endf
+	noremap <space> :call ToggleFold()<CR>
+	
+	" Systastic "
+	let g:syntastic_enable_signs=1
+	let g:syntastic_auto_loc_list=1
+	let g:syntastic_check_on_open=1
+	let g:syntastic_loc_list_height=5
+	let g:syntastic_always_populate_loc_list=1
+	map <Leader><Tab> :Errors<CR>
+	
+	
+	" ESFormatting "
+	nnoremap <silent> <leader>es :Esformatter<CR>
+	vnoremap <silent> <leader>es :EsformatterVisual<CR>
+	
+	"Easycommenting "
+	autocmd FileType js,coffee,c,cpp,java,javascript let b:comment_leader = '// '
+	autocmd FileType vim,rc let b:comment_leader = '" ' "
+	autocmd FileType conf,fstab,ruby,python let b:comment_leader = '# '
+	noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+	noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+	
+	" Airline"
+	set laststatus=2   " Always show the statusline "
+	set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline) "
+	let g:airline_powerline_fonts=1
+	let g:airline_theme='badwolf'
+	
+	" Taglist "
+	map <silent> <Leader>t :TlistToggle<CR>
+	let Tlist_Auto_Open=1
+	let Tlist_Exit_OnlyWindow=1
+	
+	"Closure compiler "
+	let g:syntastic_javascript_closurecompiler_path='/root/.compiler/compiler.jar'
+	let g:syntastic_javascript_checkers = ['gjslint','jshint','Closure']
+	let g:syntastic_aggregate_errors = 1
+	
 "2	LINE	0
-	RUN npm install -g bower \
-	  gulp
-"3	LINE	0
 	../
-"4	LINE	0
+"3	LINE	0
 	./
-"5	LINE	0
+"4	LINE	0
 	
+"5	LINE	0
+	.aws/
+	.cache/
+	.deis/
+	.docker/
+	.npm/
+	.rc/
+	.ssh/
+	.xmonad/
+	bin/
+	.Xdefaults@
+	.bash_logout
+	.bashrc
+	.fonts@
+	.gnomerc@
+	.profile
+	.tmux.conf@
+	.vim@
+	.vimrc*
+	.xmobarrc@
+	.zcompdump
+	.zcompdump-vagrant-5.0.2
+	.zprofile@
+	.zsh-update
+	.zsh_history
+	.zshrc@
+	projects@
 "6	LINE	0
 	../
 "7	LINE	0
@@ -92,7 +707,26 @@ $
 "8	LINE	0
 	
 "9	LINE	0
-	../
+	.git/
+	bin/
+	fonts/
+	node_modules/
+	submodules/
+	tmux/
+	vim/
+	xmobar/
+	.gitignore
+	.gitmodules
+	gnome.rc
+	install.rb*
+	setup-ubuntu.sh*
+	tmux.rc
+	urxvt.rc
+	vim.rc*
+	xmobar.rc
+	xmonad.rc
+	zprofile
+	zsh.rc
 "b	CHAR	0
 	1856
 <bbblldt>xlhjkjjkklllllllllllllllllllllljhhhhhhhklllllllllllllllllllllllllllli nh-€kb€kbg-if=""€klisSekec€kb€kb€kblected(user)hhhhhhhhhhhhhhhhlhhhhhhhhhhhhhin€kb ng-switch="n€kb€kb€kb€kb"€klis€kd€kdlllllllllllllllllllllllllllllllli€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kbswitch-when=""€kltruejhhhhhhhhhhllkllllllllllllllllljhhhhhhhhhhhlhhhhi€kb€kb€kb€kb€kb€kb€kb€kbmobile_user_checkboxkhhvlllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllylllllllllllllljhhhhpklllllllllllllhhcwfalsellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllhli€kb€kb€kb€kb€kb€kb€kb€kbcheckbox_unselectedkkkkhhji clas€kb€kb€kb€kbng-click=""€kltoggkle€kb€kb€kbleSelected(user)jjjjkkkkli'€kb;;wjlllllllllllllllllllhi;;wjk;wjkjklhjklhjkljlllllllllllllllllllll;wjjjjkjo<M€kbbr /><br .€kb/>;wjk-k0--jjjjjjjjjjjjjjjjjjjjjjjjjkkkkkkkkjo$scope.isSelected = ;;€kb€kb''€kb€kbfunction(user){})€kb;€kl€kl€ku  return _.contains()€kb€kb€kb€kb€kb€kb€kb€kb€kbdomr€kb€kb€kb€kbsome($scope.members)€kb, functio(member){});€kl€kl€kl€ku  tr€kb€kbreturn member._id === €kb€kb user._iod€kb€kbd;kjjkkkjkllkjhll;wkkkjjo$scope.toggleSelected(€kb = function(user){})€kb;€kl€kl€ku  if (€kb$scope.is€kd(user)€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl(€ku€kd€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr)€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl!€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kb{}€kb}€kujjjjjjjjjjkkkkkkkkkkkkjji€kb=€kbddoelse€kbP€kb{}€ku%€kb$jjjjjlklllllllllllllllllllllllhhhlcwselec€kd€kdkkkkkjllla.€kb$€kbscope.sele€kd.push)€kb(user);;wkjjjljllllllllllllllllljljjlklllllllllllllllllllllhl
@@ -102,7 +736,7 @@ $
 	jfjfk
 "w	CHAR	0
 	Object.keys(selectedUsers)
-""-	CHAR	0
+"-	CHAR	0
 	up
 
 # global variables:
@@ -114,18 +748,73 @@ $
 !LIST_TYPE	NUM	3
 
 # File marks:
-'0  62  49  ~/.rc/zsh.rc
-'1  1  0  /tmp/zshecl22970
-'2  103  9  ~/.rc/zsh.rc
-'3  1  18  /projects/Work/frontend/startingpoints-site-app/.git/COMMIT_EDITMSG
-'4  9  0  /projects/Work/frontend/startingpoints-site-app/Dockerfile
-'5  151  3  /projects/Work/startingpoints-api-docker/Dockerfile
-'6  1  0  /projects/Work/frontend/startingpoints-site-app/Doq
-'7  10  2  /projects/Work/frontend/startingpoints-site-app/Dockerfile
-'8  1  0  /projects/Work/frontend/startingpoints-site-app/app/features/global/scss/global.app.scss
-'9  1  0  /projects/Work/frontend/startingpoints-site-app/app/features/messaging/scss/messaging.app.scss
+'0  294  0  ~/.rc/vim.rc
+'1  1  24  ~/.rc/.git/COMMIT_EDITMSG
+'2  62  49  ~/.rc/zsh.rc
+'3  1  0  /tmp/zshecl22970
+'4  103  9  ~/.rc/zsh.rc
+'5  1  18  /projects/Work/frontend/startingpoints-site-app/.git/COMMIT_EDITMSG
+'6  9  0  /projects/Work/frontend/startingpoints-site-app/Dockerfile
+'7  151  3  /projects/Work/startingpoints-api-docker/Dockerfile
+'8  1  0  /projects/Work/frontend/startingpoints-site-app/Doq
+'9  10  2  /projects/Work/frontend/startingpoints-site-app/Dockerfile
 
 # Jumplist (newest first):
+-'  294  0  ~/.rc/vim.rc
+-'  299  0  ~/.rc/vim.rc
+-'  289  0  ~/.rc/vim.rc
+-'  283  0  ~/.rc/vim.rc
+-'  276  0  ~/.rc/vim.rc
+-'  271  0  ~/.rc/vim.rc
+-'  263  0  ~/.rc/vim.rc
+-'  239  0  ~/.rc/vim.rc
+-'  236  0  ~/.rc/vim.rc
+-'  232  0  ~/.rc/vim.rc
+-'  229  0  ~/.rc/vim.rc
+-'  226  0  ~/.rc/vim.rc
+-'  222  0  ~/.rc/vim.rc
+-'  216  0  ~/.rc/vim.rc
+-'  195  0  ~/.rc/vim.rc
+-'  190  0  ~/.rc/vim.rc
+-'  187  0  ~/.rc/vim.rc
+-'  184  0  ~/.rc/vim.rc
+-'  178  0  ~/.rc/vim.rc
+-'  174  0  ~/.rc/vim.rc
+-'  168  0  ~/.rc/vim.rc
+-'  161  0  ~/.rc/vim.rc
+-'  142  0  ~/.rc/vim.rc
+-'  139  0  ~/.rc/vim.rc
+-'  136  0  ~/.rc/vim.rc
+-'  131  0  ~/.rc/vim.rc
+-'  125  0  ~/.rc/vim.rc
+-'  120  0  ~/.rc/vim.rc
+-'  114  0  ~/.rc/vim.rc
+-'  102  0  ~/.rc/vim.rc
+-'  99  0  ~/.rc/vim.rc
+-'  93  0  ~/.rc/vim.rc
+-'  83  0  ~/.rc/vim.rc
+-'  79  0  ~/.rc/vim.rc
+-'  76  0  ~/.rc/vim.rc
+-'  72  0  ~/.rc/vim.rc
+-'  70  0  ~/.rc/vim.rc
+-'  57  0  ~/.rc/vim.rc
+-'  52  0  ~/.rc/vim.rc
+-'  50  0  ~/.rc/vim.rc
+-'  46  0  ~/.rc/vim.rc
+-'  40  0  ~/.rc/vim.rc
+-'  32  0  ~/.rc/vim.rc
+-'  29  0  ~/.rc/vim.rc
+-'  20  0  ~/.rc/vim.rc
+-'  13  0  ~/.rc/vim.rc
+-'  8  0  ~/.rc/vim.rc
+-'  1  5  ~/.rc/vim.rc
+-'  300  0  ~/.rc/vim.rc
+-'  1  0  ~/.vimrc
+-'  3  0  ~/.vimrc
+-'  16  0  ~/.rc
+-'  1  0  ~/
+-'  1  24  ~/.rc/.git/COMMIT_EDITMSG
+-'  458  0  ~/.rc/.git/COMMIT_EDITMSG
 -'  62  49  ~/.rc/zsh.rc
 -'  48  0  ~/.rc/zsh.rc
 -'  52  0  ~/.rc/zsh.rc
@@ -149,65 +838,35 @@ $
 -'  151  0  ~/.rc/zsh.rc
 -'  45  0  ~/.rc/zsh.rc
 -'  43  0  ~/.rc/zsh.rc
--'  39  0  ~/.rc/zsh.rc
--'  35  0  ~/.rc/zsh.rc
--'  24  0  ~/.rc/zsh.rc
--'  21  0  ~/.rc/zsh.rc
--'  11  0  ~/.rc/zsh.rc
--'  5  0  ~/.rc/zsh.rc
--'  1  0  ~/.rc/zsh.rc
--'  1  0  /tmp/zshecl22970
--'  1  0  ~/.rc/vim/bundle/YouCompleteMe/__Tag_List__
--'  3  0  ~/.rc/vim/bundle/YouCompleteMe/__Tag_List__
--'  2  0  ~/.rc/vim/bundle/YouCompleteMe/__Tag_List__
--'  103  9  ~/.rc/zsh.rc
--'  101  0  ~/.rc/zsh.rc
--'  99  0  ~/.rc/zsh.rc
--'  92  0  ~/.rc/zsh.rc
--'  78  0  ~/.rc/zsh.rc
--'  60  27  ~/.rc/zsh.rc
--'  59  27  ~/.rc/zsh.rc
--'  77  0  ~/.rc/zsh.rc
--'  14  0  ~/.rc/zsh.rc
--'  1  18  /projects/Work/frontend/startingpoints-site-app/.git/COMMIT_EDITMSG
--'  55  0  /projects/Work/frontend/startingpoints-site-app/.git/COMMIT_EDITMSG
--'  9  0  /projects/Work/frontend/startingpoints-site-app/.git/COMMIT_EDITMSG
--'  9  0  /projects/Work/frontend/startingpoints-site-app/Dockerfile
--'  1  0  /projects/Work/frontend/startingpoints-site-app/Dockerfile
--'  151  3  /projects/Work/startingpoints-api-docker/Dockerfile
--'  159  13  /projects/Work/startingpoints-api-docker/Dockerfile
--'  157  0  /projects/Work/startingpoints-api-docker/Dockerfile
--'  154  0  /projects/Work/startingpoints-api-docker/Dockerfile
--'  152  0  /projects/Work/startingpoints-api-docker/Dockerfile
--'  150  0  /projects/Work/startingpoints-api-docker/Dockerfile
--'  141  0  /projects/Work/startingpoints-api-docker/Dockerfile
--'  110  0  /projects/Work/startingpoints-api-docker/Dockerfile
--'  1  0  /projects/Work/startingpoints-api-docker/Dockerfile
--'  1  0  /projects/Work/frontend/startingpoints-site-app/Doq
--'  10  2  /projects/Work/frontend/startingpoints-site-app/Dockerfile
--'  1  0  /projects/Work/frontend/startingpoints-site-app/app/features/global/scss/global.app.scss
--'  1  0  /projects/Work/frontend/startingpoints-site-app/app/features/messaging/scss/messaging.app.scss
--'  1  0  /projects/Work/frontend/startingpoints-site-app/app/features/members/scss/members.app.scss
--'  1  0  /projects/Work/frontend/startingpoints-site-app/app/features/groups/scss/group.app.scss
--'  1  0  /projects/Work/frontend/startingpoints-site-app/app/features/user/scss/user.app.scss
--'  4  25  /projects/Work/frontend/startingpoints-site-app/app/views/index.html
--'  1  0  /projects/Work/frontend/startingpoints-site-app/app/views/__Tag_List__
--'  3  0  /projects/Work/frontend/startingpoints-site-app/app/views/__Tag_List__
--'  2  0  /projects/Work/frontend/startingpoints-site-app/app/views/__Tag_List__
--'  1  0  /projects/Work/frontend/startingpoints-site-app/app/views/index.html
--'  1  38  /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/myGroupsDropDown/myGroupsDropDown.html
--'  38  0  /projects/Work/frontend/startingpoints-site-app/app/features/members/members.app.module.js
--'  7  72  /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/myGroupsDropDown/myGroupsDropDown.html
--'  1  0  /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/myGroupsDropDown/myGroupsDropDownDirective.js
--'  3  0  /projects/Work/frontend/startingpoints-site-app/app/features/groups/myGroups/directives/groupCard/groupCard.html
--'  57  0  /projects/Work/frontend/startingpoints-site-app/app/features/groups/groups.app.module.js
--'  1  61  /projects/Work/frontend/startingpoints-site-app/app/features/groups/myGroups/directives/createNewGroupCard/createNewGroupCard.html
--'  2  0  /projects/Work/frontend/startingpoints-site-app/app/features/groups/myGroups/directives/groupCard/groupCard.html
 
 # Buffer list:
-%~/.rc/zsh.rc	62	49
+%~/.rc/vim.rc	294	0
+%~/.vimrc	1	0
 
 # History of marks within files (newest to oldest):
+
+> ~/.rc/vim.rc
+	"	294	0
+	.	1	0
+	+	1	0
+
+> ~/.vimrc
+	"	1	0
+	^	34	2
+	.	34	1
+	+	34	1
+
+> ~/.rc/ControlP
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/.rc/.git/COMMIT_EDITMSG
+	"	1	24
+	^	1	25
+	.	1	24
+	+	2	0
+	+	1	24
 
 > ~/.rc/zsh.rc
 	"	62	49
@@ -477,12 +1136,6 @@ $
 	+	63	29
 	+	58	29
 	+	45	29
-
-> ~/.vimrc
-	"	7	10
-	^	34	2
-	.	34	1
-	+	34	1
 
 > ~/__Tag_List__
 	"	3	0
@@ -999,28 +1652,3 @@ $
 
 > /projects/Work/frontend/startingpoints-site-app/app/templates/templatesModule.js
 	"	2	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/ControlP
-	"	10	0
-	.	2	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	20	0
-	+	11	0
-	+	2	0
-
-> /projects/Work/frontend/startingpoints-site-app/gulp/minify-html.js
-	"	7	0
-
-> /projects/Work/frontend/startingpoints-site-app/gulp/scripts.js
-	"	15	0
