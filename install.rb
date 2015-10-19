@@ -50,7 +50,7 @@ end
 
 def install_vim_plugins
   puts "[Updating vim plugins]"
-  output = `vim +PluginInstall +PluginUpdate +qall`
+  output = `echo | echo | vim +PluginInstall +PluginUpdate +qall &>/dev/null`
   puts "#{output}"
 end
 
