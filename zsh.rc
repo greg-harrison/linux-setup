@@ -51,7 +51,7 @@ export ZSH=$RCDIR/submodules/oh-my-zsh.git
 export ZSH_THEME="af-magic"
 
 #plugins=(vi-mode rvm tmux)
-plugins=(rvm tmux git node npm bower colorize)
+plugins=(rvm tmux git node npm bower colorize ssh-agent)
 
 source $RCDIR/submodules/oh-my-zsh.git/oh-my-zsh.sh
 source $RCDIR/submodules/zsh-syntax-highlighting.git/zsh-syntax-highlighting.zsh
@@ -192,8 +192,8 @@ alias rb='git svn rebase'
 alias sdf=git_diff
 alias up=run_docker
 alias build=build_docker
-alias cleandockerimages="sudo docker images --no-trunc | grep none | awk '{print $3}' | xargs -r sudo docker rmi"
-alias cleandockercontainers="sudo docker ps -a --no-trunc | grep 'Exit' | awk '{print $1}' | xargs -r sudo docker rm"
+alias cleandockerimages="sudo docker images --no-trunc | grep none | awk '{print $3}' | xargs -r sudo docker rmi -f"
+alias cleandockercontainers="sudo docker ps -a --no-trunc | grep 'Exit' | awk '{print $1}' | xargs -r sudo docker rm -f"
 alias cleandockervolumes="sudo docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes:1.7.0"
 alias cleandocker="cleandockercontainers;cleandockerimages;cleandockervolumes"
 alias yu='sudo apt-get update && sudo apt-get upgrade'
