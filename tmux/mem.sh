@@ -5,7 +5,6 @@ if [ $IS_OSX ]; then
 else
   free="$(free -t)"
   MEM=$(echo "$free" | grep Mem | awk '{printf("%d", (($3 - $7) / $2) * 100)}')
-  SWAP=$(echo "$free" | grep Swap | awk '{printf("%d", ($3 / $2) * 100)}')
 
-  echo "$MEM%|$SWAP%"
+  echo "$MEM%"
 fi

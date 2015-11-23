@@ -15,6 +15,8 @@ Plugin 'gmarik/Vundle.vim'
 " Navigation "
 Plugin 'kien/ctrlp.vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'benmills/vimux'
+Plugin 'epeli/slimux'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'tpope/vim-vinegar'
 
@@ -37,6 +39,10 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'vim-scripts/gitignore'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'tpope/vim-obsession'
+
 
 " Editing "
 Plugin 'tpope/vim-repeat'
@@ -167,10 +173,22 @@ nmap <Leader>s <Plug>(easymotion-s)
 nmap <Leader>d <Plug>(easymotion-s2)
 
 "Airline "
-set noshowmode
-let g:airline#extensions#tabline#enabled = 1
+set laststatus=2   " Always show the statusline "
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline) "
 let g:airline_powerline_fonts=1
-let g:airline_theme='powerlineish'
+let g:airline_theme='jellybeans'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_y='%{ObsessionStatus()}'
+
+"Tmuxline "
+let g:airline#extensions#tmuxline#enabled = 1
+let g:tmuxline_preset = {
+  \'a' : '#S',
+  \'win': ['#I', '#W'],
+  \'cwin': ['#I', '#W'],
+  \'x' : '#(cat ~/.thyme-tmux)',
+  \'y' : ['%d-%b-%y %H:%M', '#(~/.rc/tmux/cpu.sh)%', '#(~/.rc/tmux/mem.sh)'],
+  \'options': {'status-justify': 'left'}}
 
 "Navigate wrapped lines "
 nnoremap j gj
@@ -187,6 +205,21 @@ nnoremap <Leader>u :GundoToggle<CR>
 
 " Vim Fugitive "
 nmap <Leader>g :Gstatus<CR>
+
+" vimux "
+function VimuxMakeRun()
+  :VimuxInterruptRunner
+  :VimuxInterruptRunner
+  :VimuxRunCommand("clear;make run")
+endfunction
+map <Leader>r :exec VimuxMakeRun()<CR>
+
+
+function SlimuxMakeRun()
+  SlimuxSendKeys("<C-C>")
+  SlimuxShellRun("clear; make run;")
+endfunction
+map <Leader>e :exec SlimuxMakeRun()<CR>
 
 " limelight and goyo "
 nmap <Leader>l <Plug>(Limelight)
@@ -281,11 +314,6 @@ autocmd FileType conf,fstab,ruby,python let b:comment_leader = '# '
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
-" Airline"
-set laststatus=2   " Always show the statusline "
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline) "
-let g:airline_powerline_fonts=1
-let g:airline_theme='badwolf'
 
 " Taglist "
 map <silent> <Leader>t :TlistToggle<CR>
@@ -293,7 +321,8 @@ let Tlist_Auto_Open=1
 let Tlist_Exit_OnlyWindow=1
 
 "Closure compiler "
-let g:syntastic_javascript_closurecompiler_path='/root/.compiler/compiler.jar'
-let g:syntastic_javascript_checkers = ['gjslint','jshint','Closure']
+let g:syntastic_javascript_checkers = ['gjslint','jshint']
 let g:syntastic_aggregate_errors = 1
-
+let g:syntastic_javascript_gjslint_quiet_messages = {
+  \ "type": "style",
+  \ "regex": 'Line too long' }

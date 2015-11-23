@@ -16,7 +16,7 @@ set-window-option -g window-status-bell-attr bold
 set-option -g window-status-format "#[fg=#333333,bg=#333333] #[fg=white]#I#[fg=#333333,bg=#222222]▌#[fg=white]#W "
 set -g window-status-current-format "#[fg=#555555,bg=#555555] #[fg=white]#I#($RCDIR/tmux/color.sh fg)▐#[fg=#111111]#($RCDIR/tmux/color.sh bg)#W "
 # Show some system info
-set -g status-right '#[fg=#888888] CPU:#($RCDIR/tmux/cpu.sh)%% Mem:#($RCDIR/tmux/mem.sh) #[fg=#8899AA]#($RCDIR/tmux/time.sh)'
+set -g status-right '#(cat ~/.thyme-tmux) #[fg=#888888] CPU:#(cpu_percentage)%% Mem:#($RCDIR/tmux/mem.sh) #[fg=#8899AA]#($RCDIR/tmux/time.sh)'
 set -g status-left ''
 
 # Ctrl+Q for prefix
@@ -35,8 +35,8 @@ bind-key -n M-j next-window
 bind-key -n M-k previous-window
 
 # Alt hl to swap tabs
-bind-key -n M-h swap-window -t :-1 
-bind-key -n M-l swap-window -t :+1 
+#bind-key -n M-h swap-window -t :-1 
+#bind-key -n M-l swap-window -t :+1 
 
 # Renumber tabs on close
 set -g renumber-windows on
@@ -109,21 +109,25 @@ set -g mode-mouse on
 setw -g mouse-select-window on
 setw -g mouse-select-pane on
 setw -g aggressive-resize on
+set -g focus-events on
 
 # List of plugins
 set -g @tpm_plugins "              \
   tmux-plugins/tpm                 \
   tmux-plugins/tmux-sensible       \
+  tmux-plugins/tmux-sessionist     \
   tmux-plugins/tmux-resurrect      \
+  tmux-plugins/tmux-continuum      \
+  tmux-plugins/tmux-cpu            \
 "
 # initializes TMUX plugin manager
 run-shell ~/.rc/submodules/tpm/tpm
 
 # Tmux resurrect
+set -g @continuum-restore 'on'
 set -g @resurrect-save 'S'
 set -g @resurrect-restore 'R'
 set -g @resurrect-strategy-vim 'session'
-
 
 unbind C-b
 set -g prefix C-a
