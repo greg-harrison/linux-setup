@@ -1,5 +1,8 @@
 syntax on
 set t_Co=256
+" color mango "
+syntax on
+set t_Co=256
 set nocompatible
 filetype off
 
@@ -16,7 +19,6 @@ Plugin 'benmills/vimux'
 Plugin 'epeli/slimux'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'tpope/vim-vinegar'
-Plugin 'tpope/vim-unimpaired'
 
 " Color "
 Plugin 'godlygeek/csapprox'
@@ -26,10 +28,6 @@ Plugin 'w0ng/vim-hybrid'
 Plugin 'tpope/vim-vividchalk'
 Plugin 'goatslacker/mango.vim'
 Plugin 'sjl/badwolf'
-Plugin 'joshdick/onedark.vim'
-Plugin 'joshdick/airline-onedark.vim'
-Plugin 'sickill/vim-monokai'
-Plugin 'flazz/vim-colorschemes'
 
 " Search "
 Plugin 'rking/ag.vim'
@@ -39,7 +37,6 @@ Plugin 'rking/ag.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/gitignore'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
@@ -53,9 +50,6 @@ Plugin 'tpope/vim-sensible'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 
-" Comments "
-Plugin 'tpope/vim-commentary'
-
 " Decide, do we need these? Goyo vs NrrwRgn "
 Plugin 'junegunn/goyo.vim'
 Plugin 'junegunn/limelight.vim'
@@ -68,22 +62,20 @@ Plugin 'tmhedberg/matchit'
 Plugin 'tpope/vim-surround'
 
 " Language support "
-Plugin 'mattn/emmet-vim'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/VimClojure'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'moll/vim-node'
 Plugin 'pangloss/vim-javascript'
-Plugin 'crusoexia/vim-javascript-lib'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'othree/yajs'
+Plugin 'burnettk/vim-angular'
 Plugin 'millermedeiros/vim-esformatter'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'sidorares/node-vim-debugger'
 Plugin 'ekalinin/Dockerfile.vim'
 
 call vundle#end()
+
 
 set t_Co=256
 let g:rehash256 = 1 "
@@ -92,15 +84,8 @@ let g:badwolf_darkgutter = 1
 let g:badwolf_css_props_highlight = 1
 
 let g:hybrid_use_Xresources = 1
+colorscheme jellybeans
 set background=dark
-colorscheme apprentice
-
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
 
 " hide the gui menubar "
 if has('gui_running')
@@ -117,6 +102,13 @@ endif
 syntax on
 filetype plugin indent on
 set title                " change the terminal's title "
+
+"viminfo"
+set viminfo='50,%,<1000,s100,:20,n~/.vim/viminfo
+
+"Search help "
+set incsearch ignorecase hlsearch
+set autoread
 set smartcase
 set magic
 set showmatch
@@ -126,15 +118,11 @@ set si
 set wrap
 set nu
 
-set showcmd
-
 "Compatibility "
 set encoding=utf8
 set shiftwidth=2 softtabstop=2 tabstop=2
 "set smarttab " "use a mix of tabs and spaces"
 set expandtab "always use spaces"
-
-set cursorline
 
 "Remove extra files "
 set nobackup
@@ -160,14 +148,13 @@ let mapleader=","
 
 "Ctrlp "
 map <Leader>b <ESC>:CtrlPBuffer<CR>
-map <C-b> <ESC>:CtrlPBuffer<CR>
 map <Leader><SPACE> <ESC>:CtrlPMRUFiles<CR>
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
 let g:ctrlp_max_depth = 10
 let g:ctrlp_max_files = 0 "
-set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi,*/node_modules/* "
+set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi "
 if executable("ag")
    set grepprg=ag\ --nogroup\ --nocolor
    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -189,10 +176,9 @@ nmap <Leader>d <Plug>(easymotion-s2)
 set laststatus=2   " Always show the statusline "
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline) "
 let g:airline_powerline_fonts=1
-let g:airline_theme='behelit'
+let g:airline_theme='jellybeans'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_section_y='%{ObsessionStatus()}'
-let g:airline_section_z='%{ShowCount()}'
 
 "Tmuxline "
 let g:airline#extensions#tmuxline#enabled = 1
@@ -208,15 +194,17 @@ let g:tmuxline_preset = {
 nnoremap j gj
 nnoremap k gk
 
+"Noob training "
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
 " gundo "
 nnoremap <Leader>u :GundoToggle<CR>
 
-" nerd tree "
-map <C-n> :NERDTreeToggle %:p:h<CR>
-
 " Vim Fugitive "
 nmap <Leader>g :Gstatus<CR>
-nmap <Leader>gc :Gcommit<CR>
 
 " vimux "
 function VimuxMakeRun()
@@ -327,13 +315,6 @@ noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 
-" Console log from insert mode; Puts focus inside parentheses
-imap cll console.log();<Esc>==f(a
-" Console log from visual mode on next line, puts visual selection inside parentheses
-vmap cll yocll<Esc>p
-" Console log from normal mode, inserted on next line with word your on inside parentheses
-nmap cll yiwocll<Esc>p 
-
 " Taglist "
 map <silent> <Leader>t :TlistToggle<CR>
 let Tlist_Auto_Open=1
@@ -345,39 +326,3 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_gjslint_quiet_messages = {
   \ "type": "style",
   \ "regex": 'Line too long' }
-
- set mouse=a
-  map <ScrollWheelUp> <C-Y>
-   map <ScrollWheelDown> <C-E>
-
-"gitGutter"
-highlight GitGutterChange ctermfg=yellow guifg=darkyellow
-
-let s:prevcountcache=[[], 0]
-function! ShowCount()
-    let key=[@/, b:changedtick]
-    if s:prevcountcache[0]==#key
-        return s:prevcountcache[1]
-    endif
-    let s:prevcountcache[0]=key
-    let s:prevcountcache[1]=0
-    let pos=getpos('.')
-    try
-        redir => subscount
-        silent %s///gne
-        redir END
-        let result=matchstr(subscount, '\d\+')
-        let s:prevcountcache[1]=result
-        return result
-    finally
-        call setpos('.', pos)
-    endtry
-endfunction
-set ruler
-
-" Hotkeys "
-
-" CTRL - S to :w "
-map <silent> <C-S>          :update<CR>
-vnoremap <silent> <C-S>         <C-C>:update<CR>
-inoremap <silent> <C-S>         <C-O>:update<CR>

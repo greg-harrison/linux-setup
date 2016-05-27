@@ -5,16 +5,9 @@ require 'fileutils'
 BASE_DIR = File.dirname(__FILE__)
 
 links = {
-  'fonts'     => '.fonts',
-  'gnome.rc'  => '.gnomerc',
   'tmux.rc'   => '.tmux.conf',
-  'urxvt.rc'  => '.Xdefaults',
   'vim'       => '.vim',
-  'vim.rc'    => '.vimrc',
-  'xmobar.rc' => '.xmobarrc',
-  'xmonad.rc' => '.xmonad/xmonad.hs',
-  'zprofile'  => '.zprofile',
-  'zsh.rc'    => '.zshrc'
+  'vim.rc'    => '.vimrc'
 }
 
 def delete(file)

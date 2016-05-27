@@ -8,34 +8,75 @@
 # hlsearch on (H) or off (h):
 ~H
 # Last Search Pattern:
-~MSle0~/bindkey
+~MSle0~/contacts
+
+# Last Substitute Search Pattern:
+~MSle0&^\V" 
 
 # Last Substitute String:
 $
 
 # Command Line History (newest to oldest):
-:wq
-:w
 :q
-:q!
-:PluginUpdate
-:PluginInstall
-:182,191norm! @e
-:166,179norm! @e
-:165,179norm! @e
-:164,179norm! @e
 :s
-:e
-:1
-:q1
-:set nopaste
-:set paste
-:tags
-:set background=dark
-:set background=light
-:jj
+:w
+:;
+:colorscheme bvemu
+:Git push origin resetPassword
+:wq
+:Gcommit
+:v ~/Developer/
+:'<,'>
+:k1
+:colorscheme mo\
+:'<,'>q
+:PluginList
+:silent s/^/
+:silent s/^/ 
+:gc
+:q!
+:w!
+:Git push origin login-signup
 
 # Search String History (newest to oldest):
+? @$
+??\a
+? \<scrollElement\>
+?/background
+?////
+?/ag password
+? \<docker\>
+?/----
+?/total
+?/get
+?/getTh
+?//Some browsers use different properties to track scrolling distance
+?//Need this for multi-browser support
+? ^\V\/\/ 
+?/cursor
+?/high
+?/onedark
+?/create
+?/sthis
+?/contacts
+?/defbce "on"
+?/default
+?/hello
+?/hellow
+?/syntax
+?/vim
+?/Pl	
+?/Plug
+?/viminfo
+? ^\V" 
+? ^
+? \%(^parent\)\@<! 
+?/style
+?/config
+? \<link\>
+?//
+? \<vim\>
+? \<Session\>
 ?/bindkey
 ?/profileP
 ?/v
@@ -50,6 +91,37 @@ $
 # Expression History (newest to oldest):
 
 # Input Line History (newest to oldest):
+@forgotPassword
+@scrollWatch.template.html
+@scrollWatch.util.component.js
+@infinitescroll.template.html
+@templates
+@infiniteScroll.util.component.js
+@directives
+@components.js
+@utils
+@[{y(es)},n(o),a(ll),q(uit)] 
+@scrollWatcherService.js
+@signup.scss
+@scss
+@sign-up.html
+@action.button.component.html
+@action.button.component.js
+@/home/greg/Developer/StartingPoints2/startingpoints-lib-patterns/features/forms/scss/forms.components.scss
+@/home/greg/Developer/StartingPoints2/startingpoints-lib-patterns/features/forms/scss/forms.component.scss
+@forms.scss
+@input.dropdown.component.spec.js
+@dock.theme
+@input-dropdown.html
+@input.dropdown.component.js
+@input.checkbox.component.spec.js
+@spec
+@input-checkbox.html
+@input.checkbox.component.html
+@/home/greg/Developer/StartingPoints2/startingpoints-lib-patterns/features/inputs/directives/input.checkbox.component.js
+@checkbox.input.component.js
+@inputs
+@y
 @user.app.module.js
 @members.app.module.js
 @this
@@ -70,663 +142,83 @@ $
 
 # Registers:
 "0	LINE	0
-	syntax on
-	set t_Co=256
-	" color mango "
-	syntax on
-	set t_Co=256
-	set nocompatible
-	filetype off
 	
-	" Vundle "
-	set rtp+=~/.vim/bundle/Vundle.vim/
-	call vundle#begin()
-	Plugin 'gmarik/Vundle.vim'
-	
-	
-	" Navigation "
-	Plugin 'kien/ctrlp.vim'
-	Plugin 'christoomey/vim-tmux-navigator'
-	Plugin 'Lokaltog/vim-easymotion'
-	Plugin 'tpope/vim-vinegar'
-	
-	" Color "
-	Plugin 'godlygeek/csapprox'
-	Plugin 'ap/vim-css-color'
-	Plugin 'nanotech/jellybeans.vim'
-	Plugin 'w0ng/vim-hybrid'
-	Plugin 'tpope/vim-vividchalk'
-	Plugin 'goatslacker/mango.vim'
-	Plugin 'sjl/badwolf'
-	
-	" Search "
-	Plugin 'rking/ag.vim'
-	
-	" Utilities "
-	" Plugin 'mhinz/vim-startify'
-	Plugin 'sjl/gundo.vim'
-	Plugin 'tpope/vim-fugitive'
-	Plugin 'bling/vim-airline'
-	Plugin 'vim-scripts/gitignore'
-	Plugin 'airblade/vim-gitgutter'
-	
-	" Editing "
-	Plugin 'tpope/vim-repeat'
-	Plugin 'tpope/vim-sensible'
-	Plugin 'Valloric/YouCompleteMe'
-	Plugin 'scrooloose/syntastic'
-	
-	" Decide, do we need these? Goyo vs NrrwRgn "
-	Plugin 'junegunn/goyo.vim'
-	Plugin 'junegunn/limelight.vim'
-	
-	Plugin 'chrisbra/NrrwRgn'
-	
-	" Tag Support "
-	Plugin 'vim-scripts/taglist.vim'
-	Plugin 'tmhedberg/matchit'
-	Plugin 'tpope/vim-surround'
-	
-	" Language support "
-	Plugin 'vim-ruby/vim-ruby'
-	Plugin 'vim-scripts/VimClojure'
-	Plugin 'kchmck/vim-coffee-script'
-	Plugin 'cakebaker/scss-syntax.vim'
-	Plugin 'moll/vim-node'
-	Plugin 'pangloss/vim-javascript'
-	Plugin 'burnettk/vim-angular'
-	Plugin 'millermedeiros/vim-esformatter'
-	Plugin 'marijnh/tern_for_vim'
-	Plugin 'sidorares/node-vim-debugger'
-	Plugin 'ekalinin/Dockerfile.vim'
-	
-	call vundle#end()
-	
-	
-	set t_Co=256
-	let g:rehash256 = 1 "
-	
-	let g:badwolf_darkgutter = 1
-	let g:badwolf_css_props_highlight = 1
-	
-	let g:hybrid_use_Xresources = 1
-	colorscheme jellybeans
-	set background=dark
-	
-	" hide the gui menubar "
-	if has('gui_running')
-	  set guioptions=egmr
-	  if has("mac")
-	    set guifont=Menlo\ for\ Powerline:h11
-	  else
-	    set guifont=Menlo\ for\ Powerline\ 10
-	  endif
-	endif
-	
-	
-	"Code handling "
-	syntax on
-	filetype plugin indent on
-	set title                " change the terminal's title "
-	
-	"viminfo"
-	set viminfo='50,%,<1000,s100,:20,n~/.vim/viminfo
-	
-	"Search help "
-	set incsearch ignorecase hlsearch
-	set autoread
-	set smartcase
-	set magic
-	set showmatch
-	set mat=2
-	set ai
-	set si
-	set wrap
-	set nu
-	
-	"Compatibility "
-	set encoding=utf8
-	set shiftwidth=2 softtabstop=2 tabstop=2
-	"set smarttab " "use a mix of tabs and spaces"
-	set expandtab "always use spaces"
-	
-	"Remove extra files "
-	set nobackup
-	set nowb
-	set noswapfile
-	
-	"Contingencies "
-	set history=10000         " remember more commands and search history "
-	set undolevels=10000      " use many muchos levels of undo "
-	set wildignore=*.swp,*.bak,*.pyc,*.class
-	set hidden "Save buffers instead of closing "
-	
-	"Fix annoying "
-	set visualbell           " don't beep "
-	set noerrorbells         " don't beep "
-	set pastetoggle=<F2>
-	
-	"Quicker command entry "
-	nnoremap ; :
-	
-	"Customization and plugin mapping "
-	let mapleader=","
-	
-	"Ctrlp "
-	map <Leader>b <ESC>:CtrlPBuffer<CR>
-	map <Leader><SPACE> <ESC>:CtrlPMRUFiles<CR>
-	let g:ctrlp_working_path_mode = 'ra'
-	let g:ctrlp_use_caching = 0
-	let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
-	let g:ctrlp_max_depth = 10
-	let g:ctrlp_max_files = 0 "
-	set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi "
-	if executable("ag")
-	   set grepprg=ag\ --nogroup\ --nocolor
-	   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	else
-	  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-	  let g:ctrlp_prompt_mappings = {
-	    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-	    \ }
-	endif
-	
-	"Easymotion "
-	nmap <Leader>f <Plug>(easymotion-prefix)
-	nmap <Leader>j <Plug>(easymotion-j)
-	nmap <Leader>k <Plug>(easymotion-k)
-	nmap <Leader>s <Plug>(easymotion-s)
-	nmap <Leader>d <Plug>(easymotion-s2)
-	
-	"Airline "
-	set noshowmode
-	let g:airline#extensions#tabline#enabled = 1
-	let g:airline_powerline_fonts=1
-	let g:airline_theme='powerlineish'
-	
-	"Navigate wrapped lines "
-	nnoremap j gj
-	nnoremap k gk
-	
-	"Noob training "
-	map <up> <nop>
-	map <down> <nop>
-	map <left> <nop>
-	map <right> <nop>
-	
-	" gundo "
-	nnoremap <Leader>u :GundoToggle<CR>
-	
-	" Vim Fugitive "
-	nmap <Leader>g :Gstatus<CR>
-	
-	" limelight and goyo "
-	nmap <Leader>l <Plug>(Limelight)
-	xmap <Leader>l <Plug>(Limelight)
-	nmap <Leader>o :Goyo<CR>
-	
-	" color name (:help cterm-colors) or ANSI code
-	let g:limelight_conceal_ctermfg = 'gray'
-	let g:limelight_conceal_ctermfg = 240
-	" Color name (:help gui-colors) or RGB color
-	let g:limelight_conceal_guifg = 'DarkGray'
-	let g:limelight_conceal_guifg = '#777777'
-	" Default: 0.5
-	let g:limelight_default_coefficient = 0.7
-	" Number of preceding/following paragraphs to include (default: 0)
-	let g:limelight_paragraph_span = 1
-	autocmd! User GoyoEnter Limelight
-	autocmd! User GoyoLeave Limelight!
-	function! s:goyo_enter()
-	  SyntasticToggleMode
-	endfunction
-	function! s:goyo_leave()
-	  SyntasticToggleMode
-	endfunction
-	autocmd User GoyoEnter call <SID>goyo_enter()
-	autocmd User GoyoLeave call <SID>goyo_leave()
-	
-	" Word wrap w/o line breaks "
-	set wrap
-	set linebreak
-	set list
-	set nostartofline
-	
-	" Nicer autocomplete commands "
-	set wildmode=longest:full
-	set wildmenu
-	
-	" Screw backups "
-	set nobackup nowritebackup noswapfile
-	
-	set colorcolumn=+1
-	set clipboard=unnamed
-	
-	set fileformats=unix,dos,mac
-	scriptencoding utf-8
-	set encoding=utf-8
-	
-	" Disable ex mode "
-	nnoremap Q <nop>
-	
-	" folds! "
-	set foldenable
-	set foldmethod=indent
-	set foldnestmax=2
-	set foldlevel=1
-	set foldlevelstart=1
-	set foldminlines=10
-	set fillchars=vert:\|,fold:\
-	map <Leader>f zR
-	" Toggle folds with space "
-	fu! ToggleFold()
-	   if foldlevel('.') == 0
-	       normal! l
-	   else
-	       if foldclosed('.') < 0
-	           . foldclose
-	       else
-	           . foldopen
-	       endif
-	   endif
-	   echo
-	endf
-	noremap <space> :call ToggleFold()<CR>
-	
-	" Systastic "
-	let g:syntastic_enable_signs=1
-	let g:syntastic_auto_loc_list=1
-	let g:syntastic_check_on_open=1
-	let g:syntastic_loc_list_height=5
-	let g:syntastic_always_populate_loc_list=1
-	map <Leader><Tab> :Errors<CR>
-	
-	
-	" ESFormatting "
-	nnoremap <silent> <leader>es :Esformatter<CR>
-	vnoremap <silent> <leader>es :EsformatterVisual<CR>
-	
-	"Easycommenting "
-	autocmd FileType js,coffee,c,cpp,java,javascript let b:comment_leader = '// '
-	autocmd FileType vim,rc let b:comment_leader = '" ' "
-	autocmd FileType conf,fstab,ruby,python let b:comment_leader = '# '
-	noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-	noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-	
-	" Airline"
-	set laststatus=2   " Always show the statusline "
-	set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline) "
-	let g:airline_powerline_fonts=1
-	let g:airline_theme='badwolf'
-	
-	" Taglist "
-	map <silent> <Leader>t :TlistToggle<CR>
-	let Tlist_Auto_Open=1
-	let Tlist_Exit_OnlyWindow=1
-	
-	"Closure compiler "
-	let g:syntastic_javascript_closurecompiler_path='/root/.compiler/compiler.jar'
-	let g:syntastic_javascript_checkers = ['gjslint','jshint','Closure']
-	let g:syntastic_aggregate_errors = 1
-	
-""1	LINE	0
-	syntax on
-	set t_Co=256
-	set nocompatible
-	filetype off
-	
-	" Vundle "
-	set rtp+=~/.vim/bundle/Vundle.vim/
-	call vundle#begin()
-	Plugin 'gmarik/Vundle.vim'
-	
-	
-	" Navigation "
-	Plugin 'kien/ctrlp.vim'
-	Plugin 'christoomey/vim-tmux-navigator'
-	Plugin 'Lokaltog/vim-easymotion'
-	Plugin 'tpope/vim-vinegar'
-	
-	" Color "
-	Plugin 'godlygeek/csapprox'
-	Plugin 'ap/vim-css-color'
-	Plugin 'nanotech/jellybeans.vim'
-	Plugin 'w0ng/vim-hybrid'
-	Plugin 'tpope/vim-vividchalk'
-	Plugin 'goatslacker/mango.vim'
-	Plugin 'sjl/badwolf'
-	
-	" Search "
-	Plugin 'rking/ag.vim'
-	
-	" Utilities "
-	Plugin 'mhinz/vim-startify'
-	Plugin 'sjl/gundo.vim'
-	Plugin 'tpope/vim-fugitive'
-	Plugin 'bling/vim-airline'
-	Plugin 'vim-scripts/gitignore'
-	Plugin 'airblade/vim-gitgutter'
-	
-	" Editing "
-	Plugin 'tpope/vim-repeat'
-	Plugin 'tpope/vim-sensible'
-	Plugin 'Valloric/YouCompleteMe'
-	Plugin 'scrooloose/syntastic'
-	
-	" Decide, do we need these? Goyo vs NrrwRgn "
-	Plugin 'junegunn/goyo.vim'
-	Plugin 'junegunn/limelight.vim'
-	
-	Plugin 'chrisbra/NrrwRgn'
-	
-	" Tag Support "
-	Plugin 'vim-scripts/taglist.vim'
-	Plugin 'tmhedberg/matchit'
-	Plugin 'tpope/vim-surround'
-	
-	" Language support "
-	Plugin 'vim-ruby/vim-ruby'
-	Plugin 'vim-scripts/VimClojure'
-	Plugin 'kchmck/vim-coffee-script'
-	Plugin 'cakebaker/scss-syntax.vim'
-	Plugin 'moll/vim-node'
-	Plugin 'pangloss/vim-javascript'
-	Plugin 'burnettk/vim-angular'
-	Plugin 'millermedeiros/vim-esformatter'
-	Plugin 'marijnh/tern_for_vim'
-	Plugin 'sidorares/node-vim-debugger'
-	Plugin 'ekalinin/Dockerfile.vim'
-	
-	call vundle#end()
-	
-	
-	set t_Co=256
-	let g:rehash256 = 1 "
-	
-	let g:badwolf_darkgutter = 1
-	let g:badwolf_css_props_highlight = 1
-	
-	let g:hybrid_use_Xresources = 1
-	colorscheme jellybeans
-	set background=dark
-	set background=light
-	
-	" hide the gui menubar "
-	if has('gui_running')
-	  set guioptions=egmr
-	  if has("mac")
-	    set guifont=Menlo\ for\ Powerline:h11
-	  else
-	    set guifont=Menlo\ for\ Powerline\ 10
-	  endif
-	endif
-	
-	
-	"Code handling "
-	syntax on
-	filetype plugin indent on
-	set title                " change the terminal's title "
-	
-	"viminfo"
-	set viminfo='50,%,<1000,s100,:20,n~/.vim/viminfo
-	
-	"Search help "
-	set incsearch ignorecase hlsearch
-	set autoread
-	set smartcase
-	set magic
-	set showmatch
-	set mat=2
-	set ai
-	set si
-	set wrap
-	set nu
-	
-	"Compatibility "
-	set encoding=utf8
-	set shiftwidth=2 softtabstop=2 tabstop=2
-	"set smarttab " "use a mix of tabs and spaces"
-	set expandtab "always use spaces"
-	
-	"Remove extra files "
-	set nobackup
-	set nowb
-	set noswapfile
-	
-	"Contingencies "
-	set history=10000         " remember more commands and search history "
-	set undolevels=10000      " use many muchos levels of undo "
-	set wildignore=*.swp,*.bak,*.pyc,*.class
-	set hidden "Save buffers instead of closing "
-	
-	"Fix annoying "
-	set visualbell           " don't beep "
-	set noerrorbells         " don't beep "
-	set pastetoggle=<F2>
-	
-	"Quicker command entry "
-	nnoremap ; :
-	
-	"Customization and plugin mapping "
-	let mapleader=","
-	
-	"Ctrlp "
-	map <Leader>b <ESC>:CtrlPBuffer<CR>
-	map <Leader><SPACE> <ESC>:CtrlPMRUFiles<CR>
-	let g:ctrlp_working_path_mode = 'ra'
-	let g:ctrlp_use_caching = 0
-	let g:ctrlp_custom_ignore = '\v[\/](_build|(\.(git|hg|svn)))$'
-	let g:ctrlp_max_depth = 10
-	let g:ctrlp_max_files = 0 "
-	set wildignore+=*/tmp/*,*.o,*.so,*.swp,*.zip,*.jar,*.class,*.pdf,*.gif,*.png,*.jpg,*.o,*.hi "
-	if executable("ag")
-	   set grepprg=ag\ --nogroup\ --nocolor
-	   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	else
-	  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-	  let g:ctrlp_prompt_mappings = {
-	    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-	    \ }
-	endif
-	
-	"Easymotion "
-	nmap <Leader>f <Plug>(easymotion-prefix)
-	nmap <Leader>j <Plug>(easymotion-j)
-	nmap <Leader>k <Plug>(easymotion-k)
-	nmap <Leader>s <Plug>(easymotion-s)
-	nmap <Leader>d <Plug>(easymotion-s2)
-	
-	"Airline "
-	set noshowmode
-	let g:airline#extensions#tabline#enabled = 1
-	let g:airline_powerline_fonts=1
-	let g:airline_theme='powerlineish'
-	
-	"Navigate wrapped lines "
-	nnoremap j gj
-	nnoremap k gk
-	
-	"Noob training "
-	map <up> <nop>
-	map <down> <nop>
-	map <left> <nop>
-	map <right> <nop>
-	
-	" gundo "
-	nnoremap <Leader>u :GundoToggle<CR>
-	
-	" Vim Fugitive "
-	nmap <Leader>g :Gstatus<CR>
-	
-	" limelight and goyo "
-	nmap <Leader>l <Plug>(Limelight)
-	xmap <Leader>l <Plug>(Limelight)
-	nmap <Leader>o :Goyo<CR>
-	
-	" color name (:help cterm-colors) or ANSI code
-	let g:limelight_conceal_ctermfg = 'gray'
-	let g:limelight_conceal_ctermfg = 240
-	" Color name (:help gui-colors) or RGB color
-	let g:limelight_conceal_guifg = 'DarkGray'
-	let g:limelight_conceal_guifg = '#777777'
-	" Default: 0.5
-	let g:limelight_default_coefficient = 0.7
-	" Number of preceding/following paragraphs to include (default: 0)
-	let g:limelight_paragraph_span = 1
-	autocmd! User GoyoEnter Limelight
-	autocmd! User GoyoLeave Limelight!
-	function! s:goyo_enter()
-	  SyntasticToggleMode
-	endfunction
-	function! s:goyo_leave()
-	  SyntasticToggleMode
-	endfunction
-	autocmd User GoyoEnter call <SID>goyo_enter()
-	autocmd User GoyoLeave call <SID>goyo_leave()
-	
-	" Word wrap w/o line breaks "
-	set wrap
-	set linebreak
-	set list
-	set nostartofline
-	
-	" Nicer autocomplete commands "
-	set wildmode=longest:full
-	set wildmenu
-	
-	" Screw backups "
-	set nobackup nowritebackup noswapfile
-	
-	set colorcolumn=+1
-	set clipboard=unnamed
-	
-	set fileformats=unix,dos,mac
-	scriptencoding utf-8
-	set encoding=utf-8
-	
-	" Disable ex mode "
-	nnoremap Q <nop>
-	
-	" folds! "
-	set foldenable
-	set foldmethod=indent
-	set foldnestmax=2
-	set foldlevel=1
-	set foldlevelstart=1
-	set foldminlines=10
-	set fillchars=vert:\|,fold:\
-	map <Leader>f zR
-	" Toggle folds with space "
-	fu! ToggleFold()
-	   if foldlevel('.') == 0
-	       normal! l
-	   else
-	       if foldclosed('.') < 0
-	           . foldclose
-	       else
-	           . foldopen
-	       endif
-	   endif
-	   echo
-	endf
-	noremap <space> :call ToggleFold()<CR>
-	
-	" Systastic "
-	let g:syntastic_enable_signs=1
-	let g:syntastic_auto_loc_list=1
-	let g:syntastic_check_on_open=1
-	let g:syntastic_loc_list_height=5
-	let g:syntastic_always_populate_loc_list=1
-	map <Leader><Tab> :Errors<CR>
-	
-	
-	" ESFormatting "
-	nnoremap <silent> <leader>es :Esformatter<CR>
-	vnoremap <silent> <leader>es :EsformatterVisual<CR>
-	
-	"Easycommenting "
-	autocmd FileType js,coffee,c,cpp,java,javascript let b:comment_leader = '// '
-	autocmd FileType vim,rc let b:comment_leader = '" ' "
-	autocmd FileType conf,fstab,ruby,python let b:comment_leader = '# '
-	noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-	noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-	
-	" Airline"
-	set laststatus=2   " Always show the statusline "
-	set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline) "
-	let g:airline_powerline_fonts=1
-	let g:airline_theme='badwolf'
-	
-	" Taglist "
-	map <silent> <Leader>t :TlistToggle<CR>
-	let Tlist_Auto_Open=1
-	let Tlist_Exit_OnlyWindow=1
-	
-	"Closure compiler "
-	let g:syntastic_javascript_closurecompiler_path='/root/.compiler/compiler.jar'
-	let g:syntastic_javascript_checkers = ['gjslint','jshint','Closure']
-	let g:syntastic_aggregate_errors = 1
+"1	LINE	0
 	
 "2	LINE	0
-	../
+	(function() {
+	
+	  'use strict';
+	
+	  angular
+	    .module('startingPointsServices')
+	    .factory('OverlayService',
+	
+	      ['$rootScope', function overlayService($rootScope) {
+	        var _this = this;
+	        _this.processing = false;
+	        _this.open = function() {
+	            this.processing = true;
+	        };
+	        _this.close = function() {
+	            this.processing = false;
+	        };
+	      }]);
+	})();
 "3	LINE	0
-	./
+	        };
 "4	LINE	0
 	
 "5	LINE	0
-	.aws/
-	.cache/
-	.deis/
-	.docker/
-	.npm/
-	.rc/
-	.ssh/
-	.xmonad/
-	bin/
-	.Xdefaults@
-	.bash_logout
-	.bashrc
-	.fonts@
-	.gnomerc@
-	.profile
-	.tmux.conf@
-	.vim@
-	.vimrc*
-	.xmobarrc@
-	.zcompdump
-	.zcompdump-vagrant-5.0.2
-	.zprofile@
-	.zsh-update
-	.zsh_history
-	.zshrc@
-	projects@
-"6	LINE	0
-	../
-"7	LINE	0
-	./
-"8	LINE	0
+	(function() {
 	
+	  'use strict';
+	
+	  angular
+	    .module('startingPointsServices')
+	    .factory('OverlayService', 
+	
+	  ['$rootScope', function overlayService($rootScope) {
+	    return {
+	      processing: false,
+	      open: function() {
+	        this.processing = true;
+	      },
+	      close: function() {
+	        this.processing = false;
+	      }
+	    };
+	  }]);
+	})();
+"6	CHAR	0
+	 // End of overlayService()
+	
+"7	LINE	0
+	
+"8	LINE	0
+	(function() {
+	
+	  'use strict';
+	
+	  angular
+	    .module('startingPointsServices')
+	    .factory('OverlayService', [overlayService]);
+	
+	  ['$rootScope', function overlayService($rootScope) {
+	    return {
+	      processing: false,
+	      open: function(){
+	        this.processing = true;
+	      },
+	      close: function(){
+	        this.processing = false;
+	      }
+	    };
+	  }]// End of overlayService()
+	
+	})();
 "9	LINE	0
-	.git/
-	bin/
-	fonts/
-	node_modules/
-	submodules/
-	tmux/
-	vim/
-	xmobar/
-	.gitignore
-	.gitmodules
-	gnome.rc
-	install.rb*
-	setup-ubuntu.sh*
-	tmux.rc
-	urxvt.rc
-	vim.rc*
-	xmobar.rc
-	xmonad.rc
-	zprofile
-	zsh.rc
+	../
 "b	CHAR	0
 	1856
 <bbblldt>xlhjkjjkklllllllllllllllllllllljhhhhhhhklllllllllllllllllllllllllllli nh-€kb€kbg-if=""€klisSekec€kb€kb€kblected(user)hhhhhhhhhhhhhhhhlhhhhhhhhhhhhhin€kb ng-switch="n€kb€kb€kb€kb"€klis€kd€kdlllllllllllllllllllllllllllllllli€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kb€kbswitch-when=""€kltruejhhhhhhhhhhllkllllllllllllllllljhhhhhhhhhhhlhhhhi€kb€kb€kb€kb€kb€kb€kb€kbmobile_user_checkboxkhhvlllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllylllllllllllllljhhhhpklllllllllllllhhcwfalsellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllhli€kb€kb€kb€kb€kb€kb€kb€kbcheckbox_unselectedkkkkhhji clas€kb€kb€kb€kbng-click=""€kltoggkle€kb€kb€kbleSelected(user)jjjjkkkkli'€kb;;wjlllllllllllllllllllhi;;wjk;wjkjklhjklhjkljlllllllllllllllllllll;wjjjjkjo<M€kbbr /><br .€kb/>;wjk-k0--jjjjjjjjjjjjjjjjjjjjjjjjjkkkkkkkkjo$scope.isSelected = ;;€kb€kb''€kb€kbfunction(user){})€kb;€kl€kl€ku  return _.contains()€kb€kb€kb€kb€kb€kb€kb€kb€kbdomr€kb€kb€kb€kbsome($scope.members)€kb, functio(member){});€kl€kl€kl€ku  tr€kb€kbreturn member._id === €kb€kb user._iod€kb€kbd;kjjkkkjkllkjhll;wkkkjjo$scope.toggleSelected(€kb = function(user){})€kb;€kl€kl€ku  if (€kb$scope.is€kd(user)€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl(€ku€kd€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr)€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl!€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kr€kb{}€kb}€kujjjjjjjjjjkkkkkkkkkkkkjji€kb=€kbddoelse€kbP€kb{}€ku%€kb$jjjjjlklllllllllllllllllllllllhhhlcwselec€kd€kdkkkkkjllla.€kb$€kbscope.sele€kd.push)€kb(user);;wkjjjljllllllllllllllllljljjlklllllllllllllllllllllhl
@@ -734,10 +226,16 @@ $
 	2f/lcwuser
 "j	CHAR	0
 	jfjfk
+"l	CHAR	0
+	€kb; dl	:dad€kb€kb€kbs€kbAir	h€kbThem		 			€kr€kr:€kb
+"q	CHAR	0
+	i€kb€kbvim€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€kl€klv
+"r	LINE	0
+	    console.log(directiveElem.find('option')[1]);
 "w	CHAR	0
-	Object.keys(selectedUsers)
-"-	CHAR	0
-	up
+	  :w
+""-	CHAR	0
+	n
 
 # global variables:
 !STRING_TYPE	NUM	1
@@ -748,234 +246,319 @@ $
 !LIST_TYPE	NUM	3
 
 # File marks:
-'0  294  0  ~/.rc/vim.rc
-'1  1  24  ~/.rc/.git/COMMIT_EDITMSG
-'2  62  49  ~/.rc/zsh.rc
-'3  1  0  /tmp/zshecl22970
-'4  103  9  ~/.rc/zsh.rc
-'5  1  18  /projects/Work/frontend/startingpoints-site-app/.git/COMMIT_EDITMSG
-'6  9  0  /projects/Work/frontend/startingpoints-site-app/Dockerfile
-'7  151  3  /projects/Work/startingpoints-api-docker/Dockerfile
-'8  1  0  /projects/Work/frontend/startingpoints-site-app/Doq
-'9  10  2  /projects/Work/frontend/startingpoints-site-app/Dockerfile
+'0  10  21  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js
+'1  60  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+'2  12  8  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/scrollWatcherService.js
+'3  20  0  ~/Developer/StartingPoints2/startingpoints-lib-services
+'4  6  36  ~/Developer/StartingPoints2/startingpoints-lib-services/services/scrollWatcherService.js
+'5  2  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/userService.js
+'6  1  0  test/sandbox/views/header.html
+'7  1  0  ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/login/views/login.html
+'8  54  0  ~/Developer/StartingPoints2/startingpoints-site-features/features/core/layouts/index.html
+'9  16  9  ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/signup/controllers/signup.landing.controller.js
 
 # Jumplist (newest first):
--'  294  0  ~/.rc/vim.rc
--'  299  0  ~/.rc/vim.rc
--'  289  0  ~/.rc/vim.rc
--'  283  0  ~/.rc/vim.rc
--'  276  0  ~/.rc/vim.rc
--'  271  0  ~/.rc/vim.rc
--'  263  0  ~/.rc/vim.rc
--'  239  0  ~/.rc/vim.rc
--'  236  0  ~/.rc/vim.rc
--'  232  0  ~/.rc/vim.rc
--'  229  0  ~/.rc/vim.rc
--'  226  0  ~/.rc/vim.rc
--'  222  0  ~/.rc/vim.rc
--'  216  0  ~/.rc/vim.rc
--'  195  0  ~/.rc/vim.rc
--'  190  0  ~/.rc/vim.rc
--'  187  0  ~/.rc/vim.rc
--'  184  0  ~/.rc/vim.rc
--'  178  0  ~/.rc/vim.rc
--'  174  0  ~/.rc/vim.rc
--'  168  0  ~/.rc/vim.rc
--'  161  0  ~/.rc/vim.rc
--'  142  0  ~/.rc/vim.rc
--'  139  0  ~/.rc/vim.rc
--'  136  0  ~/.rc/vim.rc
--'  131  0  ~/.rc/vim.rc
--'  125  0  ~/.rc/vim.rc
--'  120  0  ~/.rc/vim.rc
--'  114  0  ~/.rc/vim.rc
--'  102  0  ~/.rc/vim.rc
--'  99  0  ~/.rc/vim.rc
--'  93  0  ~/.rc/vim.rc
--'  83  0  ~/.rc/vim.rc
--'  79  0  ~/.rc/vim.rc
--'  76  0  ~/.rc/vim.rc
--'  72  0  ~/.rc/vim.rc
--'  70  0  ~/.rc/vim.rc
--'  57  0  ~/.rc/vim.rc
--'  52  0  ~/.rc/vim.rc
--'  50  0  ~/.rc/vim.rc
--'  46  0  ~/.rc/vim.rc
--'  40  0  ~/.rc/vim.rc
--'  32  0  ~/.rc/vim.rc
--'  29  0  ~/.rc/vim.rc
--'  20  0  ~/.rc/vim.rc
--'  13  0  ~/.rc/vim.rc
--'  8  0  ~/.rc/vim.rc
--'  1  5  ~/.rc/vim.rc
--'  300  0  ~/.rc/vim.rc
--'  1  0  ~/.vimrc
--'  3  0  ~/.vimrc
--'  16  0  ~/.rc
--'  1  0  ~/
--'  1  24  ~/.rc/.git/COMMIT_EDITMSG
--'  458  0  ~/.rc/.git/COMMIT_EDITMSG
--'  62  49  ~/.rc/zsh.rc
--'  48  0  ~/.rc/zsh.rc
--'  52  0  ~/.rc/zsh.rc
--'  55  0  ~/.rc/zsh.rc
--'  64  0  ~/.rc/zsh.rc
--'  67  0  ~/.rc/zsh.rc
--'  71  0  ~/.rc/zsh.rc
--'  73  0  ~/.rc/zsh.rc
--'  80  0  ~/.rc/zsh.rc
--'  93  0  ~/.rc/zsh.rc
--'  97  0  ~/.rc/zsh.rc
--'  102  0  ~/.rc/zsh.rc
--'  105  0  ~/.rc/zsh.rc
--'  110  0  ~/.rc/zsh.rc
--'  114  0  ~/.rc/zsh.rc
--'  131  0  ~/.rc/zsh.rc
--'  135  0  ~/.rc/zsh.rc
--'  139  0  ~/.rc/zsh.rc
--'  143  0  ~/.rc/zsh.rc
--'  147  0  ~/.rc/zsh.rc
--'  151  0  ~/.rc/zsh.rc
--'  45  0  ~/.rc/zsh.rc
--'  43  0  ~/.rc/zsh.rc
+-'  10  21  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js
+-'  15  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js
+-'  23  16  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js
+-'  11  15  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js
+-'  14  13  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js
+-'  25  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components
+-'  2  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/addNewDialogService.js
+-'  1  9  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/addNewDialogService.js
+-'  12  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/scrollWatcherService.js
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/scrollWatcherService.js
+-'  6  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/utils
+-'  4  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/memberSearchService.js
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/memberService.js
+-'  88  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  4  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  8  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  10  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  75  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  81  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  91  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  97  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  2  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  64  20  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  65  21  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  179  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  162  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  159  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  149  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  145  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  141  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  135  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  129  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  125  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  119  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  113  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  103  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  77  33  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  14  0  ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+-'  33  76  ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/login/views/login.html
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/scss
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/scss/landing.scss
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-site-features/NetrwTreeListing 1
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/login/controllers
+-'  4  7  ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/login/controllers/login.landing.controller.js
+-'  1  44  ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/login/controllers/login.landing.controller.js
+-'  6  0  ~/Developer/StartingPoints2/startingpoints-site-features
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-site-features
+-'  5  0  ~/Developer/StartingPoints2
+-'  2  0  ~/Developer/StartingPoints2/startingpoints-lib-services
+-'  1  0  ~/Developer/StartingPoints2/startingpoints-lib-services
+-'  1  0  ~/Developer/StartingPoints2
+-'  1  0  ~/Developer
 
 # Buffer list:
-%~/.rc/vim.rc	294	0
-%~/.vimrc	1	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/Makefile	2	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/api	1	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/components/toastService.js	1	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js	10	21
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/startingPointServicesModule.js	1	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/authentication/authenticationService.js	22	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js	88	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userService.js	4	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userSubscriptionService.js	11	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/api/memberService.js	1	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/api/memberSearchService.js	1	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/components	1	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/components/addNewDialogService.js	2	0
+%~/Developer/StartingPoints2/startingpoints-lib-services/services/components/scrollWatcherService.js	12	0
 
 # History of marks within files (newest to oldest):
 
-> ~/.rc/vim.rc
-	"	294	0
-	.	1	0
-	+	1	0
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/overlayService.js
+	"	10	21
+	^	10	21
+	.	10	0
+	+	25	0
+	+	25	50
+	+	25	0
+	+	25	0
+	+	25	0
+	+	25	0
+	+	25	25
+	+	25	1
+	+	25	0
+	+	25	0
+	+	25	0
+	+	25	0
+	+	25	4
+	+	25	0
+	+	25	30
+	+	25	2
+	+	25	0
+	+	25	4
+	+	25	0
+	+	25	0
+	+	25	0
+	+	25	0
+	+	25	16
+	+	25	8
+	+	25	24
+	+	25	26
+	+	25	19
+	+	25	32
+	+	25	0
+	+	25	19
+	+	25	0
+	+	25	0
+	+	25	0
+	+	14	0
+	+	10	49
+	+	11	23
+	+	23	0
+	+	22	20
+	+	15	0
+	+	11	19
+	+	10	0
 
-> ~/.vimrc
-	"	1	0
-	^	34	2
-	.	34	1
-	+	34	1
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userAccountSettingsService.js
+	"	88	0
+	^	165	35
+	.	165	34
+	+	82	0
+	+	76	29
+	+	77	4
+	+	81	0
+	+	76	31
+	+	77	50
+	+	80	0
+	+	78	21
+	+	80	4
+	+	76	33
+	+	16	19
+	+	17	33
+	+	165	34
 
-> ~/.rc/ControlP
-	"	1	0
-	.	1	0
-	+	1	0
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userSubscriptionService.js
+	"	11	0
 
-> ~/.rc/.git/COMMIT_EDITMSG
-	"	1	24
-	^	1	25
-	.	1	24
-	+	2	0
-	+	1	24
-
-> ~/.rc/zsh.rc
-	"	62	49
-	^	62	50
-	.	62	49
-	+	104	9
-	+	103	9
-	+	61	47
-	+	62	49
-
-> /tmp/zshecl22970
-	"	1	0
-	.	1	0
-	+	1	0
-
-> ~/.rc/vim/bundle/YouCompleteMe/__Tag_List__
-	"	1	0
-	.	4	0
-	+	4	0
-
-> /projects/Work/frontend/startingpoints-site-app/[Vundle] Installer
-	"	42	0
-	.	1	0
-	+	42	0
-	+	1	0
-
-> /projects/Work/frontend/startingpoints-site-app/.git/COMMIT_EDITMSG
-	"	1	18
-	^	1	19
-	.	1	18
-	+	1	18
-
-> /projects/Work/frontend/startingpoints-site-app/Dockerfile
+> ~/Developer/StartingPoints2/startingpoints-lib-services/ControlP
 	"	9	0
-	^	10	3
-	.	10	2
-	+	10	2
+	.	2	0
+	+	20	0
+	+	11	0
+	+	2	0
 
-> /projects/Work/startingpoints-api-docker/Dockerfile
-	"	151	3
-	^	149	4
-	.	148	34
-	+	148	34
-
-> /projects/Work/frontend/startingpoints-site-app/Doq
+> ~/Developer/StartingPoints2/startingpoints-lib-services/.git/index
 	"	1	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/scss/global.app.scss
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/memberService.js
 	"	1	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/messaging/scss/messaging.app.scss
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/memberSearchService.js
 	"	1	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/members/scss/members.app.scss
-	"	1	0
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/addNewDialogService.js
+	"	2	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/scss/group.app.scss
-	"	1	0
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/scrollWatcherService.js
+	"	12	0
+	.	13	0
+	+	13	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/user/scss/user.app.scss
-	"	1	0
+> ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/login/controllers/login.landing.controller.js
+	"	4	7
+	^	8	19
+	.	5	0
+	+	11	34
+	+	12	28
+	+	11	0
+	+	13	4
+	+	14	3
+	+	15	3
+	+	12	0
+	+	9	24
+	+	10	0
+	+	12	25
+	+	9	31
+	+	12	0
+	+	13	3
+	+	13	0
+	+	12	0
+	+	12	0
+	+	12	25
+	+	12	0
+	+	18	0
+	+	1	0
+	+	12	0
+	+	16	0
+	+	1	0
+	+	8	19
+	+	5	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/views/index.html
-	"	4	25
-	^	44	46
-	.	48	18
-	+	44	45
-	+	46	18
-	+	45	46
-	+	47	18
-	+	48	18
-
-> /projects/Work/frontend/startingpoints-site-app/app/views/__Tag_List__
-	"	1	0
-	.	4	0
-	+	4	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/myGroups/directives/groupCard/groupCard.html
-	"	3	0
-	^	9	44
-	.	9	43
-	+	8	48
-	+	9	43
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/groups.app.module.js
-	"	57	0
-	^	29	32
-	.	29	0
-	+	18	22
-	+	31	22
-	+	33	22
-	+	77	0
-	+	77	0
-	+	95	0
-	+	56	0
-	+	55	7
-	+	56	42
-	+	57	14
-	+	59	28
-	+	61	34
-	+	61	0
-	+	62	18
-	+	64	42
-	+	67	42
-	+	70	0
+> ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/login/views/login.html
+	"	33	76
+	^	33	81
+	.	33	0
+	+	37	31
+	+	37	101
+	+	37	0
+	+	37	0
+	+	37	87
+	+	37	94
+	+	37	0
+	+	37	93
+	+	37	38
+	+	37	49
+	+	37	0
+	+	37	31
+	+	37	11
+	+	37	0
+	+	37	15
+	+	37	12
+	+	37	67
+	+	37	43
+	+	37	0
+	+	37	0
+	+	37	0
+	+	37	0
+	+	37	0
+	+	37	10
+	+	37	0
+	+	37	86
+	+	37	48
+	+	37	39
+	+	37	24
+	+	37	10
+	+	37	0
+	+	37	11
+	+	37	0
+	+	37	52
+	+	37	12
+	+	37	27
+	+	37	0
+	+	37	28
+	+	37	72
+	+	37	0
+	+	37	42
+	+	37	75
+	+	37	37
+	+	37	10
+	+	37	10
+	+	37	14
+	+	37	11
+	+	37	15
+	+	37	21
+	+	37	0
+	+	37	28
+	+	37	0
+	+	37	37
+	+	37	38
+	+	37	3
+	+	37	38
+	+	37	4
+	+	37	38
+	+	37	0
+	+	37	0
+	+	37	13
+	+	37	0
+	+	37	0
+	+	37	0
+	+	37	0
+	+	37	0
+	+	37	0
+	+	1	0
+	+	25	36
+	+	36	0
+	+	35	36
+	+	36	0
+	+	35	8
+	+	36	0
+	+	35	100
+	+	36	0
+	+	35	111
+	+	35	8
+	+	36	0
+	+	34	3
+	+	7	0
+	+	34	0
+	+	36	6
+	+	36	6
+	+	37	0
+	+	1	0
+	+	23	0
+	+	24	0
+	+	7	11
+	+	36	6
+	+	37	0
+	+	34	0
+	+	34	0
+	+	34	0
+	+	34	6
+	+	1	0
 	+	33	0
-	+	29	0
+	+	8	0
+	+	33	80
+	+	33	0
 
-> /projects/Work/frontend/startingpoints-site-app/ControlP
+> ~/Developer/StartingPoints2/startingpoints-site-features/ControlP
 	"	8	0
 	.	2	0
 	+	1	0
@@ -1014,6 +597,18 @@ $
 	+	1	0
 	+	1	0
 	+	1	0
+	+	234	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	231	0
+	+	224	0
+	+	217	0
+	+	210	0
+	+	203	0
 	+	1	0
 	+	1	0
 	+	1	0
@@ -1023,6 +618,21 @@ $
 	+	1	0
 	+	1	0
 	+	1	0
+	+	192	0
+	+	187	0
+	+	182	0
+	+	178	0
+	+	174	0
+	+	1	0
+	+	1	0
+	+	164	0
+	+	159	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	143	0
+	+	137	0
 	+	1	0
 	+	1	0
 	+	1	0
@@ -1031,386 +641,35 @@ $
 	+	1	0
 	+	1	0
 	+	1	0
+	+	128	0
+	+	121	0
+	+	114	0
+	+	107	0
+	+	100	0
 	+	1	0
 	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	9	0
+	+	87	0
+	+	80	0
+	+	73	0
+	+	66	0
+	+	59	0
+	+	52	0
+	+	45	0
+	+	38	0
+	+	31	0
+	+	24	0
+	+	17	0
+	+	10	0
 	+	2	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/myGroups/directives/createNewGroupCard/createNewGroupCard.html
-	"	1	61
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/myGroupsDropDown/myGroupsDropDownDirective.js
+> ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/scss/landing.scss
 	"	1	0
-	^	13	36
-	.	13	20
-	+	13	20
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/myGroupsDropDown/myGroupsDropDown.html
-	"	1	38
-	^	7	78
-	.	7	77
-	+	7	77
+> ~/Developer/StartingPoints/startingpoints-site-mobile/mobile/features/messaging/features/thread/directives/directiveTemplates/threadReplyScroll.html
+	"	1	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/members/members.app.module.js
-	"	38	0
-	^	45	30
-	.	45	29
-	+	1	0
-	+	92	36
-	+	101	36
-	+	43	0
-	+	88	0
-	+	43	0
-	+	43	21
-	+	43	49
-	+	43	0
-	+	29	0
-	+	30	0
-	+	30	0
-	+	16	0
-	+	43	0
-	+	19	0
-	+	19	0
-	+	18	22
-	+	28	0
-	+	29	46
-	+	30	14
-	+	44	14
-	+	56	42
-	+	57	14
-	+	61	42
-	+	75	49
-	+	76	14
-	+	61	49
-	+	88	0
-	+	87	8
-	+	75	0
-	+	68	0
-	+	74	7
-	+	68	42
-	+	70	29
-	+	77	29
-	+	63	29
-	+	58	29
-	+	45	29
-
-> ~/__Tag_List__
+> ~/Developer/StartingPoints/startingpoints-site-mobile/ControlP
 	"	3	0
-	.	44	0
-	+	87	0
-	+	44	0
-
-> ~/[Vundle] Installer
-	"	42	0
-	.	1	0
-	+	42	0
-	+	1	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/addNew/addNewDirective.js
-	"	44	22
-	^	48	12
-	.	44	20
-	+	44	35
-	+	48	11
-	+	44	20
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/addNew/__Tag_List__
-	"	88	0
-	.	89	0
-	+	145	0
-	+	114	0
-	+	145	0
-	+	118	0
-	+	122	0
-	+	145	0
-	+	128	0
-	+	130	0
-	+	134	0
-	+	136	0
-	+	145	0
-	+	140	0
-	+	144	0
-	+	90	0
-	+	8	0
-	+	90	0
-	+	14	0
-	+	18	0
-	+	26	0
-	+	30	0
-	+	35	0
-	+	38	0
-	+	90	0
-	+	43	0
-	+	90	0
-	+	46	0
-	+	48	0
-	+	42	0
-	+	50	0
-	+	90	0
-	+	90	0
-	+	90	0
-	+	90	0
-	+	57	0
-	+	59	0
-	+	35	0
-	+	35	0
-	+	35	0
-	+	90	0
-	+	61	0
-	+	66	0
-	+	69	0
-	+	90	0
-	+	73	0
-	+	86	0
-	+	90	0
-	+	90	0
-	+	86	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	90	0
-	+	86	0
-	+	77	0
-	+	90	0
-	+	90	0
-	+	90	0
-	+	90	0
-	+	86	0
-	+	86	0
-	+	86	0
-	+	86	0
-	+	86	0
-	+	82	0
-	+	87	0
-	+	35	0
-	+	35	0
-	+	35	0
-	+	35	0
-	+	86	0
-	+	86	0
-	+	86	0
-	+	66	0
-	+	86	0
-	+	86	0
-	+	86	0
-	+	86	0
-	+	85	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	66	0
-	+	65	0
-	+	82	0
-	+	81	0
-	+	35	0
-	+	35	0
-	+	90	0
-	+	35	0
-	+	35	0
-	+	34	0
-	+	89	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/alertsList/alertsDirective.js
-	"	57	4
-	^	24	20
-	.	24	20
-	+	15	37
-	+	24	35
-	+	15	22
-	+	24	20
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/navigationTabs/navigationTabsDirective.js
-	"	92	4
-	^	14	36
-	.	14	20
-	+	14	20
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/pageHeader/pageHeaderDirective.js
-	"	15	1
-	^	17	36
-	.	17	20
-	+	17	20
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/myGroups/controllers/myGroupsController.js
-	"	17	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/myGroups/directives/createNewGroupCard/createNewGroupCardDirective.js
-	"	15	26
-	^	15	27
-	.	15	26
-	+	15	29
-	+	16	0
-	+	16	0
-	+	16	0
-	+	16	0
-	+	15	26
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/myGroups/directives/groupCard/groupCardDirective.js
-	"	17	19
-	^	17	20
-	.	17	20
-	+	17	35
-	+	15	0
-	+	17	20
-
-> /projects/Work/frontend/startingpoints-site-app/app/scss/app.scss
-	"	187	24
-	^	191	25
-	.	188	0
-	+	164	28
-	+	165	28
-	+	166	28
-	+	167	28
-	+	168	28
-	+	169	28
-	+	170	28
-	+	171	28
-	+	172	28
-	+	173	28
-	+	174	28
-	+	175	28
-	+	176	28
-	+	177	28
-	+	178	28
-	+	179	28
-	+	182	28
-	+	183	28
-	+	184	28
-	+	185	28
-	+	186	28
-	+	187	28
-	+	188	28
-	+	189	28
-	+	190	28
-	+	191	28
-	+	194	27
-	+	195	27
-	+	196	27
-	+	198	27
-	+	199	27
-	+	200	27
-	+	201	27
-	+	202	27
-	+	203	27
-	+	204	27
-	+	206	91
-	+	206	0
-	+	209	27
-	+	212	27
-	+	213	27
-	+	217	27
-	+	220	27
-	+	223	27
-	+	226	27
-	+	229	27
-	+	232	28
-	+	233	28
-	+	234	28
-	+	235	28
-	+	236	28
-	+	242	30
-	+	243	30
-	+	246	30
-	+	250	0
-	+	249	30
-	+	252	30
-	+	255	30
-	+	1	0
-	+	136	24
-	+	137	24
-	+	138	24
-	+	139	0
-	+	138	24
-	+	139	24
-	+	140	24
-	+	141	24
-	+	142	24
-	+	143	24
-	+	144	24
-	+	145	24
-	+	146	24
-	+	147	24
-	+	148	24
-	+	151	24
-	+	152	24
-	+	153	24
-	+	154	24
-	+	155	24
-	+	156	24
-	+	157	24
-	+	160	24
-	+	161	24
-	+	164	0
-	+	163	0
-	+	164	0
-	+	161	0
-	+	163	0
-	+	161	24
-	+	164	24
-	+	165	24
-	+	179	24
-	+	191	24
-	+	194	5
-	+	194	6
-	+	194	0
-	+	165	24
-	+	179	24
-	+	191	24
-	+	188	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/directives/addNew/ControlP
-	"	9	0
 	.	2	0
 	+	1	0
 	+	1	0
@@ -1419,7 +678,132 @@ $
 	+	1	0
 	+	1	0
 	+	1	0
-	+	218	0
+	+	1	0
+	+	6	0
+	+	4	0
+	+	2	0
+
+> ~/Developer/StartingPoints/startingpoints-site-mobile/mobile/features/messaging/features/thread/directives/threadReplyScroll.messaging.app.directive.js
+	"	58	27
+
+> ~/Developer/StartingPoints/startingpoints-site-mobile/mobile/features/members/features/groupMembers/directives/groupMembersPagingList/groupMembersPagingListDirective.js
+	"	76	8
+
+> ~/.vimrc
+	"	98	0
+	^	96	19
+	.	96	18
+	+	1	0
+	+	121	0
+	+	96	18
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/__Tag_List__
+	"	3	0
+	.	47	0
+	+	89	0
+	+	80	0
+	+	77	0
+	+	74	0
+	+	65	0
+	+	56	0
+	+	47	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/modalbase/modal.template.html
+	"	9	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/resetPasswordModal/reset-password.modal.function.js
+	"	1	0
+	^	36	27
+	.	36	26
+	+	47	42
+	+	49	25
+	+	20	14
+	+	19	0
+	+	41	0
+	+	26	33
+	+	26	0
+	+	48	45
+	+	16	0
+	+	19	0
+	+	16	19
+	+	24	25
+	+	23	41
+	+	24	39
+	+	39	29
+	+	46	0
+	+	36	0
+	+	35	30
+	+	37	0
+	+	30	40
+	+	23	41
+	+	30	43
+	+	31	5
+	+	18	0
+	+	18	0
+	+	18	3
+	+	31	36
+	+	32	24
+	+	36	34
+	+	37	18
+	+	36	55
+	+	21	0
+	+	20	15
+	+	21	19
+	+	42	53
+	+	46	0
+	+	45	0
+	+	36	26
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/resetPasswordModal/reset-password-modal.html
+	"	5	9
+	^	4	74
+	.	4	73
+	+	2	63
+	+	14	0
+	+	14	0
+	+	13	7
+	+	14	0
+	+	13	3
+	+	13	47
+	+	13	19
+	+	13	0
+	+	13	0
+	+	13	46
+	+	13	16
+	+	2	5
+	+	12	0
+	+	2	19
+	+	12	0
+	+	12	0
+	+	12	0
+	+	12	0
+	+	12	0
+	+	2	0
+	+	6	0
+	+	13	0
+	+	11	0
+	+	7	0
+	+	7	0
+	+	7	0
+	+	8	0
+	+	8	0
+	+	13	3
+	+	8	0
+	+	13	0
+	+	2	14
+	+	8	0
+	+	7	44
+	+	6	71
+	+	8	66
+	+	2	0
+	+	6	0
+	+	3	9
+	+	5	0
+	+	4	73
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/ControlP
+	"	10	0
+	.	2	0
 	+	1	0
 	+	1	0
 	+	1	0
@@ -1428,25 +812,45 @@ $
 	+	1	0
 	+	1	0
 	+	1	0
-	+	207	0
-	+	198	0
-	+	189	0
-	+	180	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	194	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	182	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
 	+	171	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	158	0
-	+	149	0
-	+	140	0
-	+	131	0
-	+	122	0
-	+	113	0
-	+	104	0
-	+	95	0
-	+	86	0
+	+	162	0
+	+	153	0
+	+	144	0
+	+	135	0
+	+	126	0
 	+	1	0
 	+	1	0
 	+	1	0
@@ -1487,25 +891,13 @@ $
 	+	1	0
 	+	1	0
 	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	60	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
+	+	110	0
+	+	101	0
+	+	92	0
+	+	83	0
+	+	74	0
+	+	65	0
+	+	56	0
 	+	47	0
 	+	38	0
 	+	29	0
@@ -1513,142 +905,329 @@ $
 	+	11	0
 	+	2	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/createNewGroup/directives/createNewGroupForm/createNewGroupForm.html
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/resetPasswordModal/resetPassword.modal.function.js
+	"	41	19
+	.	42	36
+	+	42	36
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/scss/modal.components.scss
 	"	1	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/createNewGroup/directives/createNewGroupForm/createNewGroupFormDirective.js
-	"	40	30
-	^	20	27
-	.	20	26
-	+	20	26
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/groups/createNewGroup/layouts/createNewGroup/createNewGroup.html
-	"	1	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/global/base/layouts/header/header.html
-	"	5	39
-	^	4	40
-	.	4	39
-	+	4	39
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/messaging/messaging.js
-	"	18	0
+	^	4	0
 	.	4	0
-	+	27	0
-	+	27	0
-	+	28	80
-	+	28	0
-	+	28	0
+	+	32	0
+	+	33	16
+	+	48	0
+	+	6	0
+	+	3	0
+	+	3	0
+	+	3	0
+	+	1	15
+	+	2	0
+	+	3	0
+	+	54	0
+	+	3	0
+	+	33	0
+	+	3	0
+	+	48	0
+	+	36	0
+	+	41	0
+	+	35	0
+	+	6	0
+	+	34	0
+	+	35	0
+	+	35	0
+	+	34	0
+	+	33	0
+	+	38	14
+	+	39	0
+	+	6	0
+	+	6	0
+	+	6	0
+	+	6	0
+	+	4	0
+	+	3	0
+	+	3	0
+	+	3	0
+	+	4	0
+	+	5	0
+	+	4	0
+	+	3	0
+	+	4	0
+	+	4	0
+	+	5	0
 	+	4	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/features/profile/user.app.module.js
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/Makefile
+	"	13	165
+	^	13	141
+	.	13	140
+	+	13	0
+	+	15	0
+	+	13	0
+	+	15	0
+	+	13	0
+	+	12	413
+	+	13	0
+	+	12	40
+	+	12	40
+	+	13	0
+	+	13	0
+	+	14	0
+	+	13	0
+	+	13	407
+	+	14	0
+	+	13	134
+	+	14	0
+	+	13	0
+	+	13	132
+	+	13	0
+	+	13	132
+	+	1	54
+	+	14	0
+	+	6	15
+	+	13	149
+	+	13	0
+	+	13	162
+	+	6	0
+	+	13	140
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/inviteModal/emailValidation.inviteModal.helper.function.js
+	"	16	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/inviteModal/invite-modal.html
+	"	11	3
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/inviteModal/inviteModal.modal.function.js
+	"	17	11
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/createGroup/createGroup.modal.function.js
+	"	1	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/forgotPassword/forgot-password-modal.html
+	"	12	18
+	.	2	0
+	+	2	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/components.js
+	"	1	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/modal.component.js
+	"	13	25
+	^	14	76
+	.	12	5
+	+	12	5
+	+	12	0
+	+	16	34
+	+	16	53
+	+	16	0
+	+	16	0
+	+	13	49
+	+	14	75
+	+	12	5
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/resetPassword/reset-password.modal.function.js
+	"	59	37
+	^	59	38
+	.	59	37
+	+	4	0
+	+	6	23
+	+	10	2
+	+	12	0
+	+	13	0
+	+	13	0
+	+	12	2
+	+	59	37
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/.git/index
+	"	7	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-patterns/features/modals/modalbase/modal.prototype.js
+	"	4	16
+	.	4	0
+	+	4	0
+
+> ~/Developer/StartingPoints2/startingpoints-site-features/features/landing/signup/views/signup.html
+	"	1	0
+	^	27	79
+	.	27	78
+	+	11	0
+	+	11	58
+	+	22	112
+	+	22	30
+	+	34	14
+	+	22	88
+	+	22	0
+	+	33	53
+	+	11	100
+	+	12	0
+	+	11	66
+	+	8	96
+	+	7	62
+	+	5	34
+	+	7	35
+	+	8	35
+	+	9	35
+	+	10	35
+	+	11	35
+	+	12	35
+	+	18	35
+	+	6	58
+	+	15	0
+	+	17	0
+	+	16	40
+	+	15	79
+	+	22	0
+	+	22	0
+	+	22	32
+	+	22	14
+	+	22	0
+	+	22	0
+	+	22	57
+	+	11	0
+	+	22	129
+	+	22	45
+	+	29	21
+	+	29	123
+	+	32	0
+	+	31	0
+	+	29	123
+	+	22	26
+	+	22	42
+	+	22	53
+	+	29	29
+	+	22	0
+	+	22	0
+	+	29	37
+	+	22	35
+	+	29	29
+	+	22	41
+	+	22	27
+	+	22	41
+	+	22	36
+	+	29	107
+	+	31	0
+	+	29	95
+	+	29	0
+	+	29	171
+	+	11	105
+	+	29	208
+	+	22	24
+	+	33	107
+	+	22	75
+	+	22	26
+	+	24	81
+	+	25	42
+	+	28	50
+	+	30	10
+	+	29	17
+	+	22	0
+	+	20	0
+	+	27	78
+
+> ~/Developer/StartingPoints2/startingpoints-lib-services/Makefile
+	"	2	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-services/__Tag_List__
+	"	7	0
+	.	7	0
+	+	7	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/components/toastService.js
+	"	1	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/startingPointServicesModule.js
+	"	1	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/authentication/authenticationService.js
+	"	22	0
+
+> ~/Developer/StartingPoints2/startingpoints-lib-services/services/api/userService.js
+	"	4	0
+
+> ~/Developer/StartingPoints2/startingpoints-site-features/Makefile
+	"	1	0
+	.	1	0
+	+	12	0
+	+	11	0
+	+	34	0
+	+	11	163
+	+	11	163
+	+	1	0
+	+	11	0
+	+	11	162
+	+	6	0
+	+	11	0
+	+	11	135
+	+	11	0
+	+	11	141
+	+	11	0
+	+	11	134
+	+	11	0
+	+	11	144
+	+	1	0
+	+	11	0
+	+	1	12
+	+	1	0
+
+> ~/.zshenv
+	"	12	1
+	^	12	17
+	.	12	16
+	+	12	0
+	+	13	0
+	+	12	16
+
+> ~/__Tag_List__
+	"	1	0
+	.	4	0
+	+	424	0
+	+	378	0
+	+	332	0
+	+	286	0
+	+	240	0
+	+	194	0
+	+	148	0
+	+	103	0
+	+	102	0
+	+	56	0
+	+	10	0
+	+	7	0
+	+	4	0
+
+> ~/ControlP
 	"	1	0
 	.	1	0
 	+	1	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/messaging/messaging.app.config.js
-	"	1	0
-	^	31	14
-	.	31	14
-	+	30	47
-	+	34	8
-	+	34	8
-	+	31	14
-
-> /projects/Work/frontend/startingpoints-site-app/app/features/user/user.app.module.js
-	"	55	0
-	^	46	27
-	.	46	26
-	+	52	33
-	+	56	0
-	+	61	33
-	+	16	0
-	+	16	32
-	+	17	18
-	+	28	40
-	+	33	44
-	+	38	41
-	+	39	23
-	+	48	0
-	+	48	0
-	+	26	25
-	+	31	25
-	+	36	27
-	+	46	26
-
-> /projects/Work/frontend/startingpoints-site-app/app/app.config.js
-	"	54	4
-	.	28	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	101	0
-	+	41	0
-	+	47	0
-	+	47	0
-	+	59	7
-	+	59	0
-	+	59	0
-	+	59	0
-	+	100	0
-	+	90	0
-	+	89	0
-	+	85	0
-	+	32	22
-	+	47	22
-	+	47	0
-	+	59	0
-	+	47	0
-	+	47	0
-	+	46	8
-	+	47	0
-	+	28	0
-	+	28	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/app.js
-	"	16	17
-	^	15	33
-	.	16	0
-	+	21	43
-	+	21	0
-	+	21	0
-	+	19	0
-	+	13	0
-	+	14	0
-	+	15	0
-	+	16	0
-	+	13	27
-	+	14	30
-	+	15	32
-	+	16	0
-
-> /projects/Work/frontend/startingpoints-site-app/app/app.run.js
-	"	23	0
-	^	43	5
-	.	23	0
-	+	44	0
-	+	44	0
-	+	44	0
 	+	1	0
-	+	26	27
-	+	3	0
-	+	29	0
-	+	41	0
-	+	43	4
-	+	23	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
 
-> /projects/Work/frontend/startingpoints-site-app/app/templates/templatesModule.js
-	"	2	0
+> ~/Desktop/.zshenv
+	"	1	0
+
+> ~/Developer/StartingPoints2/startingpoints-site-features/features/dashboard/controllers/dashboard.controller.js
+	"	1	0
+
+> ~/Developer/StartingPoints2/startingpoints-site-features/features/dashboard/views/dashboard.html
+	"	1	0

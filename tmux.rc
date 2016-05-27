@@ -101,7 +101,7 @@ bind-key c new-window -c "#{pane_current_path}"
 
 # more stuff
 set-option -g bell-action any
-set -g default-terminal "screen"
+set -g default-terminal "screen-256color"
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 set -g default-command $SHELL
 set -g history-limit 5000
