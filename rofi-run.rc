@@ -1,0 +1,1 @@
+rofi -font "Dejavu Sans Mono 14" -bw 0 -padding 400 -fullscreen -show run -color-window "argb:ae000000, argb:0000000, argb:0000000" -color-normal "argb:f000000, #ffffff, argb:e000000, #268cad, #ffffff" -color-active "argb:f000000, #268bd2, argb:e000000, #487381, #ffffff" -color-urgent "argb:f000000, #89211f, argb:e000000, argb:d000000, #ff2828"

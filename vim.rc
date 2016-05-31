@@ -35,7 +35,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'rking/ag.vim'
 
 " Utilities "
-" Plugin 'mhinz/vim-startify'
+Plugin 'mhinz/vim-startify'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
