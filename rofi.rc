@@ -5,7 +5,7 @@
 
 rofi \
 -show $1 \
--font "Dejavu Sans Mono 14" \
+-font "Dejavu Sans 14" \
 -bw 0 \
 -padding 400 \
 -fullscreen \

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Script to toggle enabling/disabling touchpad
+# Running this script on <Super>T
+
+if synclient -l | egrep "TouchpadOff.*= *0" ; then
+  synclient TouchpadOff=1;
+else
+  synclient TouchpadOff=0;
+fi
