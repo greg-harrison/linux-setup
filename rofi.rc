@@ -3,13 +3,21 @@
 # When running this file, use 'run' or 'window' as the argument to execute the one-off
 # Example: ./path/to/script run
 
+# At some point, add the ability to launch custom scripts for convenience functions
+  # - Running Arandr scripts
+  # - Saving session
+  # - Cleandocker
+
 rofi \
 -show $1 \
 -font "Dejavu Sans 14" \
 -bw 0 \
--padding 450 \
+-padding 350 \
 -fullscreen \
--color-window "argb:ae000000, argb:0000000, argb:0000000" \
+-line-margin 5 \
+-lines 10 \
+-auto-select \
+-color-window "argb:D9000000, argb:0000000, argb:0000000" \
 -color-normal "argb:000000, #ffffff, argb:000000, #268cad, #ffffff" \
 -color-active "argb:000000, #67d9ff, argb:000000, #2b57c1, #ffffff" \
 -color-urgent "argb:000000, #89211f, argb:000000, argb:000000, #ff2828"
