@@ -9,14 +9,14 @@
   # - Cleandocker
 
 rofi \
--show $1 \
--font "Dejavu Sans 14" \
 -bw 0 \
--padding 350 \
+-show $1  \
+-lines 10  \
 -fullscreen \
--line-margin 5 \
--lines 10 \
 -auto-select \
+-padding 350  \
+-line-margin 5 \
+-font "Dejavu Sans 14" \
 -color-window "argb:D9000000, argb:0000000, argb:0000000" \
 -color-normal "argb:000000, #ffffff, argb:000000, #268cad, #ffffff" \
 -color-active "argb:000000, #67d9ff, argb:000000, #2b57c1, #ffffff" \
